@@ -1,27 +1,33 @@
 {
   "devDependencies": {
+    "@jest/globals": "^29.5.0",
+    "@types/jest": "^29.5.1",
+    "jest": "^29.5.0",
     "prettier": "2.8.4",
+    "ts-jest": "^29.1.0",
     "ts-loader": "^9.4.2",
     "tsc-watch": "^6.0.0",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
   },
-  "name": "weatherapp",
+  "name": "battleShip",
   "version": "1.0.0",
   "main": "javaScript.js",
   "scripts": {
-    "build-css": "tailwindcss -i src/style.css -o dist/style.css"
+    "build-css": "tailwindcss -i src/style.css -o dist/style.css",
+    "test": "jest",
+    "watch": "jest --watch *.ts"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CooperMoore9/weatherApp.git"
+    "url": "git+https://github.com/CooperMoore9/battleShip.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CooperMoore9/weatherApp/issues"
+    "url": "https://github.com/CooperMoore9/battleShip/issues"
   },
-  "homepage": "https://github.com/CooperMoore9/weatherApp#readme",
+  "homepage": "https://github.com/CooperMoore9/battleShip#readme",
   "description": "",
   "dependencies": {
     "autoprefixer": "^10.4.13",
