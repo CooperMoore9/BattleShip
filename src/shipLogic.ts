@@ -10,15 +10,14 @@ export function createShip(length: number, timesHit: number, sunk: boolean) {
     hit() {
       return this.timesHit++;
     },
+    isSunk() {
+      return this.timesHit >= this.length ? true : false;
+    },
   };
-}
-
-function isSunk(ship: { timesHit: number; length: number; sunk: boolean }) {
-  return ship.timesHit >= ship.length ? true : false;
 }
 
 let ship1 = createShip(2, 0, false);
 ship1.hit();
 
 console.log(ship1);
-console.log(isSunk(ship1));
+console.log(ship1.isSunk());

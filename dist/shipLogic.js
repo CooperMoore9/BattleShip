@@ -13,13 +13,13 @@ function createShip(length, timesHit, sunk) {
         hit() {
             return this.timesHit++;
         },
+        isSunk() {
+            return this.timesHit >= this.length ? true : false;
+        },
     };
 }
 exports.createShip = createShip;
-function isSunk(ship) {
-    return ship.timesHit >= ship.length ? true : false;
-}
 let ship1 = createShip(2, 0, false);
 ship1.hit();
 console.log(ship1);
-console.log(isSunk(ship1));
+console.log(ship1.isSunk());
