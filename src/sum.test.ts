@@ -1,29 +1,25 @@
-import { sum, createShip } from "./shipLogic";
+import { createShip } from "./shipLogic";
 import { Ship } from "./types";
-
-test("sum 1, 2", () => {
-  expect(sum(1, 2)).toBe(3);
-});
 
 let ship: Ship;
 beforeEach(() => {
-  ship = createShip(2, 0, false);
+  ship = createShip(2, 2, false);
 });
 
 test("createShip", () => {
   expect(createShip(2, 1, false)).toStrictEqual({
     length: 2,
-    timesHit: 1,
+    hitPoints: 1,
     sunk: false,
+    chucks: expect.any(Object),
     hit: expect.any(Function),
     isSunk: expect.any(Function),
-    sinkShip: expect.any(Function),
   });
 });
 
 test("ship hit", () => {
   ship.hit();
-  expect(ship.timesHit).toBe(1);
+  expect(ship.hitPoints).toBe(1);
 });
 
 test("isSunk 1", () => {
@@ -34,5 +30,6 @@ test("isSunk 1", () => {
 test("isSunk 2", () => {
   ship.hit();
   ship.hit();
+  ship.isSunk();
   expect(ship.isSunk()).toBe(true);
 });

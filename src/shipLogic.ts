@@ -1,27 +1,36 @@
-export function sum(a: number, b: number) {
-  return a + b;
-}
-
-export function createShip(length: number, timesHit: number, sunk: boolean) {
+// What do
+// ships have length, times hit, if its sunk
+// ships have functions that add to times hit (if hit is valid)
+// Ships track each chuck
+// chuck = each segment of the ship that can be hit
+// each chunk tracks if its been hit
+export function createShip(length: number, hitPoints: number, sunk: boolean) {
   return {
     length: length,
-    timesHit: timesHit,
+    hitPoints: hitPoints,
     sunk: sunk,
+    chucks: generateChunks(length),
     hit() {
-      this.timesHit++;
+      this.hitPoints--;
     },
     isSunk() {
-      return this.timesHit >= this.length ? true : false;
-    },
-    sinkShip() {
-      return this.isSunk() ? (this.sunk = true) : (this.sunk = false);
+      return this.hitPoints <= 0 ? (this.sunk = true) : (this.sunk = false);
     },
   };
 }
 
-let ship1 = createShip(2, 0, false);
+function generateChunks(length: number) {
+  let chucksArr = [];
+  for (let i = 0; i != length; i++) {
+    chucksArr.push({ segment: i, isHit: false });
+  }
+  return chucksArr;
+}
+
+let ship1 = createShip(2, 2, false);
 ship1.hit();
 ship1.hit();
+ship1.isSunk();
+// console.log(ship1.chucks);
 
 console.log(ship1);
-console.log(ship1.sunk);

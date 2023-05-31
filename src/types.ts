@@ -1,7 +1,8 @@
 export interface Ship {
   length: number;
-  timesHit: number;
+  hitPoints: number;
   sunk: boolean;
+  chunks?: { segment: number; isHit: boolean }[];
   hit: () => void;
   isSunk: () => void;
 }
