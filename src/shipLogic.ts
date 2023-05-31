@@ -8,16 +8,20 @@ export function createShip(length: number, timesHit: number, sunk: boolean) {
     timesHit: timesHit,
     sunk: sunk,
     hit() {
-      return this.timesHit++;
+      this.timesHit++;
     },
     isSunk() {
       return this.timesHit >= this.length ? true : false;
+    },
+    sinkShip() {
+      return this.isSunk() ? (this.sunk = true) : (this.sunk = false);
     },
   };
 }
 
 let ship1 = createShip(2, 0, false);
 ship1.hit();
+ship1.hit();
 
 console.log(ship1);
-console.log(ship1.isSunk());
+console.log(ship1.sunk);

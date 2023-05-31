@@ -15,9 +15,19 @@ test("createShip", () => {
         sunk: false,
         hit: expect.any(Function),
         isSunk: expect.any(Function),
+        sinkShip: expect.any(Function),
     });
 });
 test("ship hit", () => {
     ship.hit();
     expect(ship.timesHit).toBe(1);
+});
+test("isSunk 1", () => {
+    ship.hit();
+    expect(ship.sunk).toBe(false);
+});
+test("isSunk 2", () => {
+    ship.hit();
+    ship.hit();
+    expect(ship.isSunk()).toBe(true);
 });
