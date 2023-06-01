@@ -3,13 +3,17 @@
 // ships have functions that add to times hit (if hit is valid)
 // Ships track each chuck
 // chuck = each segment of the ship that can be hit
+
+import { check } from "prettier";
+import { Ship } from "./types";
+
 // each chunk tracks if its been hit
 export function createShip(length: number, hitPoints: number, sunk: boolean) {
   return {
     length: length,
     hitPoints: hitPoints,
     sunk: sunk,
-    chucks: generateChunks(length),
+    chunks: generateChunks(length),
     hit() {
       this.hitPoints--;
     },
@@ -20,17 +24,23 @@ export function createShip(length: number, hitPoints: number, sunk: boolean) {
 }
 
 function generateChunks(length: number) {
-  let chucksArr = [];
-  for (let i = 0; i != length; i++) {
-    chucksArr.push({ segment: i, isHit: false });
+  let chunksArr = [];
+  for (let i = 1; i <= length; i++) {
+    chunksArr.push({ segment: i, isHit: false });
   }
-  return chucksArr;
+  return chunksArr;
+}
+
+export function checkChunks(ship: Ship) {
+  console.log(ship.chunks[0]);
 }
 
 let ship1 = createShip(2, 2, false);
 ship1.hit();
 ship1.hit();
 ship1.isSunk();
-// console.log(ship1.chucks);
+ship1.chunks[1].isHit = true;
 
-console.log(ship1);
+// console.log(ship1.chunks);
+console.log(checkChunks(ship1));
+// console.log(ship1.chunks[1].segment);

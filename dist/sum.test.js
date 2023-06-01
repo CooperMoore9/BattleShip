@@ -10,7 +10,7 @@ test("createShip", () => {
         length: 2,
         hitPoints: 1,
         sunk: false,
-        chucks: expect.any(Object),
+        chunks: expect.any(Object),
         hit: expect.any(Function),
         isSunk: expect.any(Function),
     });

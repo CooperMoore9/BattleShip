@@ -1,18 +1,18 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createShip = void 0;
 // What do
 // ships have length, times hit, if its sunk
 // ships have functions that add to times hit (if hit is valid)
 // Ships track each chuck
 // chuck = each segment of the ship that can be hit
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkChunks = exports.createShip = void 0;
 // each chunk tracks if its been hit
 function createShip(length, hitPoints, sunk) {
     return {
         length: length,
         hitPoints: hitPoints,
         sunk: sunk,
-        chucks: generateChunks(length),
+        chunks: generateChunks(length),
         hit() {
             this.hitPoints--;
         },
@@ -23,15 +23,21 @@ function createShip(length, hitPoints, sunk) {
 }
 exports.createShip = createShip;
 function generateChunks(length) {
-    let chucksArr = [];
-    for (let i = 0; i != length; i++) {
-        chucksArr.push({ segment: i, isHit: false });
+    let chunksArr = [];
+    for (let i = 1; i <= length; i++) {
+        chunksArr.push({ segment: i, isHit: false });
     }
-    return chucksArr;
+    return chunksArr;
 }
+function checkChunks(ship) {
+    console.log(ship.chunks[0]);
+}
+exports.checkChunks = checkChunks;
 let ship1 = createShip(2, 2, false);
 ship1.hit();
 ship1.hit();
 ship1.isSunk();
-// console.log(ship1.chucks);
-console.log(ship1);
+ship1.chunks[1].isHit = true;
+// console.log(ship1.chunks);
+console.log(checkChunks(ship1));
+// console.log(ship1.chunks[1].segment);
