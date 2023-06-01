@@ -11,7 +11,9 @@ test("createShip", () => {
     length: 2,
     hitPoints: 1,
     sunk: false,
-    chunks: expect.any(Object),
+    chunks: expect.arrayContaining([
+      expect.objectContaining({ isHit: false, segment: 1 }),
+    ]),
     hit: expect.any(Function),
     isSunk: expect.any(Function),
   });
