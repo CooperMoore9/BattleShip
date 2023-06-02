@@ -8,7 +8,7 @@ beforeEach(() => {
 });
 
 // ======================= createShip Function Test(s) Below =======================
-// also tests if generateChunks is working, Don't feel like separating them ¯\_(ツ)_/¯
+// also tests if generateChunks is working, don't feel like separating them ¯\_(ツ)_/¯
 
 test("createShip", () => {
   expect(createShip(2, 1, false)).toStrictEqual({

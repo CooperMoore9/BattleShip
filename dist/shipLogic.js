@@ -43,12 +43,12 @@ function checkChunks(ship) {
     return true;
 }
 exports.checkChunks = checkChunks;
-let ship1 = createShip(2, 2, false);
-ship1.hit();
-ship1.hit();
-ship1.isSunk();
-ship1.chunks[0].isHit = true;
-ship1.chunks[1].isHit = false;
-console.log(checkChunks(ship1));
-console.log(ship1.chunks);
-console.log(ship1.chunks[1].segment);
+// let ship1 = createShip(2, 2, false);
+// ship1.hit();
+// ship1.hit();
+// ship1.isSunk();
+// ship1.chunks[0].isHit = true;
+// ship1.chunks[1].isHit = false;
+// console.log(checkChunks(ship1));
+// console.log(ship1.chunks);
+// console.log(ship1.chunks[1].segment);
