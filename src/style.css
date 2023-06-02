@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  margin: 0;
+}
+
+#playerGrid,
+#botGrid {
+  background-color: rgb(242, 249, 255);
+  box-sizing: content-box;
+  display: grid;
+}

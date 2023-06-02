@@ -513,6 +513,40 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.container {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
 .flex {
   display: flex;
 }
@@ -521,92 +555,20 @@ video {
   display: grid;
 }
 
-.h-16 {
-  height: 4rem;
-}
-
-.h-24 {
-  height: 6rem;
-}
-
-.h-1\/2 {
-  height: 50%;
-}
-
-.h-64 {
-  height: 16rem;
-}
-
-.h-\[32rem\] {
-  height: 32rem;
-}
-
-.h-\[20vh\] {
-  height: 20vh;
-}
-
-.h-\[30vh\] {
-  height: 30vh;
-}
-
-.h-full {
-  height: 100%;
+.h-\[50vh\] {
+  height: 50vh;
 }
 
 .h-screen {
   height: 100vh;
 }
 
-.w-4 {
-  width: 1rem;
-}
-
-.w-12 {
-  width: 3rem;
-}
-
-.w-24 {
-  width: 6rem;
-}
-
-.w-1\/2 {
-  width: 50%;
-}
-
-.w-\[1\/2\] {
-  width: 1/2;
-}
-
-.w-\[1\/2vh\] {
-  width: 1/2vh;
-}
-
-.w-\[1\/2vw\] {
-  width: 1/2vw;
-}
-
-.w-\[20vw\] {
-  width: 20vw;
-}
-
-.w-\[30vw\] {
-  width: 30vw;
-}
-
-.w-\[30vh\] {
-  width: 30vh;
+.w-\[50vh\] {
+  width: 50vh;
 }
 
 .w-\[50vw\] {
   width: 50vw;
-}
-
-.grid-cols-12 {
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-}
-
-.grid-cols-\[200px_minmax\(900px\2c _1fr\)_100px\] {
-  grid-template-columns: 200px minmax(900px, 1fr) 100px;
 }
 
 .flex-row {
@@ -629,18 +591,14 @@ video {
   border-style: solid;
 }
 
-.border-sky-500 {
+.border-sky-800 {
   --tw-border-opacity: 1;
-  border-color: rgb(14 165 233 / var(--tw-border-opacity));
+  border-color: rgb(7 89 133 / var(--tw-border-opacity));
 }
 
 .bg-\[\#202124\] {
   --tw-bg-opacity: 1;
   background-color: rgb(32 33 36 / var(--tw-bg-opacity));
-}
-
-.bg-\[202124\] {
-  background-color: 202124;
 }
 
 .text-3xl {
@@ -659,4 +617,23 @@ video {
 
 .underline {
   text-decoration-line: underline;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  margin: 0;
+}
+
+#playerGrid,
+#botGrid {
+  background-color: rgb(242, 249, 255);
+  box-sizing: content-box;
+  display: grid;
 }
