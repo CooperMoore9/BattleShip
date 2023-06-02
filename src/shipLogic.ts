@@ -23,7 +23,7 @@ export function createShip(length: number, hitPoints: number, sunk: boolean) {
   };
 }
 
-function generateChunks(length: number) {
+export function generateChunks(length: number) {
   let chunksArr = [];
   for (let i = 1; i <= length; i++) {
     chunksArr.push({ segment: i, isHit: false });
@@ -31,7 +31,11 @@ function generateChunks(length: number) {
   return chunksArr;
 }
 
-function checkChunks(ship: Ship) {
+export function hitChunk(ship: Ship, segment: number) {
+  return (ship.chunks[segment].isHit = true);
+}
+
+export function checkChunks(ship: Ship) {
   for (let i = 0; i <= ship.length - 1; i++) {
     if (ship.chunks[i].isHit === false) {
       return false;

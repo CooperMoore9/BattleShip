@@ -6,7 +6,7 @@
 // chuck = each segment of the ship that can be hit
 // each chunk tracks if its been hit
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createShip = void 0;
+exports.checkChunks = exports.hitChunk = exports.generateChunks = exports.createShip = void 0;
 function createShip(length, hitPoints, sunk) {
     return {
         length: length,
@@ -29,6 +29,11 @@ function generateChunks(length) {
     }
     return chunksArr;
 }
+exports.generateChunks = generateChunks;
+function hitChunk(ship, segment) {
+    return (ship.chunks[segment].isHit = true);
+}
+exports.hitChunk = hitChunk;
 function checkChunks(ship) {
     for (let i = 0; i <= ship.length - 1; i++) {
         if (ship.chunks[i].isHit === false) {
@@ -37,6 +42,7 @@ function checkChunks(ship) {
     }
     return true;
 }
+exports.checkChunks = checkChunks;
 let ship1 = createShip(2, 2, false);
 ship1.hit();
 ship1.hit();
