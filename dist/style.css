@@ -547,12 +547,20 @@ video {
   }
 }
 
+.visible {
+  visibility: visible;
+}
+
 .flex {
   display: flex;
 }
 
 .grid {
   display: grid;
+}
+
+.hidden {
+  display: none;
 }
 
 .h-\[50vh\] {
@@ -563,12 +571,44 @@ video {
   height: 100vh;
 }
 
+.h-\[49\.9vh\] {
+  height: 49.9vh;
+}
+
 .w-\[50vh\] {
   width: 50vh;
 }
 
 .w-\[50vw\] {
   width: 50vw;
+}
+
+.w-\[100vw\] {
+  width: 100vw;
+}
+
+.w-\[0vh\] {
+  width: 0vh;
+}
+
+.w-\[0vw\] {
+  width: 0vw;
+}
+
+.w-\[00vh\] {
+  width: 00vh;
+}
+
+.w-\[00vw\] {
+  width: 00vw;
+}
+
+.w-\[49vh\] {
+  width: 49vh;
+}
+
+.w-\[99vw\] {
+  width: 99vw;
 }
 
 .flex-row {

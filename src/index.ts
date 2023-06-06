@@ -1,3 +1,3 @@
-import { makeGrid } from "./makeBoard";
+import { makeGrid } from "./boardSetup";
 
 makeGrid;

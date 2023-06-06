@@ -1,4 +1,9 @@
+import { doc } from "prettier";
+
 const playerGrid = document.getElementById("playerGrid") as HTMLElement;
+const playerDiv = document.getElementById("playerDiv") as HTMLElement;
+const botDiv = document.getElementById("botDiv") as HTMLElement;
+botDiv.style.visibility = "hidden";
 const botGrid = document.getElementById("botGrid") as HTMLElement;
 
 export function makeGrid(input: number, container: HTMLElement) {
@@ -11,7 +16,7 @@ export function makeGrid(input: number, container: HTMLElement) {
     gridBox.addEventListener("mouseover", () => {
       gridBox.style.backgroundColor = "grey";
       let boxNum = gridBox.className.slice(0, 2).trim();
-      console.log(boxNum);
+      console.log(parseInt(boxNum));
     });
 
     gridBox.addEventListener("mouseleave", () => {
@@ -22,6 +27,14 @@ export function makeGrid(input: number, container: HTMLElement) {
   }
 }
 
+function makeBotGrid() {
+  console.log(playerDiv.classList);
+  playerDiv.classList.replace("w-[99vw]", "w-[50vw]");
+  botDiv.classList.replace("w-[0vw]", "w-[50vw]");
+  botDiv.style.visibility = "visible";
+  makeGrid(10, botGrid);
+}
+
 function clearGrid() {
   const deleteTheBoxes = document.querySelectorAll(".box");
   deleteTheBoxes.forEach((div) => {
@@ -30,4 +43,4 @@ function clearGrid() {
 }
 
 makeGrid(10, playerGrid);
-// makeGrid(10, botGrid);
+// makeBotGrid();
