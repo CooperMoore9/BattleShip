@@ -1,3 +1,3 @@
-import { gameBoard } from "./gameBoardLogic";
+import { makeGrid } from "./makeBoard";
 
-gameBoard();
+makeGrid;

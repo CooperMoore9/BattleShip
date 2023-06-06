@@ -10,23 +10,23 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/gameBoardLogic.ts":
-/*!*******************************!*\
-  !*** ./src/gameBoardLogic.ts ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-eval("\r\n// Factory Function for gameBoard\r\n// needs to be a factory function because im gonna need to make 2 per game\r\n// one for the player to place pieces and one for the player to click on to shoot at\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nexports.gameBoard = void 0;\r\n// First things first, generate a grid?\r\n// be able to track every part of the board\r\n//\r\nconst playerGrid = document.getElementById(\"playerGrid\");\r\nconst botGrid = document.getElementById(\"botGrid\");\r\nfunction gameBoard() {\r\n    makeGrid(10, playerGrid);\r\n    makeGrid(10, botGrid);\r\n}\r\nexports.gameBoard = gameBoard;\r\nfunction makeGrid(input, container) {\r\n    container.style.gridTemplateColumns = `repeat(${input}, 1fr)`;\r\n    for (let i = 0; i < input * input; i++) {\r\n        const gridBox = document.createElement(\"div\");\r\n        gridBox.classList.add(`${i}`, \"box\", \"border-2\", \"border-sky-800\");\r\n        container.appendChild(gridBox);\r\n    }\r\n}\r\nfunction clearGrid() {\r\n    const deleteTheBoxes = document.querySelectorAll(\".box\");\r\n    deleteTheBoxes.forEach((div) => {\r\n        div.remove();\r\n    });\r\n}\r\n\n\n//# sourceURL=webpack://battleShip/./src/gameBoardLogic.ts?");
-
-/***/ }),
-
 /***/ "./src/index.ts":
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-eval("\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nconst gameBoardLogic_1 = __webpack_require__(/*! ./gameBoardLogic */ \"./src/gameBoardLogic.ts\");\r\n(0, gameBoardLogic_1.gameBoard)();\r\n\n\n//# sourceURL=webpack://battleShip/./src/index.ts?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nconst makeBoard_1 = __webpack_require__(/*! ./makeBoard */ \"./src/makeBoard.ts\");\r\nmakeBoard_1.makeGrid;\r\n\n\n//# sourceURL=webpack://battleShip/./src/index.ts?");
+
+/***/ }),
+
+/***/ "./src/makeBoard.ts":
+/*!**************************!*\
+  !*** ./src/makeBoard.ts ***!
+  \**************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+eval("\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nexports.makeGrid = void 0;\r\nconst playerGrid = document.getElementById(\"playerGrid\");\r\nconst botGrid = document.getElementById(\"botGrid\");\r\nfunction makeGrid(input, container) {\r\n    container.style.gridTemplateColumns = `repeat(${input}, 1fr)`;\r\n    for (let i = 0; i < input * input; i++) {\r\n        const gridBox = document.createElement(\"div\");\r\n        gridBox.classList.add(`${i}`, \"box\", \"border-2\", \"border-sky-800\");\r\n        gridBox.addEventListener(\"mouseover\", () => {\r\n            gridBox.style.backgroundColor = \"grey\";\r\n        });\r\n        gridBox.addEventListener(\"mouseleave\", () => {\r\n            gridBox.style.backgroundColor = \"white\";\r\n        });\r\n        container.appendChild(gridBox);\r\n    }\r\n}\r\nexports.makeGrid = makeGrid;\r\nfunction clearGrid() {\r\n    const deleteTheBoxes = document.querySelectorAll(\".box\");\r\n    deleteTheBoxes.forEach((div) => {\r\n        div.remove();\r\n    });\r\n}\r\nmakeGrid(10, playerGrid);\r\nmakeGrid(10, botGrid);\r\n\n\n//# sourceURL=webpack://battleShip/./src/makeBoard.ts?");
 
 /***/ })
 
