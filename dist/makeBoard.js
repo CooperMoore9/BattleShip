@@ -10,6 +10,8 @@ function makeGrid(input, container) {
         gridBox.classList.add(`${i}`, "box", "border-2", "border-sky-800");
         gridBox.addEventListener("mouseover", () => {
             gridBox.style.backgroundColor = "grey";
+            let boxNum = gridBox.className.slice(0, 2).trim();
+            console.log(boxNum);
         });
         gridBox.addEventListener("mouseleave", () => {
             gridBox.style.backgroundColor = "white";
@@ -25,4 +27,4 @@ function clearGrid() {
     });
 }
 makeGrid(10, playerGrid);
-makeGrid(10, botGrid);
+// makeGrid(10, botGrid);
