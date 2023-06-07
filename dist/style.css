@@ -571,8 +571,8 @@ video {
   height: 100vh;
 }
 
-.h-\[49\.9vh\] {
-  height: 49.9vh;
+.w-\[0vw\] {
+  width: 0vw;
 }
 
 .w-\[50vh\] {
@@ -581,30 +581,6 @@ video {
 
 .w-\[50vw\] {
   width: 50vw;
-}
-
-.w-\[100vw\] {
-  width: 100vw;
-}
-
-.w-\[0vh\] {
-  width: 0vh;
-}
-
-.w-\[0vw\] {
-  width: 0vw;
-}
-
-.w-\[00vh\] {
-  width: 00vh;
-}
-
-.w-\[00vw\] {
-  width: 00vw;
-}
-
-.w-\[49vh\] {
-  width: 49vh;
 }
 
 .w-\[99vw\] {

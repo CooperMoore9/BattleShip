@@ -4,6 +4,7 @@
 
 // First things first, generate a grid?
 // be able to track every part of the board
-//
+
+// make array that every index contains a  grid box
 
 export function gameBoard() {}

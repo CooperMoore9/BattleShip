@@ -6,6 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.gameBoard = void 0;
 // First things first, generate a grid?
 // be able to track every part of the board
-//
+// make array that every index contains a  grid box
 function gameBoard() { }
 exports.gameBoard = gameBoard;
