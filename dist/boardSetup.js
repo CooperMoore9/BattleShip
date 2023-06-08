@@ -13,8 +13,11 @@ function makeGrid(input, container) {
         gridBox.classList.add(`x${i % 10}`, `y${Math.floor((i / 10) % 10)}`, "box", "border-2", "border-sky-800");
         gridBox.addEventListener("mouseover", () => {
             gridBox.style.backgroundColor = "grey";
-            let boxNum = gridBox.className.slice(0, 2).trim();
+            let xCord = gridBox.className.slice(0, 2).trim();
+            let yCord = gridBox.className.slice(2, 5).trim();
             console.log(gridBox.classList);
+            // console.log(xCord);
+            // console.log(yCord);
         });
         gridBox.addEventListener("mouseleave", () => {
             gridBox.style.backgroundColor = "white";

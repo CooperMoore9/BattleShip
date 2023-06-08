@@ -21,8 +21,11 @@ export function makeGrid(input: number, container: HTMLElement) {
 
     gridBox.addEventListener("mouseover", () => {
       gridBox.style.backgroundColor = "grey";
-      let boxNum = gridBox.className.slice(0, 2).trim();
+      let xCord = gridBox.className.slice(0, 2).trim();
+      let yCord = gridBox.className.slice(2, 5).trim();
       console.log(gridBox.classList);
+      // console.log(xCord);
+      // console.log(yCord);
     });
 
     gridBox.addEventListener("mouseleave", () => {
