@@ -19,13 +19,12 @@ export function makeGrid(input: number, container: HTMLElement) {
       "border-sky-800"
     );
 
+    gridBox.style.backgroundColor = "white";
+
     gridBox.addEventListener("mouseover", () => {
       gridBox.style.backgroundColor = "grey";
-      let xCord = gridBox.className.slice(0, 2).trim();
-      let yCord = gridBox.className.slice(2, 5).trim();
-      console.log(gridBox.classList);
-      // console.log(xCord);
-      // console.log(yCord);
+      //   let xCord = parseInt(gridBox.className.slice(1, 2).trim());
+      //   let yCord = parseInt(gridBox.className.slice(4, 5).trim());
     });
 
     gridBox.addEventListener("mouseleave", () => {

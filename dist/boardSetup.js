@@ -11,13 +11,11 @@ function makeGrid(input, container) {
     for (let i = 0; i < input * input; i++) {
         const gridBox = document.createElement("div");
         gridBox.classList.add(`x${i % 10}`, `y${Math.floor((i / 10) % 10)}`, "box", "border-2", "border-sky-800");
+        gridBox.style.backgroundColor = "white";
         gridBox.addEventListener("mouseover", () => {
             gridBox.style.backgroundColor = "grey";
-            let xCord = gridBox.className.slice(0, 2).trim();
-            let yCord = gridBox.className.slice(2, 5).trim();
-            console.log(gridBox.classList);
-            // console.log(xCord);
-            // console.log(yCord);
+            //   let xCord = parseInt(gridBox.className.slice(1, 2).trim());
+            //   let yCord = parseInt(gridBox.className.slice(4, 5).trim());
         });
         gridBox.addEventListener("mouseleave", () => {
             gridBox.style.backgroundColor = "white";
