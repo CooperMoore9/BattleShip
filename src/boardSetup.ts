@@ -23,12 +23,16 @@ export function makeGrid(input: number, container: HTMLElement) {
 
     gridBox.addEventListener("mouseover", () => {
       gridBox.style.backgroundColor = "grey";
-      //   let xCord = parseInt(gridBox.className.slice(1, 2).trim());
-      //   let yCord = parseInt(gridBox.className.slice(4, 5).trim());
     });
 
     gridBox.addEventListener("mouseleave", () => {
       gridBox.style.backgroundColor = "white";
+    });
+
+    gridBox.addEventListener("mousedown", () => {
+      let xCord = parseInt(gridBox.className.slice(1, 2).trim());
+      let yCord = parseInt(gridBox.className.slice(4, 5).trim());
+      console.log("x", xCord, "y", yCord);
     });
 
     container.appendChild(gridBox);

@@ -1,6 +1,7 @@
 import { check } from "prettier";
 import { checkChunks, createShip, hitChunk } from "./shipLogic";
 import { Ship } from "./types";
+import { generateBoardArray } from "./gameBoardLogic";
 
 let ship: Ship;
 beforeEach(() => {
@@ -82,4 +83,10 @@ test("checkChunks all segments", () => {
   ship.chunks[0].isHit = true;
   ship.chunks[1].isHit = true;
   expect(checkChunks(ship)).toBe(true);
+});
+
+// ======================= generateBoardArray Function Test(s) Below =======================
+
+test("generates all 99 objects", () => {
+  expect(generateBoardArray().length).toBe(99);
 });

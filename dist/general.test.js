@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const shipLogic_1 = require("./shipLogic");
+const gameBoardLogic_1 = require("./gameBoardLogic");
 let ship;
 beforeEach(() => {
     ship = (0, shipLogic_1.createShip)(2, 2, false);
@@ -65,4 +66,8 @@ test("checkChunks all segments", () => {
     ship.chunks[0].isHit = true;
     ship.chunks[1].isHit = true;
     expect((0, shipLogic_1.checkChunks)(ship)).toBe(true);
+});
+// ======================= generateBoardArray Function Test(s) Below =======================
+test("generates all 99 objects", () => {
+    expect((0, gameBoardLogic_1.generateBoardArray)().length).toBe(99);
 });
