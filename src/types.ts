@@ -6,3 +6,9 @@ export interface Ship {
   hit: () => void;
   isSunk: () => void;
 }
+
+export interface gridObject {
+  xCord: number;
+  yCord: number;
+  occupied: boolean;
+}
