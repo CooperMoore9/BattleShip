@@ -11,22 +11,17 @@ function makeGrid(input, container) {
     for (let i = 0; i < input * input; i++) {
         const gridBox = document.createElement("div");
         gridBox.classList.add(`x${i % 10}`, `y${Math.floor((i / 10) % 10)}`, "box", "border-2", "border-sky-800");
-        gridBox.style.backgroundColor = "white";
-        // gridBox.addEventListener("mouseover", () => {
-        //   gridBox.style.backgroundColor = "grey";
-        // });
-        // gridBox.addEventListener("mouseleave", () => {
-        //   gridBox.style.backgroundColor = "white";
-        // });
-        gridBox.addEventListener("mousedown", () => {
-            let xCord = parseInt(gridBox.className.slice(1, 2).trim());
-            let yCord = parseInt(gridBox.className.slice(4, 5).trim());
-            console.log("x", xCord, "y", yCord);
-        });
         container.appendChild(gridBox);
     }
 }
 exports.makeGrid = makeGrid;
+function getCordOfMouse() {
+    for (let i = 0; i < exports.playerGrid.children.length; i++) {
+        exports.playerGrid.children[i].addEventListener("mousedown", () => {
+            console.log(exports.playerGrid.children[i].classList[0], exports.playerGrid.children[i].classList[1]);
+        });
+    }
+}
 function ghostShip(shipLength) {
     for (let i = 0; i < exports.playerGrid.children.length; i++) {
         exports.playerGrid.children[i].addEventListener("mouseover", () => {
@@ -34,15 +29,12 @@ function ghostShip(shipLength) {
             for (let j = 0; j < shipLength; j++) {
                 exports.playerGrid.children[i + j].classList.add("bg-neutral-600");
             }
-            // playerGrid.children[i].classList.add("bg-neutral-600");
-            // playerGrid.children[i + shipLength].classList.add("bg-neutral-600");
         });
         exports.playerGrid.children[i].addEventListener("mouseleave", () => {
             exports.playerGrid.children[i].classList.remove("bg-neutral-600");
             for (let j = 0; j < shipLength; j++) {
                 exports.playerGrid.children[i + j].classList.remove("bg-neutral-600");
             }
-            // playerGrid.children[i + shipLength].classList.remove("bg-neutral-600");
         });
     }
 }
@@ -61,5 +53,5 @@ function clearGrid() {
 }
 makeGrid(10, exports.playerGrid);
 // makeBotGrid(); !IMPORTANT
-// logGridSection(4, 4);
 ghostShip(3);
+getCordOfMouse();

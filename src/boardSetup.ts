@@ -18,24 +18,18 @@ export function makeGrid(input: number, container: HTMLElement) {
       "border-2",
       "border-sky-800"
     );
-
-    gridBox.style.backgroundColor = "white";
-
-    // gridBox.addEventListener("mouseover", () => {
-    //   gridBox.style.backgroundColor = "grey";
-    // });
-
-    // gridBox.addEventListener("mouseleave", () => {
-    //   gridBox.style.backgroundColor = "white";
-    // });
-
-    gridBox.addEventListener("mousedown", () => {
-      let xCord = parseInt(gridBox.className.slice(1, 2).trim());
-      let yCord = parseInt(gridBox.className.slice(4, 5).trim());
-      console.log("x", xCord, "y", yCord);
-    });
-
     container.appendChild(gridBox);
+  }
+}
+
+function getCordOfMouse() {
+  for (let i = 0; i < playerGrid.children.length; i++) {
+    playerGrid.children[i].addEventListener("mousedown", () => {
+      console.log(
+        playerGrid.children[i].classList[0],
+        playerGrid.children[i].classList[1]
+      );
+    });
   }
 }
 
@@ -46,8 +40,6 @@ function ghostShip(shipLength: number) {
       for (let j = 0; j < shipLength; j++) {
         playerGrid.children[i + j].classList.add("bg-neutral-600");
       }
-      // playerGrid.children[i].classList.add("bg-neutral-600");
-      // playerGrid.children[i + shipLength].classList.add("bg-neutral-600");
     });
 
     playerGrid.children[i].addEventListener("mouseleave", () => {
@@ -55,7 +47,6 @@ function ghostShip(shipLength: number) {
       for (let j = 0; j < shipLength; j++) {
         playerGrid.children[i + j].classList.remove("bg-neutral-600");
       }
-      // playerGrid.children[i + shipLength].classList.remove("bg-neutral-600");
     });
   }
 }
@@ -77,6 +68,5 @@ function clearGrid() {
 
 makeGrid(10, playerGrid);
 // makeBotGrid(); !IMPORTANT
-
-// logGridSection(4, 4);
 ghostShip(3);
+getCordOfMouse();
