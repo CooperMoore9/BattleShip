@@ -1,6 +1,6 @@
 import { doc } from "prettier";
 
-const playerGrid = document.getElementById("playerGrid") as HTMLElement;
+export const playerGrid = document.getElementById("playerGrid") as HTMLElement;
 const playerDiv = document.getElementById("playerDiv") as HTMLElement;
 const botDiv = document.getElementById("botDiv") as HTMLElement;
 botDiv.style.visibility = "hidden";
@@ -21,13 +21,13 @@ export function makeGrid(input: number, container: HTMLElement) {
 
     gridBox.style.backgroundColor = "white";
 
-    gridBox.addEventListener("mouseover", () => {
-      gridBox.style.backgroundColor = "grey";
-    });
+    // gridBox.addEventListener("mouseover", () => {
+    //   gridBox.style.backgroundColor = "grey";
+    // });
 
-    gridBox.addEventListener("mouseleave", () => {
-      gridBox.style.backgroundColor = "white";
-    });
+    // gridBox.addEventListener("mouseleave", () => {
+    //   gridBox.style.backgroundColor = "white";
+    // });
 
     gridBox.addEventListener("mousedown", () => {
       let xCord = parseInt(gridBox.className.slice(1, 2).trim());
@@ -39,9 +39,25 @@ export function makeGrid(input: number, container: HTMLElement) {
   }
 }
 
-function logGridSection(x: number, y: number) {
-  let girdSection = playerGrid.children[parseInt(`${y}${x}`)];
-  console.log(girdSection);
+function ghostShip(shipLength: number) {
+  for (let i = 0; i < playerGrid.children.length; i++) {
+    playerGrid.children[i].addEventListener("mouseover", () => {
+      playerGrid.children[i].classList.add("bg-neutral-600");
+      for (let j = 0; j < shipLength; j++) {
+        playerGrid.children[i + j].classList.add("bg-neutral-600");
+      }
+      // playerGrid.children[i].classList.add("bg-neutral-600");
+      // playerGrid.children[i + shipLength].classList.add("bg-neutral-600");
+    });
+
+    playerGrid.children[i].addEventListener("mouseleave", () => {
+      playerGrid.children[i].classList.remove("bg-neutral-600");
+      for (let j = 0; j < shipLength; j++) {
+        playerGrid.children[i + j].classList.remove("bg-neutral-600");
+      }
+      // playerGrid.children[i + shipLength].classList.remove("bg-neutral-600");
+    });
+  }
 }
 
 function makeBotGrid() {
@@ -60,6 +76,7 @@ function clearGrid() {
 }
 
 makeGrid(10, playerGrid);
-// makeBotGrid();
+// makeBotGrid(); !IMPORTANT
 
-logGridSection(8, 4);
+// logGridSection(4, 4);
+ghostShip(3);
