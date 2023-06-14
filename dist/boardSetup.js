@@ -28,10 +28,9 @@ function makeGrid(input, container) {
 }
 exports.makeGrid = makeGrid;
 function logGridSection(x, y) {
-    let gridSection = document.getElementsByClassName(`x${x} y${y}`);
-    console.log(gridSection);
+    let girdSection = playerGrid.children[parseInt(`${y}${x}`)];
+    console.log(girdSection);
 }
-logGridSection(1, 6);
 function makeBotGrid() {
     console.log(playerDiv.classList);
     playerDiv.classList.replace("w-[99vw]", "w-[50vw]");
@@ -47,3 +46,4 @@ function clearGrid() {
 }
 makeGrid(10, playerGrid);
 // makeBotGrid();
+logGridSection(8, 4);

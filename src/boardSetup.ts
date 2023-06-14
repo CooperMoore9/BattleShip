@@ -40,11 +40,9 @@ export function makeGrid(input: number, container: HTMLElement) {
 }
 
 function logGridSection(x: number, y: number) {
-  let gridSection = document.getElementsByClassName(`x${x} y${y}`);
-  console.log(gridSection);
+  let girdSection = playerGrid.children[parseInt(`${y}${x}`)];
+  console.log(girdSection);
 }
-
-logGridSection(1, 6);
 
 function makeBotGrid() {
   console.log(playerDiv.classList);
@@ -63,3 +61,5 @@ function clearGrid() {
 
 makeGrid(10, playerGrid);
 // makeBotGrid();
+
+logGridSection(8, 4);
