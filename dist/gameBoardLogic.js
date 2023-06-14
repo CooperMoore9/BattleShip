@@ -22,4 +22,4 @@ function generateBoardArray() {
     return boardArray;
 }
 exports.generateBoardArray = generateBoardArray;
-// console.log(generateBoardArray());
+console.log(generateBoardArray());

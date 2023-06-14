@@ -39,6 +39,13 @@ export function makeGrid(input: number, container: HTMLElement) {
   }
 }
 
+function logGridSection(x: number, y: number) {
+  let gridSection = document.getElementsByClassName(`x${x} y${y}`);
+  console.log(gridSection);
+}
+
+logGridSection(1, 6);
+
 function makeBotGrid() {
   console.log(playerDiv.classList);
   playerDiv.classList.replace("w-[99vw]", "w-[50vw]");
