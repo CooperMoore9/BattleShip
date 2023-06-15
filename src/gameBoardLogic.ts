@@ -12,6 +12,10 @@ import { gridObject } from "./types";
 
 export function gameBoard(gridArray: Array<gridObject>) {
   console.log(gridArray[32].occupied);
+  function placeShip(x: number, y: number) {
+    console.log(gridArray[parseInt(`${y},${x}`)], "placeShip");
+  }
+  placeShip(1, 1);
 }
 
 // 0-9 for x, when x reaches 9 iterate y by 1
