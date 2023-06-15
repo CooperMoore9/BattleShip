@@ -22,24 +22,6 @@ export function makeGrid(input: number, container: HTMLElement) {
   }
 }
 
-function ghostShip(shipLength: number) {
-  for (let i = 0; i < playerGrid.children.length; i++) {
-    playerGrid.children[i].addEventListener("mouseover", () => {
-      playerGrid.children[i].classList.add("bg-neutral-600");
-      for (let j = 0; j < shipLength; j++) {
-        playerGrid.children[i + j].classList.add("bg-neutral-600");
-      }
-    });
-
-    playerGrid.children[i].addEventListener("mouseleave", () => {
-      playerGrid.children[i].classList.remove("bg-neutral-600");
-      for (let j = 0; j < shipLength; j++) {
-        playerGrid.children[i + j].classList.remove("bg-neutral-600");
-      }
-    });
-  }
-}
-
 function makeBotGrid() {
   console.log(playerDiv.classList);
   playerDiv.classList.replace("w-[99vw]", "w-[50vw]");
@@ -57,4 +39,3 @@ function clearGrid() {
 
 makeGrid(10, playerGrid);
 // makeBotGrid(); !IMPORTANT
-ghostShip(4);

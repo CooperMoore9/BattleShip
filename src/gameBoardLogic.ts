@@ -14,7 +14,7 @@ export function gameBoard() {}
 
 // 0-9 for x, when x reaches 9 iterate y by 1
 
-export function generateBoardArray() {
+function generateBoardArray() {
   let boardArray: gridObject[] = [];
   let x = 0;
   let y = 0;
@@ -30,7 +30,25 @@ export function generateBoardArray() {
   return boardArray;
 }
 
-function getCordOfMouse() {
+function ghostShip(shipLength: number) {
+  for (let i = 0; i < playerGrid.children.length; i++) {
+    playerGrid.children[i].addEventListener("mouseover", () => {
+      playerGrid.children[i].classList.add("bg-neutral-600");
+      for (let j = 0; j < shipLength; j++) {
+        playerGrid.children[i + j].classList.add("bg-neutral-600");
+      }
+    });
+
+    playerGrid.children[i].addEventListener("mouseleave", () => {
+      playerGrid.children[i].classList.remove("bg-neutral-600");
+      for (let j = 0; j < shipLength; j++) {
+        playerGrid.children[i + j].classList.remove("bg-neutral-600");
+      }
+    });
+  }
+}
+
+function getMouseCord() {
   for (let i = 0; i < playerGrid.children.length; i++) {
     playerGrid.children[i].addEventListener("mousedown", () => {
       console.log(
@@ -41,5 +59,6 @@ function getCordOfMouse() {
   }
 }
 
-getCordOfMouse();
+ghostShip(4);
+getMouseCord();
 console.log(generateBoardArray());
