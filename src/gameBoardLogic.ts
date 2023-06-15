@@ -11,11 +11,15 @@ import { playerGrid } from "./boardSetup";
 import { gridObject } from "./types";
 
 export function gameBoard(gridArray: Array<gridObject>) {
-  console.log(gridArray[32].occupied);
-  function placeShip(x: number, y: number) {
-    console.log(gridArray[parseInt(`${y},${x}`)], "placeShip");
+  function placeShip(x: number, y: number, length: number) {
+    for (let i = 0; i < length; i++) {
+      gridArray[parseInt(`${y}${x}`)].occupied = true;
+      x++;
+    }
+    console.log(gridArray[parseInt(`${y}${x}`)], "what the scallop");
   }
-  placeShip(1, 1);
+  placeShip(3, 0, 4);
+  console.log(gridArray);
 }
 
 // 0-9 for x, when x reaches 9 iterate y by 1
@@ -67,4 +71,4 @@ function getMouseCord() {
 
 ghostShip(4);
 getMouseCord();
-console.log(generateBoardArray());
+// console.log(generateBoardArray());
