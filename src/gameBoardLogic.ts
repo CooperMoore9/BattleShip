@@ -7,6 +7,7 @@
 
 // make array that every index contains a  grid box
 
+import { playerGrid } from "./boardSetup";
 import { gridObject } from "./types";
 
 export function gameBoard() {}
@@ -29,4 +30,16 @@ export function generateBoardArray() {
   return boardArray;
 }
 
+function getCordOfMouse() {
+  for (let i = 0; i < playerGrid.children.length; i++) {
+    playerGrid.children[i].addEventListener("mousedown", () => {
+      console.log(
+        playerGrid.children[i].classList[0],
+        playerGrid.children[i].classList[1]
+      );
+    });
+  }
+}
+
+getCordOfMouse();
 console.log(generateBoardArray());

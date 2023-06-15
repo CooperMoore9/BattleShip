@@ -22,17 +22,6 @@ export function makeGrid(input: number, container: HTMLElement) {
   }
 }
 
-function getCordOfMouse() {
-  for (let i = 0; i < playerGrid.children.length; i++) {
-    playerGrid.children[i].addEventListener("mousedown", () => {
-      console.log(
-        playerGrid.children[i].classList[0],
-        playerGrid.children[i].classList[1]
-      );
-    });
-  }
-}
-
 function ghostShip(shipLength: number) {
   for (let i = 0; i < playerGrid.children.length; i++) {
     playerGrid.children[i].addEventListener("mouseover", () => {
@@ -68,5 +57,4 @@ function clearGrid() {
 
 makeGrid(10, playerGrid);
 // makeBotGrid(); !IMPORTANT
-ghostShip(3);
-getCordOfMouse();
+ghostShip(4);
