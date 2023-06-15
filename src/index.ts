@@ -1,5 +1,5 @@
 import { makeGrid } from "./boardSetup";
-import { gameBoard } from "./gameBoardLogic";
+import { gameBoard, generateBoardArray } from "./gameBoardLogic";
 
 makeGrid;
-gameBoard;
+gameBoard(generateBoardArray());

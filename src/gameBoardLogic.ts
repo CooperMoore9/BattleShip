@@ -10,11 +10,13 @@
 import { playerGrid } from "./boardSetup";
 import { gridObject } from "./types";
 
-export function gameBoard() {}
+export function gameBoard(gridArray: Array<gridObject>) {
+  console.log(gridArray[32].occupied);
+}
 
 // 0-9 for x, when x reaches 9 iterate y by 1
 
-function generateBoardArray() {
+export function generateBoardArray() {
   let boardArray: gridObject[] = [];
   let x = 0;
   let y = 0;
