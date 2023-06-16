@@ -29,6 +29,7 @@ export function gameBoard(gridArray: Array<gridObject>) {
   }
 
   placeShip(6, 5, 4);
+  placeShip(3, 2, 3);
   updateGameBoard();
   console.log(gridArray);
 }
@@ -56,6 +57,12 @@ function ghostShip(shipLength: number) {
     playerGrid.children[i].addEventListener("mouseover", () => {
       playerGrid.children[i].classList.add("bg-neutral-600");
       for (let j = 0; j < shipLength; j++) {
+        if (
+          shipLength + parseInt(playerGrid.children[i].classList[0].slice(1)) >=
+          11
+        ) {
+          console.log("bad");
+        }
         playerGrid.children[i + j].classList.add("bg-neutral-600");
       }
     });
@@ -82,4 +89,4 @@ function getMouseCord() {
 
 ghostShip(4);
 getMouseCord();
-// console.log(generateBoardArray());
+console.log(parseInt(playerGrid.children[45].classList[0].slice(1)));
