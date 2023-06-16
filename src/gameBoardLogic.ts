@@ -11,14 +11,25 @@ import { playerGrid } from "./boardSetup";
 import { gridObject } from "./types";
 
 export function gameBoard(gridArray: Array<gridObject>) {
+  function updateGameBoard() {
+    gridArray.forEach((element) => {
+      if (element.occupied === true) {
+        let boardSection =
+          playerGrid.children[parseInt(`${element.yCord}${element.xCord}`)];
+        boardSection.classList.add("bg-black");
+      }
+    });
+  }
+
   function placeShip(x: number, y: number, length: number) {
     for (let i = 0; i < length; i++) {
       gridArray[parseInt(`${y}${x}`)].occupied = true;
       x++;
     }
-    console.log(gridArray[parseInt(`${y}${x}`)], "what the scallop");
   }
-  placeShip(3, 0, 4);
+
+  placeShip(6, 5, 4);
+  updateGameBoard();
   console.log(gridArray);
 }
 
