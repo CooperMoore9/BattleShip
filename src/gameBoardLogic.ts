@@ -9,6 +9,7 @@
 
 import { playerGrid } from "./boardSetup";
 import { gridObject } from "./types";
+export let boardArray = generateBoardArray();
 
 export function gameBoard(gridArray: Array<gridObject>) {
   function updateGameBoard() {
@@ -52,15 +53,12 @@ export function generateBoardArray() {
   return boardArray;
 }
 
-function ghostShip(shipLength: number) {
-  for (let i = 0; i < playerGrid.children.length; i++) {
+function ghostShip(shipLength: number, gridArray: Array<gridObject>) {
+  for (let i = 0; i <= playerGrid.children.length; i++) {
     playerGrid.children[i].addEventListener("mouseover", () => {
       playerGrid.children[i].classList.add("bg-neutral-600");
       for (let j = 0; j < shipLength; j++) {
-        if (
-          shipLength + parseInt(playerGrid.children[i].classList[0].slice(1)) >=
-          11
-        ) {
+        if (shipLength + gridArray[i].xCord >= 11) {
           console.log("bad");
         }
         playerGrid.children[i + j].classList.add("bg-neutral-600");
@@ -87,6 +85,6 @@ function getMouseCord() {
   }
 }
 
-ghostShip(4);
+ghostShip(4, boardArray);
 getMouseCord();
 console.log(parseInt(playerGrid.children[45].classList[0].slice(1)));
