@@ -587,6 +587,10 @@ video {
   width: 99vw !important;
 }
 
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}
+
 .flex-row {
   flex-direction: row !important;
 }

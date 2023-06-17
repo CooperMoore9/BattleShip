@@ -29,10 +29,10 @@ export function gameBoard(gridArray: Array<gridObject>) {
     }
   }
 
-  placeShip(6, 5, 4);
-  placeShip(3, 2, 3);
-  updateGameBoard();
-  console.log(gridArray);
+  // placeShip(6, 5, 4);
+  // placeShip(3, 2, 3);
+  // updateGameBoard();
+  // console.log(gridArray);
 }
 
 // 0-9 for x, when x reaches 9 iterate y by 1
@@ -59,9 +59,11 @@ function ghostShip(shipLength: number, gridArray: Array<gridObject>) {
       playerGrid.children[i].classList.add("bg-neutral-600");
       for (let j = 0; j < shipLength; j++) {
         if (shipLength + gridArray[i].xCord >= 11) {
+          playerGrid.children[i].classList.add("cursor-not-allowed");
           console.log("bad");
+        } else {
+          playerGrid.children[i + j].classList.add("bg-neutral-600");
         }
-        playerGrid.children[i + j].classList.add("bg-neutral-600");
       }
     });
 
