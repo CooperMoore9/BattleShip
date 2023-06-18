@@ -56,12 +56,10 @@ export function generateBoardArray() {
 function ghostShip(shipLength: number, gridArray: Array<gridObject>) {
   for (let i = 0; i <= playerGrid.children.length; i++) {
     playerGrid.children[i].addEventListener("mouseover", () => {
-      playerGrid.children[i].classList.add("bg-neutral-600");
-      for (let j = 0; j < shipLength; j++) {
-        if (shipLength + gridArray[i].xCord >= 11) {
-          playerGrid.children[i].classList.add("cursor-not-allowed");
-          console.log("bad");
-        } else {
+      if (shipLength + gridArray[i].xCord >= 11) {
+        playerGrid.children[i].classList.add("cursor-not-allowed");
+      } else {
+        for (let j = 0; j < shipLength; j++) {
           playerGrid.children[i + j].classList.add("bg-neutral-600");
         }
       }
@@ -87,6 +85,5 @@ function getMouseCord() {
   }
 }
 
-ghostShip(4, boardArray);
+// ghostShip(4, boardArray);
 getMouseCord();
-console.log(parseInt(playerGrid.children[45].classList[0].slice(1)));
