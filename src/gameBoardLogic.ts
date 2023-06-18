@@ -42,7 +42,7 @@ export function generateBoardArray() {
   let x = 0;
   let y = 0;
 
-  for (let i = 1; i < 100; i++) {
+  for (let i = 1; i <= 100; i++) {
     if (x === 10) {
       x = 0;
       y++;
@@ -66,9 +66,12 @@ function ghostShip(shipLength: number, gridArray: Array<gridObject>) {
     });
 
     playerGrid.children[i].addEventListener("mouseleave", () => {
-      playerGrid.children[i].classList.remove("bg-neutral-600");
       for (let j = 0; j < shipLength; j++) {
-        playerGrid.children[i + j].classList.remove("bg-neutral-600");
+        if (playerGrid.children[i + j]) {
+          playerGrid.children[i + j].classList.remove("bg-neutral-600");
+        } else {
+          playerGrid.children[i].classList.remove("bg-neutral-600");
+        }
       }
     });
   }
@@ -85,5 +88,5 @@ function getMouseCord() {
   }
 }
 
-// ghostShip(4, boardArray);
+ghostShip(4, boardArray);
 getMouseCord();
