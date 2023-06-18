@@ -80,13 +80,17 @@ function ghostShip(shipLength: number, gridArray: Array<gridObject>) {
 function getMouseCord() {
   for (let i = 0; i < playerGrid.children.length; i++) {
     playerGrid.children[i].addEventListener("mousedown", () => {
-      console.log(
-        playerGrid.children[i].classList[0],
-        playerGrid.children[i].classList[1]
-      );
+      if (playerGrid.children[i].classList.contains("cursor-not-allowed"))
+        console.log("you dingus");
+      else {
+        console.log(
+          playerGrid.children[i].classList[0],
+          playerGrid.children[i].classList[1]
+        );
+      }
     });
   }
 }
 
-ghostShip(4, boardArray);
 getMouseCord();
+ghostShip(4, boardArray);
