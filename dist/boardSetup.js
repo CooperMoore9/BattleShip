@@ -15,29 +15,6 @@ function makeGrid(input, container) {
     }
 }
 exports.makeGrid = makeGrid;
-function getCordOfMouse() {
-    for (let i = 0; i < exports.playerGrid.children.length; i++) {
-        exports.playerGrid.children[i].addEventListener("mousedown", () => {
-            console.log(exports.playerGrid.children[i].classList[0], exports.playerGrid.children[i].classList[1]);
-        });
-    }
-}
-function ghostShip(shipLength) {
-    for (let i = 0; i < exports.playerGrid.children.length; i++) {
-        exports.playerGrid.children[i].addEventListener("mouseover", () => {
-            exports.playerGrid.children[i].classList.add("bg-neutral-600");
-            for (let j = 0; j < shipLength; j++) {
-                exports.playerGrid.children[i + j].classList.add("bg-neutral-600");
-            }
-        });
-        exports.playerGrid.children[i].addEventListener("mouseleave", () => {
-            exports.playerGrid.children[i].classList.remove("bg-neutral-600");
-            for (let j = 0; j < shipLength; j++) {
-                exports.playerGrid.children[i + j].classList.remove("bg-neutral-600");
-            }
-        });
-    }
-}
 function makeBotGrid() {
     console.log(playerDiv.classList);
     playerDiv.classList.replace("w-[99vw]", "w-[50vw]");
@@ -53,5 +30,3 @@ function clearGrid() {
 }
 makeGrid(10, exports.playerGrid);
 // makeBotGrid(); !IMPORTANT
-ghostShip(3);
-getCordOfMouse();

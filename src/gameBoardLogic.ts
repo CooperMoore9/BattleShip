@@ -29,10 +29,9 @@ export function gameBoard(gridArray: Array<gridObject>) {
     }
   }
 
-  // placeShip(6, 5, 4);
-  // placeShip(3, 2, 3);
-  // updateGameBoard();
-  // console.log(gridArray);
+  placeShip(6, 5, 4);
+  placeShip(3, 2, 3);
+  updateGameBoard();
 }
 
 // 0-9 for x, when x reaches 9 iterate y by 1
@@ -54,7 +53,7 @@ export function generateBoardArray() {
 }
 
 function ghostShip(shipLength: number, gridArray: Array<gridObject>) {
-  for (let i = 0; i <= playerGrid.children.length; i++) {
+  for (let i = 0; i <= playerGrid.children.length - 1; i++) {
     playerGrid.children[i].addEventListener("mouseover", () => {
       if (shipLength + gridArray[i].xCord >= 11) {
         playerGrid.children[i].classList.add("cursor-not-allowed");

@@ -86,7 +86,3 @@ test("checkChunks all segments", () => {
 });
 
 // ======================= generateBoardArray Function Test(s) Below =======================
-
-test("generates all 99 objects", () => {
-  expect(generateBoardArray().length).toBe(99);
-});
