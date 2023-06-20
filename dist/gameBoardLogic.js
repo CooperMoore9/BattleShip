@@ -25,7 +25,7 @@ function gameBoard(gridArray) {
         }
     }
     placeShip(6, 5, 4);
-    placeShip(3, 2, 3);
+    placeShip(4, 2, 3);
     updateGameBoard();
 }
 exports.gameBoard = gameBoard;
@@ -45,6 +45,7 @@ function generateBoardArray() {
     return boardArray;
 }
 exports.generateBoardArray = generateBoardArray;
+// if i + j is occupied then invalid
 function ghostShip(shipLength, gridArray) {
     for (let i = 0; i <= gridArray.length - 1; i++) {
         if (shipLength + gridArray[i].xCord >= 11 ||
@@ -54,7 +55,12 @@ function ghostShip(shipLength, gridArray) {
         else {
             boardSetup_1.playerGrid.children[i].addEventListener("mouseover", () => {
                 for (let j = 0; j < shipLength; j++) {
-                    boardSetup_1.playerGrid.children[i + j].classList.add("bg-neutral-600");
+                    if (gridArray[i + j].occupied === true) {
+                        boardSetup_1.playerGrid.children[i].classList.add("cursor-not-allowed");
+                    }
+                    else {
+                        boardSetup_1.playerGrid.children[i + j].classList.add("bg-neutral-600");
+                    }
                 }
             });
         }
