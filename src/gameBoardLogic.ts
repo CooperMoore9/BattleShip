@@ -61,17 +61,22 @@ export function ghostShip(shipLength: number, gridArray: Array<gridObject>) {
       gridArray[i].occupied === true
     ) {
       playerGrid.children[i].classList.add("cursor-not-allowed");
+      for (let j = 0; j < shipLength; j++) {
+        if (gridArray[i + j].occupied === true) {
+          playerGrid.children[i].classList.add("cursor-not-allowed");
+        }
+      }
     } else {
       playerGrid.children[i].addEventListener("mouseover", () => {
         for (let j = 0; j < shipLength; j++) {
-          if (gridArray[i + j].occupied === true) {
-            playerGrid.children[i].classList.add("cursor-not-allowed");
-          } else {
-            playerGrid.children[i + j].classList.add("bg-neutral-600");
-          }
+          playerGrid.children[i + j].classList.add("bg-neutral-600");
         }
       });
     }
+
+    // if (gridArray[i + j].occupied === true) {
+    //   playerGrid.children[i].classList.add("cursor-not-allowed");
+    // }
 
     playerGrid.children[i].addEventListener("mouseleave", () => {
       for (let j = 0; j < shipLength; j++) {
