@@ -3,7 +3,7 @@
 // needs to be a factory function because im gonna need to make 2 per game
 // one for the player to place pieces and one for the player to click on to shoot at
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateBoardArray = exports.gameBoard = exports.boardArray = void 0;
+exports.getMouseCord = exports.ghostShip = exports.generateBoardArray = exports.gameBoard = exports.boardArray = void 0;
 // First things first, generate a grid?
 // be able to track every part of the board
 // make array that every index contains a  grid box
@@ -46,17 +46,18 @@ function generateBoardArray() {
 }
 exports.generateBoardArray = generateBoardArray;
 function ghostShip(shipLength, gridArray) {
-    for (let i = 0; i <= boardSetup_1.playerGrid.children.length - 1; i++) {
-        boardSetup_1.playerGrid.children[i].addEventListener("mouseover", () => {
-            if (shipLength + gridArray[i].xCord >= 11) {
-                boardSetup_1.playerGrid.children[i].classList.add("cursor-not-allowed");
-            }
-            else {
+    for (let i = 0; i <= gridArray.length - 1; i++) {
+        if (shipLength + gridArray[i].xCord >= 11 ||
+            gridArray[i].occupied === true) {
+            boardSetup_1.playerGrid.children[i].classList.add("cursor-not-allowed");
+        }
+        else {
+            boardSetup_1.playerGrid.children[i].addEventListener("mouseover", () => {
                 for (let j = 0; j < shipLength; j++) {
                     boardSetup_1.playerGrid.children[i + j].classList.add("bg-neutral-600");
                 }
-            }
-        });
+            });
+        }
         boardSetup_1.playerGrid.children[i].addEventListener("mouseleave", () => {
             for (let j = 0; j < shipLength; j++) {
                 if (boardSetup_1.playerGrid.children[i + j]) {
@@ -69,6 +70,7 @@ function ghostShip(shipLength, gridArray) {
         });
     }
 }
+exports.ghostShip = ghostShip;
 function getMouseCord() {
     for (let i = 0; i < boardSetup_1.playerGrid.children.length; i++) {
         boardSetup_1.playerGrid.children[i].addEventListener("mousedown", () => {
@@ -80,5 +82,4 @@ function getMouseCord() {
         });
     }
 }
-getMouseCord();
-ghostShip(4, exports.boardArray);
+exports.getMouseCord = getMouseCord;

@@ -52,17 +52,20 @@ export function generateBoardArray() {
   return boardArray;
 }
 
-function ghostShip(shipLength: number, gridArray: Array<gridObject>) {
-  for (let i = 0; i <= playerGrid.children.length - 1; i++) {
-    playerGrid.children[i].addEventListener("mouseover", () => {
-      if (shipLength + gridArray[i].xCord >= 11) {
-        playerGrid.children[i].classList.add("cursor-not-allowed");
-      } else {
+export function ghostShip(shipLength: number, gridArray: Array<gridObject>) {
+  for (let i = 0; i <= gridArray.length - 1; i++) {
+    if (
+      shipLength + gridArray[i].xCord >= 11 ||
+      gridArray[i].occupied === true
+    ) {
+      playerGrid.children[i].classList.add("cursor-not-allowed");
+    } else {
+      playerGrid.children[i].addEventListener("mouseover", () => {
         for (let j = 0; j < shipLength; j++) {
           playerGrid.children[i + j].classList.add("bg-neutral-600");
         }
-      }
-    });
+      });
+    }
 
     playerGrid.children[i].addEventListener("mouseleave", () => {
       for (let j = 0; j < shipLength; j++) {
@@ -76,7 +79,7 @@ function ghostShip(shipLength: number, gridArray: Array<gridObject>) {
   }
 }
 
-function getMouseCord() {
+export function getMouseCord() {
   for (let i = 0; i < playerGrid.children.length; i++) {
     playerGrid.children[i].addEventListener("mousedown", () => {
       if (playerGrid.children[i].classList.contains("cursor-not-allowed"))
@@ -90,6 +93,3 @@ function getMouseCord() {
     });
   }
 }
-
-getMouseCord();
-ghostShip(4, boardArray);
