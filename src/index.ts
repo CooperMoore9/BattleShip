@@ -1,12 +1,8 @@
 import { makeGrid } from "./boardSetup";
-import {
-  boardArray,
-  gameBoard,
-  getMouseCord,
-  ghostShip,
-} from "./gameBoardLogic";
+import { boardArray, gameBoard, getMouseCord } from "./gameBoardLogic";
+import { ghostShip } from "./ghostShip";
 
 makeGrid;
 gameBoard(boardArray);
-getMouseCord();
-ghostShip(4, boardArray);
+// getMouseCord();
+ghostShip(5, boardArray);

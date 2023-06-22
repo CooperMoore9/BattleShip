@@ -8,6 +8,7 @@
 // make array that every index contains a  grid box
 
 import { playerGrid } from "./boardSetup";
+import { ghostShip } from "./ghostShip";
 import { gridObject } from "./types";
 export let boardArray = generateBoardArray();
 
@@ -22,19 +23,26 @@ export function gameBoard(gridArray: Array<gridObject>) {
     });
   }
 
-  function placeShip(x: number, y: number, length: number) {
+  function placeShipOnBoard(length: number) {
+    for (let i = 0; i < playerGrid.children.length; i++) {
+      playerGrid.children[i].addEventListener("mousedown", () => {
+        let x = parseInt(playerGrid.children[i].classList[0].charAt(1));
+        let y = parseInt(playerGrid.children[i].classList[1].charAt(1));
+        placeShipInArray(x, y, length);
+        updateGameBoard();
+      });
+    }
+  }
+
+  function placeShipInArray(x: number, y: number, length: number) {
     for (let i = 0; i < length; i++) {
       gridArray[parseInt(`${y}${x}`)].occupied = true;
       x++;
     }
   }
 
-  placeShip(6, 5, 4);
-  placeShip(4, 2, 3);
-  updateGameBoard();
+  placeShipOnBoard(5);
 }
-
-// 0-9 for x, when x reaches 9 iterate y by 1
 
 export function generateBoardArray() {
   let boardArray: gridObject[] = [];
@@ -52,54 +60,16 @@ export function generateBoardArray() {
   return boardArray;
 }
 
-// if i + j is occupied then invalid
-
-export function ghostShip(shipLength: number, gridArray: Array<gridObject>) {
-  for (let i = 0; i <= gridArray.length - 1; i++) {
-    for (let j = 0; j < shipLength; j++) {
-      if (gridArray[i + j]) {
-        if (gridArray[i + j].occupied === true) {
-          playerGrid.children[i].classList.add("cursor-not-allowed");
-        }
-      }
-    }
-    if (
-      shipLength + gridArray[i].xCord >= 11 ||
-      gridArray[i].occupied === true
-    ) {
-      playerGrid.children[i].classList.add("cursor-not-allowed");
-    } else if (
-      !playerGrid.children[i].classList.contains("cursor-not-allowed")
-    ) {
-      playerGrid.children[i].addEventListener("mouseover", () => {
-        for (let j = 0; j < shipLength; j++) {
-          playerGrid.children[i + j].classList.add("bg-neutral-600");
-        }
-      });
-    }
-
-    playerGrid.children[i].addEventListener("mouseleave", () => {
-      for (let j = 0; j < shipLength; j++) {
-        if (playerGrid.children[i + j]) {
-          playerGrid.children[i + j].classList.remove("bg-neutral-600");
-        } else {
-          playerGrid.children[i].classList.remove("bg-neutral-600");
-        }
-      }
-    });
-  }
-}
-
 export function getMouseCord() {
   for (let i = 0; i < playerGrid.children.length; i++) {
     playerGrid.children[i].addEventListener("mousedown", () => {
       if (playerGrid.children[i].classList.contains("cursor-not-allowed"))
         console.log("you dingus");
       else {
-        console.log(
-          playerGrid.children[i].classList[0],
-          playerGrid.children[i].classList[1]
-        );
+        let x = parseInt(playerGrid.children[i].classList[0].charAt(1));
+        let y = parseInt(playerGrid.children[i].classList[1].charAt(1));
+        console.log(x, y);
+        return parseInt(`${y}${x}`);
       }
     });
   }
