@@ -5,4 +5,3 @@ import { ghostShip } from "./ghostShip";
 makeGrid;
 gameBoard(boardArray);
 // getMouseCord();
-ghostShip(5, boardArray);

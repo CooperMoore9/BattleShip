@@ -11,6 +11,7 @@ const boardSetup_1 = require("./boardSetup");
 const ghostShip_1 = require("./ghostShip");
 exports.boardArray = generateBoardArray();
 function gameBoard(gridArray) {
+    let length = 5;
     function updateGameBoard() {
         gridArray.forEach((element) => {
             if (element.occupied === true) {
@@ -29,8 +30,9 @@ function gameBoard(gridArray) {
                     (0, boardSetup_1.clearGrid)();
                     (0, boardSetup_1.makeGrid)(10, boardSetup_1.playerGrid);
                     updateGameBoard();
-                    (0, ghostShip_1.ghostShip)(4, gridArray);
-                    placeShipOnBoard(4);
+                    length--;
+                    (0, ghostShip_1.ghostShip)(length, gridArray);
+                    placeShipOnBoard(length);
                 }
             });
         }
@@ -41,7 +43,8 @@ function gameBoard(gridArray) {
             x++;
         }
     }
-    placeShipOnBoard(5);
+    (0, ghostShip_1.ghostShip)(length, gridArray);
+    placeShipOnBoard(length);
 }
 exports.gameBoard = gameBoard;
 function generateBoardArray() {

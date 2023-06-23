@@ -13,6 +13,7 @@ import { gridObject } from "./types";
 export let boardArray = generateBoardArray();
 
 export function gameBoard(gridArray: Array<gridObject>) {
+  let length = 5;
   function updateGameBoard() {
     gridArray.forEach((element) => {
       if (element.occupied === true) {
@@ -33,8 +34,9 @@ export function gameBoard(gridArray: Array<gridObject>) {
           clearGrid();
           makeGrid(10, playerGrid);
           updateGameBoard();
-          ghostShip(4, gridArray);
-          placeShipOnBoard(4);
+          length--;
+          ghostShip(length, gridArray);
+          placeShipOnBoard(length);
         }
       });
     }
@@ -47,7 +49,8 @@ export function gameBoard(gridArray: Array<gridObject>) {
     }
   }
 
-  placeShipOnBoard(5);
+  ghostShip(length, gridArray);
+  placeShipOnBoard(length);
 }
 
 export function generateBoardArray() {
