@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.makeGrid = exports.playerGrid = void 0;
+exports.clearGrid = exports.makeGrid = exports.playerGrid = void 0;
 exports.playerGrid = document.getElementById("playerGrid");
 const playerDiv = document.getElementById("playerDiv");
 const botDiv = document.getElementById("botDiv");
@@ -28,5 +28,6 @@ function clearGrid() {
         div.remove();
     });
 }
+exports.clearGrid = clearGrid;
 makeGrid(10, exports.playerGrid);
 // makeBotGrid(); !IMPORTANT

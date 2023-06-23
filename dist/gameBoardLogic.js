@@ -8,6 +8,7 @@ exports.getMouseCord = exports.generateBoardArray = exports.gameBoard = exports.
 // be able to track every part of the board
 // make array that every index contains a  grid box
 const boardSetup_1 = require("./boardSetup");
+const ghostShip_1 = require("./ghostShip");
 exports.boardArray = generateBoardArray();
 function gameBoard(gridArray) {
     function updateGameBoard() {
@@ -23,8 +24,14 @@ function gameBoard(gridArray) {
             boardSetup_1.playerGrid.children[i].addEventListener("mousedown", () => {
                 let x = parseInt(boardSetup_1.playerGrid.children[i].classList[0].charAt(1));
                 let y = parseInt(boardSetup_1.playerGrid.children[i].classList[1].charAt(1));
-                placeShipInArray(x, y, length);
-                updateGameBoard();
+                if (x + length <= 10) {
+                    placeShipInArray(x, y, length);
+                    (0, boardSetup_1.clearGrid)();
+                    (0, boardSetup_1.makeGrid)(10, boardSetup_1.playerGrid);
+                    updateGameBoard();
+                    (0, ghostShip_1.ghostShip)(4, gridArray);
+                    placeShipOnBoard(4);
+                }
             });
         }
     }

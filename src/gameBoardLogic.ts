@@ -7,7 +7,7 @@
 
 // make array that every index contains a  grid box
 
-import { playerGrid } from "./boardSetup";
+import { clearGrid, makeGrid, playerGrid } from "./boardSetup";
 import { ghostShip } from "./ghostShip";
 import { gridObject } from "./types";
 export let boardArray = generateBoardArray();
@@ -28,8 +28,14 @@ export function gameBoard(gridArray: Array<gridObject>) {
       playerGrid.children[i].addEventListener("mousedown", () => {
         let x = parseInt(playerGrid.children[i].classList[0].charAt(1));
         let y = parseInt(playerGrid.children[i].classList[1].charAt(1));
-        placeShipInArray(x, y, length);
-        updateGameBoard();
+        if (x + length <= 10) {
+          placeShipInArray(x, y, length);
+          clearGrid();
+          makeGrid(10, playerGrid);
+          updateGameBoard();
+          ghostShip(4, gridArray);
+          placeShipOnBoard(4);
+        }
       });
     }
   }
