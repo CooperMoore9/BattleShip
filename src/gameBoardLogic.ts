@@ -34,9 +34,11 @@ export function gameBoard(gridArray: Array<gridObject>) {
           clearGrid();
           makeGrid(10, playerGrid);
           updateGameBoard();
-          length--;
-          ghostShip(length, gridArray);
-          placeShipOnBoard(length);
+          if (length >= 1) {
+            length--;
+            ghostShip(length, gridArray);
+            placeShipOnBoard(length);
+          }
         }
       });
     }
