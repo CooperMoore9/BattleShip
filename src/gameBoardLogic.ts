@@ -7,10 +7,17 @@
 
 // make array that every index contains a  grid box
 
-import { clearGrid, makeGrid, playerGrid } from "./boardSetup";
+import {
+  botGrid,
+  clearGrid,
+  makeBotGrid,
+  makeGrid,
+  playerGrid,
+} from "./boardSetup";
 import { ghostShip } from "./ghostShip";
 import { gridObject } from "./types";
 export let boardArray = generateBoardArray();
+let shipCounter = 0;
 
 export function gameBoard(gridArray: Array<gridObject>) {
   let length = 5;
@@ -29,15 +36,25 @@ export function gameBoard(gridArray: Array<gridObject>) {
       playerGrid.children[i].addEventListener("mousedown", () => {
         let x = parseInt(playerGrid.children[i].classList[0].charAt(1));
         let y = parseInt(playerGrid.children[i].classList[1].charAt(1));
-        if (x + length <= 10) {
-          placeShipInArray(x, y, length);
-          clearGrid();
-          makeGrid(10, playerGrid);
-          updateGameBoard();
-          if (length >= 1) {
-            length--;
-            ghostShip(length, gridArray);
-            placeShipOnBoard(length);
+        if (!playerGrid.children[i].classList.contains("cursor-not-allowed")) {
+          if (x + length <= 10) {
+            shipCounter++;
+            placeShipInArray(x, y, length);
+            clearGrid();
+            makeGrid(10, playerGrid);
+            updateGameBoard();
+
+            if (shipCounter === 3) {
+              length++;
+            }
+
+            if (length > 2) {
+              length--;
+              ghostShip(length, gridArray);
+              placeShipOnBoard(length);
+            } else {
+              makeBotGrid();
+            }
           }
         }
       });

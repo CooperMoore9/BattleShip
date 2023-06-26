@@ -10,6 +10,7 @@ exports.getMouseCord = exports.generateBoardArray = exports.gameBoard = exports.
 const boardSetup_1 = require("./boardSetup");
 const ghostShip_1 = require("./ghostShip");
 exports.boardArray = generateBoardArray();
+let shipCounter = 0;
 function gameBoard(gridArray) {
     let length = 5;
     function updateGameBoard() {
@@ -25,14 +26,25 @@ function gameBoard(gridArray) {
             boardSetup_1.playerGrid.children[i].addEventListener("mousedown", () => {
                 let x = parseInt(boardSetup_1.playerGrid.children[i].classList[0].charAt(1));
                 let y = parseInt(boardSetup_1.playerGrid.children[i].classList[1].charAt(1));
-                if (x + length <= 10) {
-                    placeShipInArray(x, y, length);
-                    (0, boardSetup_1.clearGrid)();
-                    (0, boardSetup_1.makeGrid)(10, boardSetup_1.playerGrid);
-                    updateGameBoard();
-                    length--;
-                    (0, ghostShip_1.ghostShip)(length, gridArray);
-                    placeShipOnBoard(length);
+                if (!boardSetup_1.playerGrid.children[i].classList.contains("cursor-not-allowed")) {
+                    if (x + length <= 10) {
+                        shipCounter++;
+                        placeShipInArray(x, y, length);
+                        (0, boardSetup_1.clearGrid)();
+                        (0, boardSetup_1.makeGrid)(10, boardSetup_1.playerGrid);
+                        updateGameBoard();
+                        if (shipCounter === 3) {
+                            length++;
+                        }
+                        if (length > 2) {
+                            length--;
+                            (0, ghostShip_1.ghostShip)(length, gridArray);
+                            placeShipOnBoard(length);
+                        }
+                        else {
+                            (0, boardSetup_1.makeBotGrid)();
+                        }
+                    }
                 }
             });
         }

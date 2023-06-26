@@ -1,10 +1,10 @@
 import { doc } from "prettier";
 
 export const playerGrid = document.getElementById("playerGrid") as HTMLElement;
+export const botGrid = document.getElementById("botGrid") as HTMLElement;
 const playerDiv = document.getElementById("playerDiv") as HTMLElement;
 const botDiv = document.getElementById("botDiv") as HTMLElement;
 botDiv.style.visibility = "hidden";
-const botGrid = document.getElementById("botGrid") as HTMLElement;
 
 export function makeGrid(input: number, container: HTMLElement) {
   container.style.gridTemplateColumns = `repeat(${input}, 1fr)`;
@@ -22,8 +22,7 @@ export function makeGrid(input: number, container: HTMLElement) {
   }
 }
 
-function makeBotGrid() {
-  console.log(playerDiv.classList);
+export function makeBotGrid() {
   playerDiv.classList.replace("w-[99vw]", "w-[50vw]");
   botDiv.classList.replace("w-[0vw]", "w-[50vw]");
   botDiv.style.visibility = "visible";
