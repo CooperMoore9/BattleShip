@@ -3,14 +3,16 @@
 // needs to be a factory function because im gonna need to make 2 per game
 // one for the player to place pieces and one for the player to click on to shoot at
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMouseCord = exports.generateBoardArray = exports.gameBoard = exports.boardArray = void 0;
+exports.getMouseCord = exports.generateBoardArray = exports.gameBoard = exports.shipArray = exports.boardArray = void 0;
 // First things first, generate a grid?
 // be able to track every part of the board
 // make array that every index contains a  grid box
 const boardSetup_1 = require("./boardSetup");
 const ghostShip_1 = require("./ghostShip");
+const shipLogic_1 = require("./shipLogic");
 exports.boardArray = generateBoardArray();
 let shipCounter = 0;
+exports.shipArray = [];
 function gameBoard(gridArray) {
     let length = 5;
     function updateGameBoard() {
@@ -33,6 +35,9 @@ function gameBoard(gridArray) {
                         (0, boardSetup_1.clearGrid)();
                         (0, boardSetup_1.makeGrid)(10, boardSetup_1.playerGrid);
                         updateGameBoard();
+                        let tempShip = (0, shipLogic_1.createShip)(length, length, false);
+                        exports.shipArray.push(tempShip);
+                        console.log(exports.shipArray);
                         if (shipCounter === 3) {
                             length++;
                         }

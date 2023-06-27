@@ -15,12 +15,16 @@ import {
   playerGrid,
 } from "./boardSetup";
 import { ghostShip } from "./ghostShip";
-import { gridObject } from "./types";
+import { createShip } from "./shipLogic";
+import { Ship, gridObject } from "./types";
 export let boardArray = generateBoardArray();
+
 let shipCounter = 0;
+export let shipArray: Ship[] = [];
 
 export function gameBoard(gridArray: Array<gridObject>) {
   let length = 5;
+
   function updateGameBoard() {
     gridArray.forEach((element) => {
       if (element.occupied === true) {
@@ -43,6 +47,10 @@ export function gameBoard(gridArray: Array<gridObject>) {
             clearGrid();
             makeGrid(10, playerGrid);
             updateGameBoard();
+
+            let tempShip = createShip(length, length, false);
+            shipArray.push(tempShip);
+            console.log(shipArray);
 
             if (shipCounter === 3) {
               length++;
