@@ -3,7 +3,7 @@
 // needs to be a factory function because im gonna need to make 2 per game
 // one for the player to place pieces and one for the player to click on to shoot at
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.gameBoard = exports.generateBoardArray = exports.shipArray = exports.boardArray = void 0;
+exports.gameBoard = void 0;
 // First things first, generate a grid?
 // be able to track every part of the board
 // make array that every index contains a  grid box
@@ -14,27 +14,11 @@ exports.gameBoard = exports.generateBoardArray = exports.shipArray = exports.boa
 const boardSetup_1 = require("./boardSetup");
 const ghostShip_1 = require("./ghostShip");
 const shipLogic_1 = require("./shipLogic");
-exports.boardArray = generateBoardArray();
-exports.shipArray = [];
+let shipArray = [];
 let shipCounter = 0;
-function generateBoardArray() {
-    let boardArray = [];
-    let x = 0;
-    let y = 0;
-    for (let i = 1; i <= 100; i++) {
-        if (x === 10) {
-            x = 0;
-            y++;
-        }
-        boardArray.push({ xCord: x, yCord: y, occupied: false });
-        x++;
-    }
-    return boardArray;
-}
-exports.generateBoardArray = generateBoardArray;
 function gameBoard(gridArray) {
     let length = 5;
-    function placeShipOnBoard(length) {
+    function placeShip(length) {
         for (let i = 0; i < boardSetup_1.playerGrid.children.length; i++) {
             boardSetup_1.playerGrid.children[i].addEventListener("mousedown", () => {
                 let x = parseInt(boardSetup_1.playerGrid.children[i].classList[0].charAt(1));
@@ -45,14 +29,14 @@ function gameBoard(gridArray) {
                         placeShipInArray(x, y, length);
                         updateGameBoard();
                         let tempShip = (0, shipLogic_1.createShip)(length, length, false);
-                        exports.shipArray.push(tempShip);
+                        shipArray.push(tempShip);
                         if (shipCounter === 3) {
                             length++;
                         }
                         if (length > 2) {
                             length--;
                             (0, ghostShip_1.ghostShip)(length, gridArray);
-                            placeShipOnBoard(length);
+                            placeShip(length);
                         }
                         else {
                             (0, boardSetup_1.makeBotGrid)();
@@ -79,6 +63,6 @@ function gameBoard(gridArray) {
         });
     }
     (0, ghostShip_1.ghostShip)(length, gridArray);
-    placeShipOnBoard(length);
+    placeShip(length);
 }
 exports.gameBoard = gameBoard;

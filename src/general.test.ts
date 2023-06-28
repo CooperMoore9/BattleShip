@@ -1,7 +1,6 @@
 import { check } from "prettier";
 import { checkChunks, createShip, hitChunk } from "./shipLogic";
 import { Ship } from "./types";
-import { generateBoardArray } from "./gameBoardLogic";
 
 let ship: Ship;
 beforeEach(() => {

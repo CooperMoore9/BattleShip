@@ -20,33 +20,16 @@ import {
   playerGrid,
 } from "./boardSetup";
 import { ghostShip } from "./ghostShip";
-import { createShip, hitChunk } from "./shipLogic";
+import { createShip } from "./shipLogic";
 import { Ship, gridObject } from "./types";
 
-export let boardArray = generateBoardArray();
-export let shipArray: Ship[] = [];
+let shipArray: Ship[] = [];
 let shipCounter = 0;
-
-export function generateBoardArray() {
-  let boardArray: gridObject[] = [];
-  let x = 0;
-  let y = 0;
-
-  for (let i = 1; i <= 100; i++) {
-    if (x === 10) {
-      x = 0;
-      y++;
-    }
-    boardArray.push({ xCord: x, yCord: y, occupied: false });
-    x++;
-  }
-  return boardArray;
-}
 
 export function gameBoard(gridArray: Array<gridObject>) {
   let length = 5;
 
-  function placeShipOnBoard(length: number) {
+  function placeShip(length: number) {
     for (let i = 0; i < playerGrid.children.length; i++) {
       playerGrid.children[i].addEventListener("mousedown", () => {
         let x = parseInt(playerGrid.children[i].classList[0].charAt(1));
@@ -67,7 +50,7 @@ export function gameBoard(gridArray: Array<gridObject>) {
             if (length > 2) {
               length--;
               ghostShip(length, gridArray);
-              placeShipOnBoard(length);
+              placeShip(length);
             } else {
               makeBotGrid();
             }
@@ -97,5 +80,5 @@ export function gameBoard(gridArray: Array<gridObject>) {
   }
 
   ghostShip(length, gridArray);
-  placeShipOnBoard(length);
+  placeShip(length);
 }
