@@ -4,6 +4,7 @@ export const playerGrid = document.getElementById("playerGrid") as HTMLElement;
 export const botGrid = document.getElementById("botGrid") as HTMLElement;
 const playerDiv = document.getElementById("playerDiv") as HTMLElement;
 const botDiv = document.getElementById("botDiv") as HTMLElement;
+const spacer1 = document.getElementById("spacer1") as HTMLElement;
 botDiv.style.visibility = "hidden";
 
 export function makeGrid(input: number, container: HTMLElement) {
@@ -26,6 +27,7 @@ export function makeBotGrid() {
   playerDiv.classList.replace("w-[99vw]", "w-[50vw]");
   botDiv.classList.replace("w-[0vw]", "w-[50vw]");
   botDiv.style.visibility = "visible";
+  spacer1.classList.add("h-[74px]");
   makeGrid(10, botGrid);
 }
 

@@ -563,10 +563,6 @@ video {
   display: none !important;
 }
 
-.h-\[10vh\] {
-  height: 10vh !important;
-}
-
 .h-\[50vh\] {
   height: 50vh !important;
 }
@@ -577,6 +573,50 @@ video {
 
 .h-screen {
   height: 100vh !important;
+}
+
+.h-\[48vh\] {
+  height: 48vh !important;
+}
+
+.h-\[45vh\] {
+  height: 45vh !important;
+}
+
+.h-\[10vh\] {
+  height: 10vh !important;
+}
+
+.h-\[12\] {
+  height: 12 !important;
+}
+
+.h-\[10px\] {
+  height: 10px !important;
+}
+
+.h-\[25px\] {
+  height: 25px !important;
+}
+
+.h-\[25\] {
+  height: 25 !important;
+}
+
+.h-\[100px\] {
+  height: 100px !important;
+}
+
+.h-\[50px\] {
+  height: 50px !important;
+}
+
+.h-\[62px\] {
+  height: 62px !important;
+}
+
+.h-\[74px\] {
+  height: 74px !important;
 }
 
 .w-\[0vw\] {
@@ -599,8 +639,12 @@ video {
   width: 99vw !important;
 }
 
-.w-\[5vw\] {
-  width: 5vw !important;
+.w-\[48vh\] {
+  width: 48vh !important;
+}
+
+.w-\[45vh\] {
+  width: 45vh !important;
 }
 
 .cursor-not-allowed {
@@ -625,6 +669,14 @@ video {
 
 .gap-12 {
   gap: 3rem !important;
+}
+
+.gap-\[12px\] {
+  gap: 12px !important;
+}
+
+.gap-\[24px\] {
+  gap: 24px !important;
 }
 
 .border-2 {

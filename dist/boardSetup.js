@@ -5,6 +5,7 @@ exports.playerGrid = document.getElementById("playerGrid");
 exports.botGrid = document.getElementById("botGrid");
 const playerDiv = document.getElementById("playerDiv");
 const botDiv = document.getElementById("botDiv");
+const spacer1 = document.getElementById("spacer1");
 botDiv.style.visibility = "hidden";
 function makeGrid(input, container) {
     container.style.gridTemplateColumns = `repeat(${input}, 1fr)`;
@@ -19,6 +20,7 @@ function makeBotGrid() {
     playerDiv.classList.replace("w-[99vw]", "w-[50vw]");
     botDiv.classList.replace("w-[0vw]", "w-[50vw]");
     botDiv.style.visibility = "visible";
+    spacer1.classList.add("h-[74px]");
     makeGrid(10, exports.botGrid);
 }
 exports.makeBotGrid = makeBotGrid;
