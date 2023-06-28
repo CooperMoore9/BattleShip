@@ -563,8 +563,16 @@ video {
   display: none !important;
 }
 
+.h-\[10vh\] {
+  height: 10vh !important;
+}
+
 .h-\[50vh\] {
   height: 50vh !important;
+}
+
+.h-\[5vh\] {
+  height: 5vh !important;
 }
 
 .h-screen {
@@ -573,6 +581,10 @@ video {
 
 .w-\[0vw\] {
   width: 0vw !important;
+}
+
+.w-\[10vw\] {
+  width: 10vw !important;
 }
 
 .w-\[50vh\] {
@@ -587,6 +599,10 @@ video {
   width: 99vw !important;
 }
 
+.w-\[5vw\] {
+  width: 5vw !important;
+}
+
 .cursor-not-allowed {
   cursor: not-allowed !important;
 }
@@ -595,12 +611,20 @@ video {
   flex-direction: row !important;
 }
 
+.flex-col {
+  flex-direction: column !important;
+}
+
 .items-center {
   align-items: center !important;
 }
 
 .justify-center {
   justify-content: center !important;
+}
+
+.gap-12 {
+  gap: 3rem !important;
 }
 
 .border-2 {
@@ -659,6 +683,10 @@ html {
 *:after {
   box-sizing: inherit;
   margin: 0;
+}
+
+#buttons {
+  background-color: rgb(242, 249, 255);
 }
 
 #playerGrid,

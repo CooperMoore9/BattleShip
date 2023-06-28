@@ -13,6 +13,10 @@ html {
   margin: 0;
 }
 
+#buttons {
+  background-color: rgb(242, 249, 255);
+}
+
 #playerGrid,
 #botGrid {
   background-color: rgb(242, 249, 255);
