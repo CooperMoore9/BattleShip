@@ -12,6 +12,7 @@
 // have it choose a random element in the array, when it does remove the element from the array,
 // and update the array accordingly if it hit or not, the subtract from ship hit points
 
+import { boardArray } from ".";
 import {
   botGrid,
   clearGrid,
@@ -24,13 +25,15 @@ import { createShip } from "./shipLogic";
 import { Ship, gridObject } from "./types";
 
 export let vertNum = 10;
+let length = 5;
 
 const rotateButton = document.getElementById("rotateButton") as HTMLElement;
 let shipArray: Ship[] = [];
 let shipCounter = 0;
 
 export function gameBoard(gridArray: Array<gridObject>) {
-  let length = 5;
+  ghostShip(length, gridArray);
+  placeShip(length);
 
   function placeShip(length: number) {
     for (let i = 0; i < playerGrid.children.length; i++) {
@@ -52,6 +55,7 @@ export function gameBoard(gridArray: Array<gridObject>) {
 
             if (length > 2) {
               length--;
+              console.log(length);
               ghostShip(length, gridArray);
               placeShip(length);
             } else {
@@ -77,9 +81,6 @@ export function gameBoard(gridArray: Array<gridObject>) {
       vertNum = 1;
     }
   });
-
-  ghostShip(length, gridArray);
-  placeShip(length);
 }
 
 export function updateGameBoard(gridArray: Array<gridObject>) {
