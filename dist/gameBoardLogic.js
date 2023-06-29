@@ -3,7 +3,7 @@
 // needs to be a factory function because im gonna need to make 2 per game
 // one for the player to place pieces and one for the player to click on to shoot at
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.gameBoard = void 0;
+exports.updateGameBoard = exports.gameBoard = exports.vertNum = void 0;
 // First things first, generate a grid?
 // be able to track every part of the board
 // make array that every index contains a  grid box
@@ -14,6 +14,8 @@ exports.gameBoard = void 0;
 const boardSetup_1 = require("./boardSetup");
 const ghostShip_1 = require("./ghostShip");
 const shipLogic_1 = require("./shipLogic");
+exports.vertNum = 10;
+const rotateButton = document.getElementById("rotateButton");
 let shipArray = [];
 let shipCounter = 0;
 function gameBoard(gridArray) {
@@ -27,7 +29,7 @@ function gameBoard(gridArray) {
                     if (x + length <= 10) {
                         shipCounter++;
                         placeShipInArray(x, y, length);
-                        updateGameBoard();
+                        updateGameBoard(gridArray);
                         let tempShip = (0, shipLogic_1.createShip)(length, length, false);
                         shipArray.push(tempShip);
                         if (shipCounter === 3) {
@@ -52,17 +54,26 @@ function gameBoard(gridArray) {
             x++;
         }
     }
-    function updateGameBoard() {
-        (0, boardSetup_1.clearGrid)();
-        (0, boardSetup_1.makeGrid)(10, boardSetup_1.playerGrid);
-        gridArray.forEach((element) => {
-            if (element.occupied === true) {
-                let boardSection = boardSetup_1.playerGrid.children[parseInt(`${element.yCord}${element.xCord}`)];
-                boardSection.classList.add("bg-black");
-            }
-        });
-    }
+    rotateButton.addEventListener("click", () => {
+        if (exports.vertNum === 1) {
+            exports.vertNum = 10;
+        }
+        else {
+            exports.vertNum = 1;
+        }
+    });
     (0, ghostShip_1.ghostShip)(length, gridArray);
     placeShip(length);
 }
 exports.gameBoard = gameBoard;
+function updateGameBoard(gridArray) {
+    (0, boardSetup_1.clearGrid)();
+    (0, boardSetup_1.makeGrid)(10, boardSetup_1.playerGrid);
+    gridArray.forEach((element) => {
+        if (element.occupied === true) {
+            let boardSection = boardSetup_1.playerGrid.children[parseInt(`${element.yCord}${element.xCord}`)];
+            boardSection.classList.add("bg-black");
+        }
+    });
+}
+exports.updateGameBoard = updateGameBoard;

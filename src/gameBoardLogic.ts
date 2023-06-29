@@ -23,6 +23,9 @@ import { ghostShip } from "./ghostShip";
 import { createShip } from "./shipLogic";
 import { Ship, gridObject } from "./types";
 
+export let vertNum = 10;
+
+const rotateButton = document.getElementById("rotateButton") as HTMLElement;
 let shipArray: Ship[] = [];
 let shipCounter = 0;
 
@@ -38,7 +41,7 @@ export function gameBoard(gridArray: Array<gridObject>) {
           if (x + length <= 10) {
             shipCounter++;
             placeShipInArray(x, y, length);
-            updateGameBoard();
+            updateGameBoard(gridArray);
 
             let tempShip = createShip(length, length, false);
             shipArray.push(tempShip);
@@ -67,18 +70,26 @@ export function gameBoard(gridArray: Array<gridObject>) {
     }
   }
 
-  function updateGameBoard() {
-    clearGrid();
-    makeGrid(10, playerGrid);
-    gridArray.forEach((element) => {
-      if (element.occupied === true) {
-        let boardSection =
-          playerGrid.children[parseInt(`${element.yCord}${element.xCord}`)];
-        boardSection.classList.add("bg-black");
-      }
-    });
-  }
+  rotateButton.addEventListener("click", () => {
+    if (vertNum === 1) {
+      vertNum = 10;
+    } else {
+      vertNum = 1;
+    }
+  });
 
   ghostShip(length, gridArray);
   placeShip(length);
+}
+
+export function updateGameBoard(gridArray: Array<gridObject>) {
+  clearGrid();
+  makeGrid(10, playerGrid);
+  gridArray.forEach((element) => {
+    if (element.occupied === true) {
+      let boardSection =
+        playerGrid.children[parseInt(`${element.yCord}${element.xCord}`)];
+      boardSection.classList.add("bg-black");
+    }
+  });
 }

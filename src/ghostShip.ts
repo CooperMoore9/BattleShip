@@ -1,7 +1,6 @@
 import { playerGrid } from "./boardSetup";
+import { vertNum } from "./gameBoardLogic";
 import { gridObject } from "./types";
-
-export let vertNum = 10;
 
 export function ghostShip(shipLength: number, gridArray: Array<gridObject>) {
   for (let i = 0; i <= gridArray.length - 1; i++) {
