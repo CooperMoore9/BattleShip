@@ -80,6 +80,7 @@ export function gameBoard(gridArray: Array<gridObject>) {
     } else {
       vertNum = 1;
     }
+    placeShip(length);
   });
 }
 

@@ -57,6 +57,7 @@ function gameBoard(gridArray) {
         else {
             exports.vertNum = 1;
         }
+        placeShip(length);
     });
 }
 exports.gameBoard = gameBoard;
