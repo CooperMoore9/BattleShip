@@ -21,15 +21,13 @@ import {
   playerGrid,
 } from "./boardSetup";
 import { ghostShip } from "./ghostShip";
+import { vertNum } from "./rotateShip";
 import { createShip } from "./shipLogic";
 import { Ship, gridObject } from "./types";
 
-export let vertNum = 10;
-let length = 5;
-
-const rotateButton = document.getElementById("rotateButton") as HTMLElement;
 let shipArray: Ship[] = [];
 let shipCounter = 0;
+let length = 5;
 
 export function gameBoard(gridArray: Array<gridObject>) {
   ghostShip(length, gridArray);
@@ -49,13 +47,13 @@ export function gameBoard(gridArray: Array<gridObject>) {
             let tempShip = createShip(length, length, false);
             shipArray.push(tempShip);
 
+            length--;
+
             if (shipCounter === 3) {
               length++;
             }
 
-            if (length > 2) {
-              length--;
-              console.log(length);
+            if (length >= 2) {
               ghostShip(length, gridArray);
               placeShip(length);
             } else {
@@ -70,18 +68,13 @@ export function gameBoard(gridArray: Array<gridObject>) {
   function placeShipInArray(x: number, y: number, length: number) {
     for (let i = 0; i < length; i++) {
       gridArray[parseInt(`${y}${x}`)].occupied = true;
-      x++;
+      if (vertNum === 1) {
+        x++;
+      } else {
+        y++;
+      }
     }
   }
-
-  rotateButton.addEventListener("click", () => {
-    if (vertNum === 1) {
-      vertNum = 10;
-    } else {
-      vertNum = 1;
-    }
-    placeShip(length);
-  });
 }
 
 export function updateGameBoard(gridArray: Array<gridObject>) {

@@ -1,5 +1,5 @@
 import { playerGrid } from "./boardSetup";
-import { vertNum } from "./gameBoardLogic";
+import { vertNum } from "./rotateShip";
 import { gridObject } from "./types";
 
 export function ghostShip(shipLength: number, gridArray: Array<gridObject>) {

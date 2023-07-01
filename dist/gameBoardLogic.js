@@ -3,15 +3,14 @@
 // needs to be a factory function because im gonna need to make 2 per game
 // one for the player to place pieces and one for the player to click on to shoot at
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateGameBoard = exports.gameBoard = exports.vertNum = void 0;
+exports.updateGameBoard = exports.gameBoard = void 0;
 const boardSetup_1 = require("./boardSetup");
 const ghostShip_1 = require("./ghostShip");
+const rotateShip_1 = require("./rotateShip");
 const shipLogic_1 = require("./shipLogic");
-exports.vertNum = 10;
-let length = 5;
-const rotateButton = document.getElementById("rotateButton");
 let shipArray = [];
 let shipCounter = 0;
+let length = 5;
 function gameBoard(gridArray) {
     (0, ghostShip_1.ghostShip)(length, gridArray);
     placeShip(length);
@@ -27,12 +26,11 @@ function gameBoard(gridArray) {
                         updateGameBoard(gridArray);
                         let tempShip = (0, shipLogic_1.createShip)(length, length, false);
                         shipArray.push(tempShip);
+                        length--;
                         if (shipCounter === 3) {
                             length++;
                         }
-                        if (length > 2) {
-                            length--;
-                            console.log(length);
+                        if (length >= 2) {
                             (0, ghostShip_1.ghostShip)(length, gridArray);
                             placeShip(length);
                         }
@@ -47,18 +45,14 @@ function gameBoard(gridArray) {
     function placeShipInArray(x, y, length) {
         for (let i = 0; i < length; i++) {
             gridArray[parseInt(`${y}${x}`)].occupied = true;
-            x++;
+            if (rotateShip_1.vertNum === 1) {
+                x++;
+            }
+            else {
+                y++;
+            }
         }
     }
-    rotateButton.addEventListener("click", () => {
-        if (exports.vertNum === 1) {
-            exports.vertNum = 10;
-        }
-        else {
-            exports.vertNum = 1;
-        }
-        placeShip(length);
-    });
 }
 exports.gameBoard = gameBoard;
 function updateGameBoard(gridArray) {
