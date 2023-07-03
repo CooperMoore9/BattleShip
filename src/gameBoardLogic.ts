@@ -39,25 +39,49 @@ export function gameBoard(gridArray: Array<gridObject>) {
         let x = parseInt(playerGrid.children[i].classList[0].charAt(1));
         let y = parseInt(playerGrid.children[i].classList[1].charAt(1));
         if (!playerGrid.children[i].classList.contains("cursor-not-allowed")) {
-          if (x + currentLength <= 10) {
-            shipCounter++;
-            placeShipInArray(x, y, currentLength);
-            updateGameBoard(gridArray);
+          if (vertNum === 1) {
+            if (x + currentLength <= 10) {
+              shipCounter++;
+              placeShipInArray(x, y, currentLength);
+              updateGameBoard(gridArray);
 
-            let tempShip = createShip(currentLength, currentLength, false);
-            shipArray.push(tempShip);
+              let tempShip = createShip(currentLength, currentLength, false);
+              shipArray.push(tempShip);
 
-            currentLength--;
+              currentLength--;
 
-            if (shipCounter === 3) {
-              currentLength++;
+              if (shipCounter === 3) {
+                currentLength++;
+              }
+
+              if (currentLength >= 2) {
+                ghostShip(currentLength, gridArray);
+                placeShip();
+              } else {
+                makeBotGrid();
+              }
             }
+          } else {
+            if (y + currentLength <= 10) {
+              shipCounter++;
+              placeShipInArray(x, y, currentLength);
+              updateGameBoard(gridArray);
 
-            if (currentLength >= 2) {
-              ghostShip(currentLength, gridArray);
-              placeShip();
-            } else {
-              makeBotGrid();
+              let tempShip = createShip(currentLength, currentLength, false);
+              shipArray.push(tempShip);
+
+              currentLength--;
+
+              if (shipCounter === 3) {
+                currentLength++;
+              }
+
+              if (currentLength >= 2) {
+                ghostShip(currentLength, gridArray);
+                placeShip();
+              } else {
+                makeBotGrid();
+              }
             }
           }
         }

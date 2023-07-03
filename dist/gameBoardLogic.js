@@ -20,22 +20,44 @@ function gameBoard(gridArray) {
                 let x = parseInt(boardSetup_1.playerGrid.children[i].classList[0].charAt(1));
                 let y = parseInt(boardSetup_1.playerGrid.children[i].classList[1].charAt(1));
                 if (!boardSetup_1.playerGrid.children[i].classList.contains("cursor-not-allowed")) {
-                    if (x + exports.currentLength <= 10) {
-                        shipCounter++;
-                        placeShipInArray(x, y, exports.currentLength);
-                        updateGameBoard(gridArray);
-                        let tempShip = (0, shipLogic_1.createShip)(exports.currentLength, exports.currentLength, false);
-                        shipArray.push(tempShip);
-                        exports.currentLength--;
-                        if (shipCounter === 3) {
-                            exports.currentLength++;
+                    if (rotateShip_1.vertNum === 1) {
+                        if (x + exports.currentLength <= 10) {
+                            shipCounter++;
+                            placeShipInArray(x, y, exports.currentLength);
+                            updateGameBoard(gridArray);
+                            let tempShip = (0, shipLogic_1.createShip)(exports.currentLength, exports.currentLength, false);
+                            shipArray.push(tempShip);
+                            exports.currentLength--;
+                            if (shipCounter === 3) {
+                                exports.currentLength++;
+                            }
+                            if (exports.currentLength >= 2) {
+                                (0, ghostShip_1.ghostShip)(exports.currentLength, gridArray);
+                                placeShip();
+                            }
+                            else {
+                                (0, boardSetup_1.makeBotGrid)();
+                            }
                         }
-                        if (exports.currentLength >= 2) {
-                            (0, ghostShip_1.ghostShip)(exports.currentLength, gridArray);
-                            placeShip();
-                        }
-                        else {
-                            (0, boardSetup_1.makeBotGrid)();
+                    }
+                    else {
+                        if (y + exports.currentLength <= 10) {
+                            shipCounter++;
+                            placeShipInArray(x, y, exports.currentLength);
+                            updateGameBoard(gridArray);
+                            let tempShip = (0, shipLogic_1.createShip)(exports.currentLength, exports.currentLength, false);
+                            shipArray.push(tempShip);
+                            exports.currentLength--;
+                            if (shipCounter === 3) {
+                                exports.currentLength++;
+                            }
+                            if (exports.currentLength >= 2) {
+                                (0, ghostShip_1.ghostShip)(exports.currentLength, gridArray);
+                                placeShip();
+                            }
+                            else {
+                                (0, boardSetup_1.makeBotGrid)();
+                            }
                         }
                     }
                 }
