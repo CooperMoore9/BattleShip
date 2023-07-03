@@ -27,35 +27,35 @@ import { Ship, gridObject } from "./types";
 
 let shipArray: Ship[] = [];
 let shipCounter = 0;
-let length = 5;
+export let currentLength = 5;
 
 export function gameBoard(gridArray: Array<gridObject>) {
-  ghostShip(length, gridArray);
-  placeShip(length);
+  ghostShip(currentLength, gridArray);
+  placeShip();
 
-  function placeShip(length: number) {
+  function placeShip() {
     for (let i = 0; i < playerGrid.children.length; i++) {
       playerGrid.children[i].addEventListener("mousedown", () => {
         let x = parseInt(playerGrid.children[i].classList[0].charAt(1));
         let y = parseInt(playerGrid.children[i].classList[1].charAt(1));
         if (!playerGrid.children[i].classList.contains("cursor-not-allowed")) {
-          if (x + length <= 10) {
+          if (x + currentLength <= 10) {
             shipCounter++;
-            placeShipInArray(x, y, length);
+            placeShipInArray(x, y, currentLength);
             updateGameBoard(gridArray);
 
-            let tempShip = createShip(length, length, false);
+            let tempShip = createShip(currentLength, currentLength, false);
             shipArray.push(tempShip);
 
-            length--;
+            currentLength--;
 
             if (shipCounter === 3) {
-              length++;
+              currentLength++;
             }
 
-            if (length >= 2) {
-              ghostShip(length, gridArray);
-              placeShip(length);
+            if (currentLength >= 2) {
+              ghostShip(currentLength, gridArray);
+              placeShip();
             } else {
               makeBotGrid();
             }
