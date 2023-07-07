@@ -4,6 +4,14 @@
 // one for the player to place pieces and one for the player to click on to shoot at
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateGameBoard = exports.gameBoard = exports.currentLength = void 0;
+// First things first, generate a grid?
+// be able to track every part of the board
+// make array that every index contains a  grid box
+// IDEA IDEA// IDEA IDEA// IDEA IDEA// IDEA IDEA// IDEA IDEA
+// for when the bot is randomly choosing from the playerGrid when attacking,
+// have it choose a random element in the array, when it does remove the element from the array,
+// and update the array accordingly if it hit or not, the subtract from ship hit points
+const _1 = require(".");
 const boardSetup_1 = require("./boardSetup");
 const ghostShip_1 = require("./ghostShip");
 const rotateShip_1 = require("./rotateShip");
@@ -60,6 +68,7 @@ function gameBoard(gridArray) {
                             }
                         }
                     }
+                    console.log(_1.boardArray);
                 }
             });
         }

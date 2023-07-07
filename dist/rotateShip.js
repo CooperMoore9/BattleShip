@@ -14,5 +14,4 @@ rotateButton.addEventListener("click", () => {
     }
     (0, gameBoardLogic_1.updateGameBoard)(_1.boardArray);
     (0, gameBoardLogic_1.gameBoard)(_1.boardArray);
-    console.log(gameBoardLogic_1.currentLength);
 });

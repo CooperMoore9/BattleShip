@@ -84,6 +84,7 @@ export function gameBoard(gridArray: Array<gridObject>) {
               }
             }
           }
+          console.log(boardArray);
         }
       });
     }
