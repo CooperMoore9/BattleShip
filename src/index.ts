@@ -1,7 +1,7 @@
 import { makeGrid } from "./boardSetup";
-import { boardArray, gameBoard } from "./gameBoardLogic";
-import { ghostShip } from "./ghostShip";
+import { gameBoard } from "./gameBoardLogic";
+import { generateBoardArray } from "./generateBoardArray";
+export let boardArray = generateBoardArray();
 
 makeGrid;
 gameBoard(boardArray);
-// getMouseCord();

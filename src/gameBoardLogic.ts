@@ -12,6 +12,7 @@
 // have it choose a random element in the array, when it does remove the element from the array,
 // and update the array accordingly if it hit or not, the subtract from ship hit points
 
+import { boardArray } from ".";
 import {
   botGrid,
   clearGrid,
@@ -20,58 +21,70 @@ import {
   playerGrid,
 } from "./boardSetup";
 import { ghostShip } from "./ghostShip";
-import { createShip, hitChunk } from "./shipLogic";
+import { vertNum } from "./rotateShip";
+import { createShip } from "./shipLogic";
 import { Ship, gridObject } from "./types";
 
-export let boardArray = generateBoardArray();
-export let shipArray: Ship[] = [];
+let shipArray: Ship[] = [];
 let shipCounter = 0;
-
-export function generateBoardArray() {
-  let boardArray: gridObject[] = [];
-  let x = 0;
-  let y = 0;
-
-  for (let i = 1; i <= 100; i++) {
-    if (x === 10) {
-      x = 0;
-      y++;
-    }
-    boardArray.push({ xCord: x, yCord: y, occupied: false });
-    x++;
-  }
-  return boardArray;
-}
+export let currentLength = 5;
 
 export function gameBoard(gridArray: Array<gridObject>) {
-  let length = 5;
+  ghostShip(currentLength, gridArray);
+  placeShip();
 
-  function placeShipOnBoard(length: number) {
+  function placeShip() {
     for (let i = 0; i < playerGrid.children.length; i++) {
       playerGrid.children[i].addEventListener("mousedown", () => {
         let x = parseInt(playerGrid.children[i].classList[0].charAt(1));
         let y = parseInt(playerGrid.children[i].classList[1].charAt(1));
         if (!playerGrid.children[i].classList.contains("cursor-not-allowed")) {
-          if (x + length <= 10) {
-            shipCounter++;
-            placeShipInArray(x, y, length);
-            updateGameBoard();
+          if (vertNum === 1) {
+            if (x + currentLength <= 10) {
+              shipCounter++;
+              placeShipInArray(x, y, currentLength);
+              updateGameBoard(gridArray);
 
-            let tempShip = createShip(length, length, false);
-            shipArray.push(tempShip);
+              let tempShip = createShip(currentLength, currentLength, false);
+              shipArray.push(tempShip);
 
-            if (shipCounter === 3) {
-              length++;
+              currentLength--;
+
+              if (shipCounter === 3) {
+                currentLength++;
+              }
+
+              if (currentLength >= 2) {
+                ghostShip(currentLength, gridArray);
+                placeShip();
+              } else {
+                makeBotGrid();
+              }
             }
+          } else {
+            if (y + currentLength <= 10) {
+              shipCounter++;
+              placeShipInArray(x, y, currentLength);
+              updateGameBoard(gridArray);
 
-            if (length > 2) {
-              length--;
-              ghostShip(length, gridArray);
-              placeShipOnBoard(length);
-            } else {
-              makeBotGrid();
+              let tempShip = createShip(currentLength, currentLength, false);
+              shipArray.push(tempShip);
+
+              currentLength--;
+
+              if (shipCounter === 3) {
+                currentLength++;
+              }
+
+              if (currentLength >= 2) {
+                ghostShip(currentLength, gridArray);
+                placeShip();
+              } else {
+                makeBotGrid();
+              }
             }
           }
+          console.log(boardArray);
         }
       });
     }
@@ -80,22 +93,23 @@ export function gameBoard(gridArray: Array<gridObject>) {
   function placeShipInArray(x: number, y: number, length: number) {
     for (let i = 0; i < length; i++) {
       gridArray[parseInt(`${y}${x}`)].occupied = true;
-      x++;
+      if (vertNum === 1) {
+        x++;
+      } else {
+        y++;
+      }
     }
   }
+}
 
-  function updateGameBoard() {
-    clearGrid();
-    makeGrid(10, playerGrid);
-    gridArray.forEach((element) => {
-      if (element.occupied === true) {
-        let boardSection =
-          playerGrid.children[parseInt(`${element.yCord}${element.xCord}`)];
-        boardSection.classList.add("bg-black");
-      }
-    });
-  }
-
-  ghostShip(length, gridArray);
-  placeShipOnBoard(length);
+export function updateGameBoard(gridArray: Array<gridObject>) {
+  clearGrid();
+  makeGrid(10, playerGrid);
+  gridArray.forEach((element) => {
+    if (element.occupied === true) {
+      let boardSection =
+        playerGrid.children[parseInt(`${element.yCord}${element.xCord}`)];
+      boardSection.classList.add("bg-black");
+    }
+  });
 }
