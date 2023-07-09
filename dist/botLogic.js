@@ -1,13 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.acceptableShots = void 0;
 function placeBotShips() { }
 function acceptableShots(gridArray) {
     let acceptableShotArr = [];
     for (let i = 0; i < gridArray.length; i++) {
         if (gridArray[i].occupied === false) {
+            acceptableShotArr.push(gridArray[i]);
         }
     }
+    console.log(acceptableShotArr);
 }
+exports.acceptableShots = acceptableShots;
 // remove occupied spaces from grid
 // have different function, not ghost ship, or maybe modified version to make a grid
 // to decide if

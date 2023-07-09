@@ -13,6 +13,7 @@ exports.updateGameBoard = exports.gameBoard = exports.currentLength = void 0;
 // and update the array accordingly if it hit or not, the subtract from ship hit points
 const _1 = require(".");
 const boardSetup_1 = require("./boardSetup");
+const botLogic_1 = require("./botLogic");
 const ghostShip_1 = require("./ghostShip");
 const rotateShip_1 = require("./rotateShip");
 const shipLogic_1 = require("./shipLogic");
@@ -44,6 +45,7 @@ function gameBoard(gridArray) {
                                 placeShip();
                             }
                             else {
+                                (0, botLogic_1.acceptableShots)(_1.boardArray);
                                 (0, boardSetup_1.makeBotGrid)();
                             }
                         }
@@ -64,11 +66,11 @@ function gameBoard(gridArray) {
                                 placeShip();
                             }
                             else {
+                                (0, botLogic_1.acceptableShots)(_1.boardArray);
                                 (0, boardSetup_1.makeBotGrid)();
                             }
                         }
                     }
-                    console.log(_1.boardArray);
                 }
             });
         }

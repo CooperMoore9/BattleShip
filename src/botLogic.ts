@@ -2,13 +2,16 @@ import { boardArray } from ".";
 import { gridObject } from "./types";
 
 function placeBotShips() {}
-function acceptableShots(gridArray: Array<gridObject>) {
+export function acceptableShots(gridArray: Array<gridObject>) {
   let acceptableShotArr: gridObject[] = [];
   for (let i = 0; i < gridArray.length; i++) {
     if (gridArray[i].occupied === false) {
+      acceptableShotArr.push(gridArray[i]);
     }
   }
+  console.log(acceptableShotArr);
 }
+
 // remove occupied spaces from grid
 // have different function, not ghost ship, or maybe modified version to make a grid
 // to decide if

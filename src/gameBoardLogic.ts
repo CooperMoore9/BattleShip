@@ -20,6 +20,7 @@ import {
   makeGrid,
   playerGrid,
 } from "./boardSetup";
+import { acceptableShots } from "./botLogic";
 import { ghostShip } from "./ghostShip";
 import { vertNum } from "./rotateShip";
 import { createShip } from "./shipLogic";
@@ -58,6 +59,7 @@ export function gameBoard(gridArray: Array<gridObject>) {
                 ghostShip(currentLength, gridArray);
                 placeShip();
               } else {
+                acceptableShots(boardArray);
                 makeBotGrid();
               }
             }
@@ -80,11 +82,11 @@ export function gameBoard(gridArray: Array<gridObject>) {
                 ghostShip(currentLength, gridArray);
                 placeShip();
               } else {
+                acceptableShots(boardArray);
                 makeBotGrid();
               }
             }
           }
-          console.log(boardArray);
         }
       });
     }
