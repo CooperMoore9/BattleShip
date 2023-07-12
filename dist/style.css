@@ -579,6 +579,26 @@ video {
   height: 100vh !important;
 }
 
+.h-\[0px\] {
+  height: 0px !important;
+}
+
+.h-\[48px\] {
+  height: 48px !important;
+}
+
+.h-\[28px\] {
+  height: 28px !important;
+}
+
+.h-\[26px\] {
+  height: 26px !important;
+}
+
+.h-\[20px\] {
+  height: 20px !important;
+}
+
 .w-\[0vh\] {
   width: 0vh !important;
 }
@@ -609,6 +629,10 @@ video {
 
 .cursor-not-allowed {
   cursor: not-allowed !important;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
 }
 
 .flex-row {
@@ -649,9 +673,14 @@ video {
   background-color: rgb(32 33 36 / var(--tw-bg-opacity)) !important;
 }
 
-.bg-\[\#450a0a\] {
+.bg-\[\#60a5fa\] {
   --tw-bg-opacity: 1 !important;
-  background-color: rgb(69 10 10 / var(--tw-bg-opacity)) !important;
+  background-color: rgb(96 165 250 / var(--tw-bg-opacity)) !important;
+}
+
+.bg-\[\#991b1b\] {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(153 27 27 / var(--tw-bg-opacity)) !important;
 }
 
 .bg-black {
@@ -662,11 +691,6 @@ video {
 .bg-neutral-600 {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(82 82 82 / var(--tw-bg-opacity)) !important;
-}
-
-.bg-\[\#991b1b\] {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(153 27 27 / var(--tw-bg-opacity)) !important;
 }
 
 .text-3xl {
@@ -701,6 +725,10 @@ html {
 
 #buttons {
   background-color: rgb(242, 249, 255);
+}
+
+:disabled {
+  background-color: grey;
 }
 
 #playerGrid,

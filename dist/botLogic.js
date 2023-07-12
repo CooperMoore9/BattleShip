@@ -1,17 +1,28 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.acceptableShots = void 0;
+exports.playerShot = exports.acceptableShots = void 0;
+const boardSetup_1 = require("./boardSetup");
 function placeBotShips() { }
 function acceptableShots(gridArray) {
     let acceptableShotArr = [];
     for (let i = 0; i < gridArray.length; i++) {
-        if (gridArray[i].hit === false) {
+        if (gridArray[i].hit === false && gridArray[i].splash === false) {
             acceptableShotArr.push(gridArray[i]);
         }
     }
-    console.log(acceptableShotArr);
 }
 exports.acceptableShots = acceptableShots;
+function playerShot() {
+    for (let i = 0; i < boardSetup_1.botGrid.children.length; i++) {
+        boardSetup_1.botGrid.children[i].classList.add("cursor-pointer");
+        let x = parseInt(boardSetup_1.botGrid.children[i].classList[0].charAt(1));
+        let y = parseInt(boardSetup_1.botGrid.children[i].classList[1].charAt(1));
+        boardSetup_1.botGrid.children[i].addEventListener("mousedown", () => {
+            console.log(x, y);
+        });
+    }
+}
+exports.playerShot = playerShot;
 // remove occupied spaces from grid
 // have different function, not ghost ship, or maybe modified version to make a grid
 // to decide if

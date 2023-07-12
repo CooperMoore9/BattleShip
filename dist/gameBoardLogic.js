@@ -17,6 +17,7 @@ const botLogic_1 = require("./botLogic");
 const ghostShip_1 = require("./ghostShip");
 const rotateShip_1 = require("./rotateShip");
 const shipLogic_1 = require("./shipLogic");
+const rotateButton = document.getElementById("rotateButton");
 let shipArray = [];
 let shipCounter = 0;
 exports.currentLength = 5;
@@ -45,8 +46,10 @@ function gameBoard(gridArray) {
                                 placeShip();
                             }
                             else {
+                                rotateButton.setAttribute("hidden", "true");
                                 (0, botLogic_1.acceptableShots)(_1.boardArray);
                                 (0, boardSetup_1.makeBotGrid)();
+                                (0, botLogic_1.playerShot)();
                             }
                         }
                     }
@@ -66,8 +69,10 @@ function gameBoard(gridArray) {
                                 placeShip();
                             }
                             else {
+                                rotateButton.setAttribute("hidden", "true");
                                 (0, botLogic_1.acceptableShots)(_1.boardArray);
                                 (0, boardSetup_1.makeBotGrid)();
+                                (0, botLogic_1.playerShot)();
                             }
                         }
                     }
@@ -98,6 +103,9 @@ function updateGameBoard(gridArray) {
         }
         else if (element.hit === true) {
             boardSection.classList.add("bg-[#991b1b]");
+        }
+        if (element.splash === true) {
+            boardSection.classList.add("bg-[#60a5fa]");
         }
     });
 }

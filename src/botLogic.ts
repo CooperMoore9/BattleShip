@@ -1,4 +1,5 @@
 import { boardArray } from ".";
+import { botGrid } from "./boardSetup";
 import { gridObject } from "./types";
 
 function placeBotShips() {}
@@ -6,11 +7,21 @@ function placeBotShips() {}
 export function acceptableShots(gridArray: Array<gridObject>) {
   let acceptableShotArr: gridObject[] = [];
   for (let i = 0; i < gridArray.length; i++) {
-    if (gridArray[i].hit === false) {
+    if (gridArray[i].hit === false && gridArray[i].splash === false) {
       acceptableShotArr.push(gridArray[i]);
     }
   }
-  console.log(acceptableShotArr);
+}
+
+export function playerShot() {
+  for (let i = 0; i < botGrid.children.length; i++) {
+    botGrid.children[i].classList.add("cursor-pointer");
+    let x = parseInt(botGrid.children[i].classList[0].charAt(1));
+    let y = parseInt(botGrid.children[i].classList[1].charAt(1));
+    botGrid.children[i].addEventListener("mousedown", () => {
+      console.log(x, y);
+    });
+  }
 }
 
 // remove occupied spaces from grid

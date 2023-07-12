@@ -20,12 +20,13 @@ import {
   makeGrid,
   playerGrid,
 } from "./boardSetup";
-import { acceptableShots } from "./botLogic";
+import { acceptableShots, playerShot } from "./botLogic";
 import { ghostShip } from "./ghostShip";
 import { vertNum } from "./rotateShip";
 import { createShip } from "./shipLogic";
 import { Ship, gridObject } from "./types";
 
+const rotateButton = document.getElementById("rotateButton") as HTMLElement;
 let shipArray: Ship[] = [];
 let shipCounter = 0;
 export let currentLength = 5;
@@ -59,8 +60,11 @@ export function gameBoard(gridArray: Array<gridObject>) {
                 ghostShip(currentLength, gridArray);
                 placeShip();
               } else {
+                rotateButton.setAttribute("hidden", "true");
+
                 acceptableShots(boardArray);
                 makeBotGrid();
+                playerShot();
               }
             }
           } else {
@@ -68,7 +72,6 @@ export function gameBoard(gridArray: Array<gridObject>) {
               shipCounter++;
               placeShipInArray(x, y, currentLength);
               updateGameBoard(gridArray);
-
               let tempShip = createShip(currentLength, currentLength, false);
               shipArray.push(tempShip);
 
@@ -82,8 +85,10 @@ export function gameBoard(gridArray: Array<gridObject>) {
                 ghostShip(currentLength, gridArray);
                 placeShip();
               } else {
+                rotateButton.setAttribute("hidden", "true");
                 acceptableShots(boardArray);
                 makeBotGrid();
+                playerShot();
               }
             }
           }
@@ -114,6 +119,9 @@ export function updateGameBoard(gridArray: Array<gridObject>) {
       boardSection.classList.add("bg-black");
     } else if (element.hit === true) {
       boardSection.classList.add("bg-[#991b1b]");
+    }
+    if (element.splash === true) {
+      boardSection.classList.add("bg-[#60a5fa]");
     }
   });
 }

@@ -17,6 +17,10 @@ html {
   background-color: rgb(242, 249, 255);
 }
 
+:disabled {
+  background-color: grey;
+}
+
 #playerGrid,
 #botGrid {
   background-color: rgb(242, 249, 255);

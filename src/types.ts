@@ -12,4 +12,5 @@ export interface gridObject {
   yCord: number;
   occupied: boolean;
   hit: boolean;
+  splash: boolean;
 }

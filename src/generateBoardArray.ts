@@ -10,7 +10,13 @@ export function generateBoardArray() {
       x = 0;
       y++;
     }
-    boardArray.push({ xCord: x, yCord: y, occupied: false, hit: false });
+    boardArray.push({
+      xCord: x,
+      yCord: y,
+      occupied: false,
+      hit: false,
+      splash: false,
+    });
     x++;
   }
   return boardArray;
