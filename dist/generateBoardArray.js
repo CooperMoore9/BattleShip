@@ -10,7 +10,7 @@ function generateBoardArray() {
             x = 0;
             y++;
         }
-        boardArray.push({ xCord: x, yCord: y, occupied: false });
+        boardArray.push({ xCord: x, yCord: y, occupied: false, hit: false });
         x++;
     }
     return boardArray;

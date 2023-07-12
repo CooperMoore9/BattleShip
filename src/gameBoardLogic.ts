@@ -108,10 +108,12 @@ export function updateGameBoard(gridArray: Array<gridObject>) {
   clearGrid();
   makeGrid(10, playerGrid);
   gridArray.forEach((element) => {
-    if (element.occupied === true) {
-      let boardSection =
-        playerGrid.children[parseInt(`${element.yCord}${element.xCord}`)];
+    let boardSection =
+      playerGrid.children[parseInt(`${element.yCord}${element.xCord}`)];
+    if (element.occupied === true && element.hit === false) {
       boardSection.classList.add("bg-black");
+    } else if (element.hit === true) {
+      boardSection.classList.add("bg-[#991b1b]");
     }
   });
 }

@@ -2,10 +2,11 @@ import { boardArray } from ".";
 import { gridObject } from "./types";
 
 function placeBotShips() {}
+
 export function acceptableShots(gridArray: Array<gridObject>) {
   let acceptableShotArr: gridObject[] = [];
   for (let i = 0; i < gridArray.length; i++) {
-    if (gridArray[i].occupied === false) {
+    if (gridArray[i].hit === false) {
       acceptableShotArr.push(gridArray[i]);
     }
   }

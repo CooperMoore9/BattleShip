@@ -11,4 +11,5 @@ export interface gridObject {
   xCord: number;
   yCord: number;
   occupied: boolean;
+  hit: boolean;
 }

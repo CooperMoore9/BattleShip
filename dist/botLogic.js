@@ -5,7 +5,7 @@ function placeBotShips() { }
 function acceptableShots(gridArray) {
     let acceptableShotArr = [];
     for (let i = 0; i < gridArray.length; i++) {
-        if (gridArray[i].occupied === false) {
+        if (gridArray[i].hit === false) {
             acceptableShotArr.push(gridArray[i]);
         }
     }
