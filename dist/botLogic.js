@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.playerShot = exports.acceptableShots = void 0;
 const _1 = require(".");
 const boardSetup_1 = require("./boardSetup");
+const gameBoardLogic_1 = require("./gameBoardLogic");
+let hitPoints = 17;
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
@@ -29,15 +31,36 @@ function acceptableShots(gridArray) {
             acceptableShotArr.push(gridArray[i]);
         }
     }
+    return acceptableShotArr;
 }
 exports.acceptableShots = acceptableShots;
+function botShot() {
+    let rng = getRandomInt(acceptableShots(_1.boardArray).length);
+    if (acceptableShots(_1.boardArray)[rng].occupied === true) {
+        let shotPlacement = acceptableShots(_1.boardArray)[rng];
+        shotPlacement.hit = true;
+        hitPoints--;
+        console.log(hitPoints);
+        if (hitPoints === 0) {
+            console.log("loser");
+        }
+    }
+    else {
+        acceptableShots(_1.boardArray)[rng].splash = true;
+    }
+    (0, gameBoardLogic_1.updateGameBoard)(_1.boardArray);
+    (0, boardSetup_1.makeBotGrid)();
+    playerShot();
+}
 function playerShot() {
     for (let i = 0; i < boardSetup_1.botGrid.children.length; i++) {
         boardSetup_1.botGrid.children[i].classList.add("cursor-pointer");
         let x = parseInt(boardSetup_1.botGrid.children[i].classList[0].charAt(1));
         let y = parseInt(boardSetup_1.botGrid.children[i].classList[1].charAt(1));
         boardSetup_1.botGrid.children[i].addEventListener("mousedown", () => {
-            // botArray[i].splash = true;
+            if (hitPoints > 0) {
+                botShot();
+            }
         });
     }
 }

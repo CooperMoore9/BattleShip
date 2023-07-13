@@ -3,7 +3,7 @@
 // needs to be a factory function because im gonna need to make 2 per game
 // one for the player to place pieces and one for the player to click on to shoot at
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateGameBoard = exports.gameBoard = exports.currentLength = void 0;
+exports.updateGameBoard = exports.gameBoard = exports.currentLength = exports.shipArray = void 0;
 // First things first, generate a grid?
 // be able to track every part of the board
 // make array that every index contains a  grid box
@@ -18,7 +18,7 @@ const ghostShip_1 = require("./ghostShip");
 const rotateShip_1 = require("./rotateShip");
 const shipLogic_1 = require("./shipLogic");
 const rotateButton = document.getElementById("rotateButton");
-let shipArray = [];
+exports.shipArray = [];
 let shipCounter = 0;
 exports.currentLength = 5;
 function gameBoard(gridArray) {
@@ -35,8 +35,8 @@ function gameBoard(gridArray) {
                             shipCounter++;
                             placeShipInArray(x, y, exports.currentLength);
                             updateGameBoard(gridArray);
-                            let tempShip = (0, shipLogic_1.createShip)(exports.currentLength, exports.currentLength, false);
-                            shipArray.push(tempShip);
+                            let tempShip = (0, shipLogic_1.createShip)(x, y, exports.currentLength, exports.currentLength, false);
+                            exports.shipArray.push(tempShip);
                             exports.currentLength--;
                             if (shipCounter === 3) {
                                 exports.currentLength++;
@@ -58,8 +58,8 @@ function gameBoard(gridArray) {
                             shipCounter++;
                             placeShipInArray(x, y, exports.currentLength);
                             updateGameBoard(gridArray);
-                            let tempShip = (0, shipLogic_1.createShip)(exports.currentLength, exports.currentLength, false);
-                            shipArray.push(tempShip);
+                            let tempShip = (0, shipLogic_1.createShip)(x, y, exports.currentLength, exports.currentLength, false);
+                            exports.shipArray.push(tempShip);
                             exports.currentLength--;
                             if (shipCounter === 3) {
                                 exports.currentLength++;

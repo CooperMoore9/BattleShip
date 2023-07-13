@@ -1,6 +1,15 @@
 import { boardArray, botArray } from ".";
-import { botGrid } from "./boardSetup";
+import {
+  botGrid,
+  clearGrid,
+  makeBotGrid,
+  makeGrid,
+  playerGrid,
+} from "./boardSetup";
+import { shipArray, updateGameBoard } from "./gameBoardLogic";
 import { gridObject } from "./types";
+
+let hitPoints = 17;
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
@@ -34,6 +43,26 @@ export function acceptableShots(gridArray: Array<gridObject>) {
       acceptableShotArr.push(gridArray[i]);
     }
   }
+  return acceptableShotArr;
+}
+
+function botShot() {
+  let rng = getRandomInt(acceptableShots(boardArray).length);
+
+  if (acceptableShots(boardArray)[rng].occupied === true) {
+    let shotPlacement = acceptableShots(boardArray)[rng];
+    shotPlacement.hit = true;
+    hitPoints--;
+    console.log(hitPoints);
+    if (hitPoints === 0) {
+      console.log("loser");
+    }
+  } else {
+    acceptableShots(boardArray)[rng].splash = true;
+  }
+  updateGameBoard(boardArray);
+  makeBotGrid();
+  playerShot();
 }
 
 export function playerShot() {
@@ -42,7 +71,9 @@ export function playerShot() {
     let x = parseInt(botGrid.children[i].classList[0].charAt(1));
     let y = parseInt(botGrid.children[i].classList[1].charAt(1));
     botGrid.children[i].addEventListener("mousedown", () => {
-      // botArray[i].splash = true;
+      if (hitPoints > 0) {
+        botShot();
+      }
     });
   }
 }

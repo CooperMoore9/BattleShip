@@ -8,8 +8,16 @@
 import { check } from "prettier";
 import { Ship } from "./types";
 
-export function createShip(length: number, hitPoints: number, sunk: boolean) {
+export function createShip(
+  xCord: number,
+  yCord: number,
+  length: number,
+  hitPoints: number,
+  sunk: boolean
+) {
   return {
+    xCord: xCord,
+    yCord: yCord,
     length: length,
     hitPoints: hitPoints,
     sunk: sunk,

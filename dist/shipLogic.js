@@ -7,8 +7,10 @@
 // each chunk tracks if its been hit
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkChunks = exports.hitChunk = exports.generateChunks = exports.createShip = void 0;
-function createShip(length, hitPoints, sunk) {
+function createShip(xCord, yCord, length, hitPoints, sunk) {
     return {
+        xCord: xCord,
+        yCord: yCord,
         length: length,
         hitPoints: hitPoints,
         sunk: sunk,

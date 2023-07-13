@@ -1,4 +1,6 @@
 export interface Ship {
+  xCord: number;
+  yCord: number;
   length: number;
   hitPoints: number;
   sunk: boolean;

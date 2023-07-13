@@ -27,7 +27,7 @@ import { createShip } from "./shipLogic";
 import { Ship, gridObject } from "./types";
 
 const rotateButton = document.getElementById("rotateButton") as HTMLElement;
-let shipArray: Ship[] = [];
+export let shipArray: Ship[] = [];
 let shipCounter = 0;
 export let currentLength = 5;
 
@@ -47,7 +47,13 @@ export function gameBoard(gridArray: Array<gridObject>) {
               placeShipInArray(x, y, currentLength);
               updateGameBoard(gridArray);
 
-              let tempShip = createShip(currentLength, currentLength, false);
+              let tempShip = createShip(
+                x,
+                y,
+                currentLength,
+                currentLength,
+                false
+              );
               shipArray.push(tempShip);
 
               currentLength--;
@@ -71,7 +77,13 @@ export function gameBoard(gridArray: Array<gridObject>) {
               shipCounter++;
               placeShipInArray(x, y, currentLength);
               updateGameBoard(gridArray);
-              let tempShip = createShip(currentLength, currentLength, false);
+              let tempShip = createShip(
+                x,
+                y,
+                currentLength,
+                currentLength,
+                false
+              );
               shipArray.push(tempShip);
 
               currentLength--;
