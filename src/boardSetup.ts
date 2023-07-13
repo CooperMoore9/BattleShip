@@ -28,7 +28,7 @@ export function makeBotGrid() {
   playerDiv.classList.replace("w-[99vw]", "w-[50vw]");
   botDiv.classList.replace("w-[0vw]", "w-[48vw]");
   botGrid.classList.replace("w-[0vh]", "w-[48vh]");
-  spacer1.classList.add("h-[20px]");
+  spacer1.classList.add("h-[24px]");
   makeGrid(10, botGrid);
 }
 

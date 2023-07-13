@@ -1,8 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.playerShot = exports.acceptableShots = void 0;
+const _1 = require(".");
 const boardSetup_1 = require("./boardSetup");
-function placeBotShips() { }
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+function placeBotShips(placementArr, botLength) {
+    let indexOfShip = getRandomInt(placementArr.length - botLength);
+    let isVertical = getRandomInt(2);
+}
+function acceptableBotPlacement(gridArray) {
+    let acceptablePlacementArr = [];
+    for (let i = 0; i < gridArray.length; i++) {
+        if (gridArray[i].occupied === false) {
+            acceptablePlacementArr.push(gridArray[i]);
+        }
+    }
+    return acceptablePlacementArr;
+}
 function acceptableShots(gridArray) {
     let acceptableShotArr = [];
     for (let i = 0; i < gridArray.length; i++) {
@@ -18,7 +34,8 @@ function playerShot() {
         let x = parseInt(boardSetup_1.botGrid.children[i].classList[0].charAt(1));
         let y = parseInt(boardSetup_1.botGrid.children[i].classList[1].charAt(1));
         boardSetup_1.botGrid.children[i].addEventListener("mousedown", () => {
-            console.log(x, y);
+            _1.botArray[i].occupied = true;
+            console.log(getRandomInt(2));
         });
     }
 }

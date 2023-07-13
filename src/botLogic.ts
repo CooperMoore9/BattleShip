@@ -1,8 +1,25 @@
-import { boardArray } from ".";
+import { boardArray, botArray } from ".";
 import { botGrid } from "./boardSetup";
 import { gridObject } from "./types";
 
-function placeBotShips() {}
+function getRandomInt(max: number) {
+  return Math.floor(Math.random() * max);
+}
+
+function placeBotShips(placementArr: gridObject[], botLength: number) {
+  let indexOfShip = getRandomInt(placementArr.length - botLength);
+  let isVertical = getRandomInt(2);
+}
+
+function acceptableBotPlacement(gridArray: Array<gridObject>) {
+  let acceptablePlacementArr: gridObject[] = [];
+  for (let i = 0; i < gridArray.length; i++) {
+    if (gridArray[i].occupied === false) {
+      acceptablePlacementArr.push(gridArray[i]);
+    }
+  }
+  return acceptablePlacementArr;
+}
 
 export function acceptableShots(gridArray: Array<gridObject>) {
   let acceptableShotArr: gridObject[] = [];
@@ -19,7 +36,8 @@ export function playerShot() {
     let x = parseInt(botGrid.children[i].classList[0].charAt(1));
     let y = parseInt(botGrid.children[i].classList[1].charAt(1));
     botGrid.children[i].addEventListener("mousedown", () => {
-      console.log(x, y);
+      botArray[i].occupied = true;
+      console.log(getRandomInt(2));
     });
   }
 }

@@ -61,7 +61,6 @@ export function gameBoard(gridArray: Array<gridObject>) {
                 placeShip();
               } else {
                 rotateButton.setAttribute("hidden", "true");
-
                 acceptableShots(boardArray);
                 makeBotGrid();
                 playerShot();
