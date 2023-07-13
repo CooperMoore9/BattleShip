@@ -7,11 +7,17 @@ function getRandomInt(max: number) {
 }
 
 function placeBotShips(placementArr: gridObject[], botLength: number) {
-  let indexOfShip = getRandomInt(placementArr.length - botLength);
-  let isVertical = getRandomInt(2);
+  let randomNum = getRandomInt(placementArr.length);
+  for (let i = 0; i < botLength; i++) {
+    botArray[randomNum].occupied = true;
+    randomNum++;
+  }
 }
 
-function acceptableBotPlacement(gridArray: Array<gridObject>) {
+function acceptableBotPlacement(
+  gridArray: Array<gridObject>,
+  botLength: number
+) {
   let acceptablePlacementArr: gridObject[] = [];
   for (let i = 0; i < gridArray.length; i++) {
     if (gridArray[i].occupied === false) {
@@ -36,8 +42,7 @@ export function playerShot() {
     let x = parseInt(botGrid.children[i].classList[0].charAt(1));
     let y = parseInt(botGrid.children[i].classList[1].charAt(1));
     botGrid.children[i].addEventListener("mousedown", () => {
-      botArray[i].occupied = true;
-      console.log(getRandomInt(2));
+      // botArray[i].splash = true;
     });
   }
 }

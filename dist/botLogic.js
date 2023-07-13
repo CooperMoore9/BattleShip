@@ -7,10 +7,13 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 function placeBotShips(placementArr, botLength) {
-    let indexOfShip = getRandomInt(placementArr.length - botLength);
-    let isVertical = getRandomInt(2);
+    let randomNum = getRandomInt(placementArr.length);
+    for (let i = 0; i < botLength; i++) {
+        _1.botArray[randomNum].occupied = true;
+        randomNum++;
+    }
 }
-function acceptableBotPlacement(gridArray) {
+function acceptableBotPlacement(gridArray, botLength) {
     let acceptablePlacementArr = [];
     for (let i = 0; i < gridArray.length; i++) {
         if (gridArray[i].occupied === false) {
@@ -34,8 +37,7 @@ function playerShot() {
         let x = parseInt(boardSetup_1.botGrid.children[i].classList[0].charAt(1));
         let y = parseInt(boardSetup_1.botGrid.children[i].classList[1].charAt(1));
         boardSetup_1.botGrid.children[i].addEventListener("mousedown", () => {
-            _1.botArray[i].occupied = true;
-            console.log(getRandomInt(2));
+            // botArray[i].splash = true;
         });
     }
 }
