@@ -34,7 +34,7 @@ function gameBoard(gridArray) {
                         if (x + exports.currentLength <= 10) {
                             shipCounter++;
                             placeShipInArray(x, y, exports.currentLength);
-                            updateGameBoard(gridArray);
+                            updateGameBoard(gridArray, boardSetup_1.playerGrid);
                             let tempShip = (0, shipLogic_1.createShip)(x, y, exports.currentLength, exports.currentLength, false);
                             exports.shipArray.push(tempShip);
                             exports.currentLength--;
@@ -57,7 +57,7 @@ function gameBoard(gridArray) {
                         if (y + exports.currentLength <= 10) {
                             shipCounter++;
                             placeShipInArray(x, y, exports.currentLength);
-                            updateGameBoard(gridArray);
+                            updateGameBoard(gridArray, boardSetup_1.playerGrid);
                             let tempShip = (0, shipLogic_1.createShip)(x, y, exports.currentLength, exports.currentLength, false);
                             exports.shipArray.push(tempShip);
                             exports.currentLength--;
@@ -93,11 +93,11 @@ function gameBoard(gridArray) {
     }
 }
 exports.gameBoard = gameBoard;
-function updateGameBoard(gridArray) {
+function updateGameBoard(gridArray, grid) {
     (0, boardSetup_1.clearGrid)();
-    (0, boardSetup_1.makeGrid)(10, boardSetup_1.playerGrid);
+    (0, boardSetup_1.makeGrid)(10, grid);
     gridArray.forEach((element) => {
-        let boardSection = boardSetup_1.playerGrid.children[parseInt(`${element.yCord}${element.xCord}`)];
+        let boardSection = grid.children[parseInt(`${element.yCord}${element.xCord}`)];
         if (element.occupied === true && element.hit === false) {
             boardSection.classList.add("bg-black");
         }

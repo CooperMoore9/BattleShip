@@ -10,27 +10,41 @@ import { shipArray, updateGameBoard } from "./gameBoardLogic";
 import { gridObject } from "./types";
 
 let hitPoints = 17;
+let botShipLength = 5;
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
-function placeBotShips(placementArr: gridObject[], botLength: number) {
+function placeBotShips(placementArr: gridObject[]) {
   let randomNum = getRandomInt(placementArr.length);
-  for (let i = 0; i < botLength; i++) {
+  for (let i = 0; i < botShipLength; i++) {
     botArray[randomNum].occupied = true;
     randomNum++;
   }
 }
 
-function acceptableBotPlacement(
-  gridArray: Array<gridObject>,
-  botLength: number
-) {
+function acceptableBotPlacement(gridArray: Array<gridObject>) {
   let acceptablePlacementArr: gridObject[] = [];
+  let vertNum = getRandomInt(2);
+  console.log(vertNum);
   for (let i = 0; i < gridArray.length; i++) {
-    if (gridArray[i].occupied === false) {
-      acceptablePlacementArr.push(gridArray[i]);
+    if (vertNum === 0) {
+      if (
+        gridArray[i + botShipLength] &&
+        gridArray[i].xCord + botShipLength <= 10 &&
+        gridArray[i].occupied === false
+      ) {
+        acceptablePlacementArr.push(gridArray[i]);
+      }
+    } else {
+      if (
+        gridArray[i + botShipLength * 10] &&
+        gridArray[i].yCord + botShipLength <= 10 &&
+        gridArray[i].occupied === false
+      ) {
+        acceptablePlacementArr.push(gridArray[i]);
+      }
     }
   }
   return acceptablePlacementArr;
@@ -53,14 +67,13 @@ function botShot() {
     let shotPlacement = acceptableShots(boardArray)[rng];
     shotPlacement.hit = true;
     hitPoints--;
-    console.log(hitPoints);
     if (hitPoints === 0) {
       console.log("loser");
     }
   } else {
     acceptableShots(boardArray)[rng].splash = true;
   }
-  updateGameBoard(boardArray);
+  updateGameBoard(boardArray, playerGrid);
   makeBotGrid();
   playerShot();
 }
@@ -71,11 +84,25 @@ export function playerShot() {
     let x = parseInt(botGrid.children[i].classList[0].charAt(1));
     let y = parseInt(botGrid.children[i].classList[1].charAt(1));
     botGrid.children[i].addEventListener("mousedown", () => {
+      placeBotShips(acceptableBotPlacement(botArray));
+      console.log(acceptableBotPlacement(botArray));
+      console.log(helpFunction());
+
       if (hitPoints > 0) {
         botShot();
       }
     });
   }
+}
+
+function helpFunction() {
+  let dingus: gridObject[] = [];
+  botArray.forEach((element) => {
+    if (element.occupied === true) {
+      dingus.push(element);
+    }
+  });
+  return dingus;
 }
 
 // remove occupied spaces from grid

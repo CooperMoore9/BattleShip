@@ -1,4 +1,5 @@
 import { boardArray } from ".";
+import { playerGrid } from "./boardSetup";
 import { currentLength, gameBoard, updateGameBoard } from "./gameBoardLogic";
 import { ghostShip } from "./ghostShip";
 
@@ -11,6 +12,6 @@ rotateButton.addEventListener("click", () => {
   } else {
     vertNum = 1;
   }
-  updateGameBoard(boardArray);
+  updateGameBoard(boardArray, playerGrid);
   gameBoard(boardArray);
 });
