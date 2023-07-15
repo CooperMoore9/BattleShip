@@ -12,7 +12,7 @@
 // have it choose a random element in the array, when it does remove the element from the array,
 // and update the array accordingly if it hit or not, the subtract from ship hit points
 
-import { boardArray } from ".";
+import { boardArray, botArray } from ".";
 import {
   botGrid,
   clearGrid,
@@ -20,7 +20,7 @@ import {
   makeGrid,
   playerGrid,
 } from "./boardSetup";
-import { acceptableShots, playerShot } from "./botLogic";
+import { acceptableShots, placeBotShips, playerShot } from "./botLogic";
 import { ghostShip } from "./ghostShip";
 import { vertNum } from "./rotateShip";
 import { createShip } from "./shipLogic";
@@ -69,6 +69,8 @@ export function gameBoard(gridArray: Array<gridObject>) {
                 rotateButton.setAttribute("hidden", "true");
                 acceptableShots(boardArray);
                 makeBotGrid();
+                placeBotShips();
+                updateGameBoard(botArray, botGrid);
                 playerShot();
               }
             }
@@ -99,6 +101,7 @@ export function gameBoard(gridArray: Array<gridObject>) {
                 rotateButton.setAttribute("hidden", "true");
                 acceptableShots(boardArray);
                 makeBotGrid();
+                placeBotShips();
                 playerShot();
               }
             }

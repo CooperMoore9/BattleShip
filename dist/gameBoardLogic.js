@@ -49,6 +49,8 @@ function gameBoard(gridArray) {
                                 rotateButton.setAttribute("hidden", "true");
                                 (0, botLogic_1.acceptableShots)(_1.boardArray);
                                 (0, boardSetup_1.makeBotGrid)();
+                                (0, botLogic_1.placeBotShips)();
+                                updateGameBoard(_1.botArray, boardSetup_1.botGrid);
                                 (0, botLogic_1.playerShot)();
                             }
                         }
@@ -72,6 +74,7 @@ function gameBoard(gridArray) {
                                 rotateButton.setAttribute("hidden", "true");
                                 (0, botLogic_1.acceptableShots)(_1.boardArray);
                                 (0, boardSetup_1.makeBotGrid)();
+                                (0, botLogic_1.placeBotShips)();
                                 (0, botLogic_1.playerShot)();
                             }
                         }

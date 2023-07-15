@@ -1,37 +1,77 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.playerShot = exports.acceptableShots = void 0;
+exports.playerShot = exports.acceptableShots = exports.placeBotShips = void 0;
 const _1 = require(".");
 const boardSetup_1 = require("./boardSetup");
 const gameBoardLogic_1 = require("./gameBoardLogic");
 let hitPoints = 17;
 let botShipLength = 5;
+let vertNum = getRandomInt(2);
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
-function placeBotShips(placementArr) {
-    let randomNum = getRandomInt(placementArr.length);
-    for (let i = 0; i < botShipLength; i++) {
-        _1.botArray[randomNum].occupied = true;
-        randomNum++;
+function placeBotShips() {
+    for (let i = 0; i < 4; i++) {
+        vertNum = getRandomInt(2);
+        let randomNum = getRandomInt(acceptableBotPlacement(_1.botArray).length);
+        let placement = getActualPlacement(randomNum);
+        if (botShipLength >= 2)
+            if (botShipLength === 3) {
+                let randomNum = getRandomInt(acceptableBotPlacement(_1.botArray).length);
+                let placement = getActualPlacement(randomNum);
+                for (let i = 0; i < botShipLength; i++) {
+                    if (vertNum === 0) {
+                        _1.botArray[placement].occupied = true;
+                        placement++;
+                    }
+                    else {
+                        _1.botArray[placement].occupied = true;
+                        placement += 10;
+                    }
+                }
+            }
+        for (let i = 0; i < botShipLength; i++) {
+            if (vertNum === 0) {
+                _1.botArray[placement].occupied = true;
+                placement++;
+            }
+            else {
+                _1.botArray[placement].occupied = true;
+                placement += 10;
+            }
+        }
+        botShipLength--;
     }
+    console.log(vertNum);
+    console.log(acceptableBotPlacement(_1.botArray));
+}
+exports.placeBotShips = placeBotShips;
+function getActualPlacement(rng) {
+    let botPlacementArr = acceptableBotPlacement(_1.botArray);
+    for (let i = 0; i < _1.botArray.length; i++) {
+        if (_1.botArray[i].xCord === botPlacementArr[rng].xCord &&
+            _1.botArray[i].yCord === botPlacementArr[rng].yCord) {
+            return i;
+        }
+    }
+    return 0;
 }
 function acceptableBotPlacement(gridArray) {
     let acceptablePlacementArr = [];
-    let vertNum = getRandomInt(2);
-    console.log(vertNum);
     for (let i = 0; i < gridArray.length; i++) {
         if (vertNum === 0) {
             if (gridArray[i + botShipLength] &&
                 gridArray[i].xCord + botShipLength <= 10 &&
-                gridArray[i].occupied === false) {
+                gridArray[i].occupied === false &&
+                gridArray[i + botShipLength].occupied === false) {
                 acceptablePlacementArr.push(gridArray[i]);
             }
         }
-        else {
+        else if (vertNum === 1) {
             if (gridArray[i + botShipLength * 10] &&
                 gridArray[i].yCord + botShipLength <= 10 &&
-                gridArray[i].occupied === false) {
+                gridArray[i].occupied === false &&
+                gridArray[i + botShipLength * 10].occupied === false) {
                 acceptablePlacementArr.push(gridArray[i]);
             }
         }
@@ -62,7 +102,6 @@ function botShot() {
         acceptableShots(_1.boardArray)[rng].splash = true;
     }
     (0, gameBoardLogic_1.updateGameBoard)(_1.boardArray, boardSetup_1.playerGrid);
-    (0, boardSetup_1.makeBotGrid)();
     playerShot();
 }
 function playerShot() {
@@ -71,9 +110,6 @@ function playerShot() {
         let x = parseInt(boardSetup_1.botGrid.children[i].classList[0].charAt(1));
         let y = parseInt(boardSetup_1.botGrid.children[i].classList[1].charAt(1));
         boardSetup_1.botGrid.children[i].addEventListener("mousedown", () => {
-            placeBotShips(acceptableBotPlacement(_1.botArray));
-            console.log(acceptableBotPlacement(_1.botArray));
-            console.log(helpFunction());
             if (hitPoints > 0) {
                 botShot();
             }
@@ -81,15 +117,6 @@ function playerShot() {
     }
 }
 exports.playerShot = playerShot;
-function helpFunction() {
-    let dingus = [];
-    _1.botArray.forEach((element) => {
-        if (element.occupied === true) {
-            dingus.push(element);
-        }
-    });
-    return dingus;
-}
 // remove occupied spaces from grid
 // have different function, not ghost ship, or maybe modified version to make a grid
 // to decide if

@@ -1,47 +1,82 @@
 import { boardArray, botArray } from ".";
-import {
-  botGrid,
-  clearGrid,
-  makeBotGrid,
-  makeGrid,
-  playerGrid,
-} from "./boardSetup";
-import { shipArray, updateGameBoard } from "./gameBoardLogic";
+import { botGrid, playerGrid } from "./boardSetup";
+import { updateGameBoard } from "./gameBoardLogic";
 import { gridObject } from "./types";
 
 let hitPoints = 17;
 let botShipLength = 5;
+let vertNum = getRandomInt(2);
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
-function placeBotShips(placementArr: gridObject[]) {
-  let randomNum = getRandomInt(placementArr.length);
-  for (let i = 0; i < botShipLength; i++) {
-    botArray[randomNum].occupied = true;
-    randomNum++;
+export function placeBotShips() {
+  for (let i = 0; i < 4; i++) {
+    vertNum = getRandomInt(2);
+    let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
+    let placement = getActualPlacement(randomNum);
+    if (botShipLength >= 2)
+      if (botShipLength === 3) {
+        let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
+        let placement = getActualPlacement(randomNum);
+        for (let i = 0; i < botShipLength; i++) {
+          if (vertNum === 0) {
+            botArray[placement].occupied = true;
+            placement++;
+          } else {
+            botArray[placement].occupied = true;
+            placement += 10;
+          }
+        }
+      }
+    for (let i = 0; i < botShipLength; i++) {
+      if (vertNum === 0) {
+        botArray[placement].occupied = true;
+        placement++;
+      } else {
+        botArray[placement].occupied = true;
+        placement += 10;
+      }
+    }
+    botShipLength--;
   }
+
+  console.log(vertNum);
+  console.log(acceptableBotPlacement(botArray));
+}
+
+function getActualPlacement(rng: number): number {
+  let botPlacementArr = acceptableBotPlacement(botArray);
+  for (let i: number = 0; i < botArray.length; i++) {
+    if (
+      botArray[i].xCord === botPlacementArr[rng].xCord &&
+      botArray[i].yCord === botPlacementArr[rng].yCord
+    ) {
+      return i;
+    }
+  }
+  return 0;
 }
 
 function acceptableBotPlacement(gridArray: Array<gridObject>) {
   let acceptablePlacementArr: gridObject[] = [];
-  let vertNum = getRandomInt(2);
-  console.log(vertNum);
   for (let i = 0; i < gridArray.length; i++) {
     if (vertNum === 0) {
       if (
         gridArray[i + botShipLength] &&
         gridArray[i].xCord + botShipLength <= 10 &&
-        gridArray[i].occupied === false
+        gridArray[i].occupied === false &&
+        gridArray[i + botShipLength].occupied === false
       ) {
         acceptablePlacementArr.push(gridArray[i]);
       }
-    } else {
+    } else if (vertNum === 1) {
       if (
         gridArray[i + botShipLength * 10] &&
         gridArray[i].yCord + botShipLength <= 10 &&
-        gridArray[i].occupied === false
+        gridArray[i].occupied === false &&
+        gridArray[i + botShipLength * 10].occupied === false
       ) {
         acceptablePlacementArr.push(gridArray[i]);
       }
@@ -74,7 +109,6 @@ function botShot() {
     acceptableShots(boardArray)[rng].splash = true;
   }
   updateGameBoard(boardArray, playerGrid);
-  makeBotGrid();
   playerShot();
 }
 
@@ -84,25 +118,11 @@ export function playerShot() {
     let x = parseInt(botGrid.children[i].classList[0].charAt(1));
     let y = parseInt(botGrid.children[i].classList[1].charAt(1));
     botGrid.children[i].addEventListener("mousedown", () => {
-      placeBotShips(acceptableBotPlacement(botArray));
-      console.log(acceptableBotPlacement(botArray));
-      console.log(helpFunction());
-
       if (hitPoints > 0) {
         botShot();
       }
     });
   }
-}
-
-function helpFunction() {
-  let dingus: gridObject[] = [];
-  botArray.forEach((element) => {
-    if (element.occupied === true) {
-      dingus.push(element);
-    }
-  });
-  return dingus;
 }
 
 // remove occupied spaces from grid
