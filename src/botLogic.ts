@@ -1,5 +1,5 @@
 import { boardArray, botArray } from ".";
-import { botGrid, playerGrid } from "./boardSetup";
+import { botGrid, makeBotGrid, playerGrid } from "./boardSetup";
 import { updateGameBoard } from "./gameBoardLogic";
 import { gridObject } from "./types";
 
@@ -17,33 +17,30 @@ export function placeBotShips() {
     let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
     let placement = getActualPlacement(randomNum);
     if (botShipLength >= 2)
-      if (botShipLength === 3) {
-        let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
-        let placement = getActualPlacement(randomNum);
-        for (let i = 0; i < botShipLength; i++) {
-          if (vertNum === 0) {
-            botArray[placement].occupied = true;
-            placement++;
-          } else {
-            botArray[placement].occupied = true;
-            placement += 10;
-          }
+      // if (botShipLength === 3) {
+      //   let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
+      //   let placement = getActualPlacement(randomNum);
+      //   for (let i = 0; i < botShipLength; i++) {
+      //     if (vertNum === 0) {
+      //       botArray[placement].occupied = true;
+      //       placement++;
+      //     } else {
+      //       botArray[placement].occupied = true;
+      //       placement += 10;
+      //     }
+      //   }
+      // }
+      for (let i = 0; i < botShipLength; i++) {
+        if (vertNum === 0) {
+          botArray[placement].occupied = true;
+          placement++;
+        } else {
+          botArray[placement].occupied = true;
+          placement += 10;
         }
       }
-    for (let i = 0; i < botShipLength; i++) {
-      if (vertNum === 0) {
-        botArray[placement].occupied = true;
-        placement++;
-      } else {
-        botArray[placement].occupied = true;
-        placement += 10;
-      }
-    }
     botShipLength--;
   }
-
-  console.log(vertNum);
-  console.log(acceptableBotPlacement(botArray));
 }
 
 function getActualPlacement(rng: number): number {
@@ -63,22 +60,28 @@ function acceptableBotPlacement(gridArray: Array<gridObject>) {
   let acceptablePlacementArr: gridObject[] = [];
   for (let i = 0; i < gridArray.length; i++) {
     if (vertNum === 0) {
-      if (
-        gridArray[i + botShipLength] &&
-        gridArray[i].xCord + botShipLength <= 10 &&
-        gridArray[i].occupied === false &&
-        gridArray[i + botShipLength].occupied === false
-      ) {
-        acceptablePlacementArr.push(gridArray[i]);
+      for (let j = 1; j < botShipLength; j++) {
+        if (
+          gridArray[i + botShipLength] &&
+          gridArray[i].xCord + botShipLength <= 10 &&
+          gridArray[i].occupied === false &&
+          gridArray[i + botShipLength].occupied === false &&
+          gridArray[i + j].occupied === false
+        ) {
+          acceptablePlacementArr.push(gridArray[i]);
+        }
       }
     } else if (vertNum === 1) {
-      if (
-        gridArray[i + botShipLength * 10] &&
-        gridArray[i].yCord + botShipLength <= 10 &&
-        gridArray[i].occupied === false &&
-        gridArray[i + botShipLength * 10].occupied === false
-      ) {
-        acceptablePlacementArr.push(gridArray[i]);
+      for (let j = 1; j < botShipLength; j++) {
+        if (
+          gridArray[i + botShipLength * 10] &&
+          gridArray[i].yCord + botShipLength <= 10 &&
+          gridArray[i].occupied === false &&
+          gridArray[i + botShipLength * 10].occupied === false &&
+          gridArray[i + j * 10].occupied === false
+        ) {
+          acceptablePlacementArr.push(gridArray[i]);
+        }
       }
     }
   }
@@ -113,6 +116,8 @@ function botShot() {
 }
 
 export function playerShot() {
+  makeBotGrid();
+  updateGameBoard(botArray, botGrid);
   for (let i = 0; i < botGrid.children.length; i++) {
     botGrid.children[i].classList.add("cursor-pointer");
     let x = parseInt(botGrid.children[i].classList[0].charAt(1));

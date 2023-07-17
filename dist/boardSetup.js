@@ -25,8 +25,8 @@ function makeBotGrid() {
     makeGrid(10, exports.botGrid);
 }
 exports.makeBotGrid = makeBotGrid;
-function clearGrid() {
-    const deleteTheBoxes = document.querySelectorAll(".box");
+function clearGrid(grid) {
+    const deleteTheBoxes = grid.querySelectorAll(".box");
     deleteTheBoxes.forEach((div) => {
         div.remove();
     });

@@ -16,34 +16,31 @@ function placeBotShips() {
         let randomNum = getRandomInt(acceptableBotPlacement(_1.botArray).length);
         let placement = getActualPlacement(randomNum);
         if (botShipLength >= 2)
-            if (botShipLength === 3) {
-                let randomNum = getRandomInt(acceptableBotPlacement(_1.botArray).length);
-                let placement = getActualPlacement(randomNum);
-                for (let i = 0; i < botShipLength; i++) {
-                    if (vertNum === 0) {
-                        _1.botArray[placement].occupied = true;
-                        placement++;
-                    }
-                    else {
-                        _1.botArray[placement].occupied = true;
-                        placement += 10;
-                    }
+            // if (botShipLength === 3) {
+            //   let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
+            //   let placement = getActualPlacement(randomNum);
+            //   for (let i = 0; i < botShipLength; i++) {
+            //     if (vertNum === 0) {
+            //       botArray[placement].occupied = true;
+            //       placement++;
+            //     } else {
+            //       botArray[placement].occupied = true;
+            //       placement += 10;
+            //     }
+            //   }
+            // }
+            for (let i = 0; i < botShipLength; i++) {
+                if (vertNum === 0) {
+                    _1.botArray[placement].occupied = true;
+                    placement++;
+                }
+                else {
+                    _1.botArray[placement].occupied = true;
+                    placement += 10;
                 }
             }
-        for (let i = 0; i < botShipLength; i++) {
-            if (vertNum === 0) {
-                _1.botArray[placement].occupied = true;
-                placement++;
-            }
-            else {
-                _1.botArray[placement].occupied = true;
-                placement += 10;
-            }
-        }
         botShipLength--;
     }
-    console.log(vertNum);
-    console.log(acceptableBotPlacement(_1.botArray));
 }
 exports.placeBotShips = placeBotShips;
 function getActualPlacement(rng) {
@@ -60,19 +57,25 @@ function acceptableBotPlacement(gridArray) {
     let acceptablePlacementArr = [];
     for (let i = 0; i < gridArray.length; i++) {
         if (vertNum === 0) {
-            if (gridArray[i + botShipLength] &&
-                gridArray[i].xCord + botShipLength <= 10 &&
-                gridArray[i].occupied === false &&
-                gridArray[i + botShipLength].occupied === false) {
-                acceptablePlacementArr.push(gridArray[i]);
+            for (let j = 1; j < botShipLength; j++) {
+                if (gridArray[i + botShipLength] &&
+                    gridArray[i].xCord + botShipLength <= 10 &&
+                    gridArray[i].occupied === false &&
+                    gridArray[i + botShipLength].occupied === false &&
+                    gridArray[i + j].occupied === false) {
+                    acceptablePlacementArr.push(gridArray[i]);
+                }
             }
         }
         else if (vertNum === 1) {
-            if (gridArray[i + botShipLength * 10] &&
-                gridArray[i].yCord + botShipLength <= 10 &&
-                gridArray[i].occupied === false &&
-                gridArray[i + botShipLength * 10].occupied === false) {
-                acceptablePlacementArr.push(gridArray[i]);
+            for (let j = 1; j < botShipLength; j++) {
+                if (gridArray[i + botShipLength * 10] &&
+                    gridArray[i].yCord + botShipLength <= 10 &&
+                    gridArray[i].occupied === false &&
+                    gridArray[i + botShipLength * 10].occupied === false &&
+                    gridArray[i + j * 10].occupied === false) {
+                    acceptablePlacementArr.push(gridArray[i]);
+                }
             }
         }
     }
@@ -105,6 +108,8 @@ function botShot() {
     playerShot();
 }
 function playerShot() {
+    (0, boardSetup_1.makeBotGrid)();
+    (0, gameBoardLogic_1.updateGameBoard)(_1.botArray, boardSetup_1.botGrid);
     for (let i = 0; i < boardSetup_1.botGrid.children.length; i++) {
         boardSetup_1.botGrid.children[i].classList.add("cursor-pointer");
         let x = parseInt(boardSetup_1.botGrid.children[i].classList[0].charAt(1));

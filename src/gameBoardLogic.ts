@@ -68,9 +68,7 @@ export function gameBoard(gridArray: Array<gridObject>) {
               } else {
                 rotateButton.setAttribute("hidden", "true");
                 acceptableShots(boardArray);
-                makeBotGrid();
                 placeBotShips();
-                updateGameBoard(botArray, botGrid);
                 playerShot();
               }
             }
@@ -100,7 +98,6 @@ export function gameBoard(gridArray: Array<gridObject>) {
               } else {
                 rotateButton.setAttribute("hidden", "true");
                 acceptableShots(boardArray);
-                makeBotGrid();
                 placeBotShips();
                 playerShot();
               }
@@ -127,7 +124,7 @@ export function updateGameBoard(
   gridArray: Array<gridObject>,
   grid: HTMLElement
 ) {
-  clearGrid();
+  clearGrid(grid);
   makeGrid(10, grid);
   gridArray.forEach((element) => {
     let boardSection =

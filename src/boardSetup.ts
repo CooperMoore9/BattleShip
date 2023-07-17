@@ -1,4 +1,5 @@
 import { doc } from "prettier";
+import { boardArray, botArray } from ".";
 
 export const playerGrid = document.getElementById("playerGrid") as HTMLElement;
 export const botGrid = document.getElementById("botGrid") as HTMLElement;
@@ -32,8 +33,8 @@ export function makeBotGrid() {
   makeGrid(10, botGrid);
 }
 
-export function clearGrid() {
-  const deleteTheBoxes = document.querySelectorAll(".box");
+export function clearGrid(grid: HTMLElement) {
+  const deleteTheBoxes = grid.querySelectorAll(".box");
   deleteTheBoxes.forEach((div) => {
     div.remove();
   });

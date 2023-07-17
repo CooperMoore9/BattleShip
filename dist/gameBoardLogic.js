@@ -48,9 +48,7 @@ function gameBoard(gridArray) {
                             else {
                                 rotateButton.setAttribute("hidden", "true");
                                 (0, botLogic_1.acceptableShots)(_1.boardArray);
-                                (0, boardSetup_1.makeBotGrid)();
                                 (0, botLogic_1.placeBotShips)();
-                                updateGameBoard(_1.botArray, boardSetup_1.botGrid);
                                 (0, botLogic_1.playerShot)();
                             }
                         }
@@ -73,7 +71,6 @@ function gameBoard(gridArray) {
                             else {
                                 rotateButton.setAttribute("hidden", "true");
                                 (0, botLogic_1.acceptableShots)(_1.boardArray);
-                                (0, boardSetup_1.makeBotGrid)();
                                 (0, botLogic_1.placeBotShips)();
                                 (0, botLogic_1.playerShot)();
                             }
@@ -97,7 +94,7 @@ function gameBoard(gridArray) {
 }
 exports.gameBoard = gameBoard;
 function updateGameBoard(gridArray, grid) {
-    (0, boardSetup_1.clearGrid)();
+    (0, boardSetup_1.clearGrid)(grid);
     (0, boardSetup_1.makeGrid)(10, grid);
     gridArray.forEach((element) => {
         let boardSection = grid.children[parseInt(`${element.yCord}${element.xCord}`)];
