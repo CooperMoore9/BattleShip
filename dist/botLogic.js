@@ -16,29 +16,30 @@ function placeBotShips() {
         let randomNum = getRandomInt(acceptableBotPlacement(_1.botArray).length);
         let placement = getActualPlacement(randomNum);
         if (botShipLength >= 2)
-            // if (botShipLength === 3) {
-            //   let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
-            //   let placement = getActualPlacement(randomNum);
-            //   for (let i = 0; i < botShipLength; i++) {
-            //     if (vertNum === 0) {
-            //       botArray[placement].occupied = true;
-            //       placement++;
-            //     } else {
-            //       botArray[placement].occupied = true;
-            //       placement += 10;
-            //     }
-            //   }
-            // }
-            for (let i = 0; i < botShipLength; i++) {
-                if (vertNum === 0) {
-                    _1.botArray[placement].occupied = true;
-                    placement++;
-                }
-                else {
-                    _1.botArray[placement].occupied = true;
-                    placement += 10;
+            if (botShipLength === 3) {
+                let randomNum = getRandomInt(acceptableBotPlacement(_1.botArray).length);
+                let placement = getActualPlacement(randomNum);
+                for (let i = 0; i < botShipLength; i++) {
+                    if (vertNum === 0) {
+                        _1.botArray[placement].occupied = true;
+                        placement++;
+                    }
+                    else {
+                        _1.botArray[placement].occupied = true;
+                        placement += 10;
+                    }
                 }
             }
+        for (let i = 0; i < botShipLength; i++) {
+            if (vertNum === 0) {
+                _1.botArray[placement].occupied = true;
+                placement++;
+            }
+            else {
+                _1.botArray[placement].occupied = true;
+                placement += 10;
+            }
+        }
         botShipLength--;
     }
 }
@@ -57,25 +58,19 @@ function acceptableBotPlacement(gridArray) {
     let acceptablePlacementArr = [];
     for (let i = 0; i < gridArray.length; i++) {
         if (vertNum === 0) {
-            for (let j = 1; j < botShipLength; j++) {
-                if (gridArray[i + botShipLength] &&
-                    gridArray[i].xCord + botShipLength <= 10 &&
-                    gridArray[i].occupied === false &&
-                    gridArray[i + botShipLength].occupied === false &&
-                    gridArray[i + j].occupied === false) {
-                    acceptablePlacementArr.push(gridArray[i]);
-                }
+            if (gridArray[i + botShipLength] &&
+                gridArray[i].xCord + botShipLength <= 10 &&
+                gridArray[i].occupied === false &&
+                gridArray[i + botShipLength - 1].occupied === false) {
+                acceptablePlacementArr.push(gridArray[i]);
             }
         }
         else if (vertNum === 1) {
-            for (let j = 1; j < botShipLength; j++) {
-                if (gridArray[i + botShipLength * 10] &&
-                    gridArray[i].yCord + botShipLength <= 10 &&
-                    gridArray[i].occupied === false &&
-                    gridArray[i + botShipLength * 10].occupied === false &&
-                    gridArray[i + j * 10].occupied === false) {
-                    acceptablePlacementArr.push(gridArray[i]);
-                }
+            if (gridArray[i + botShipLength * 10] &&
+                gridArray[i].yCord + botShipLength <= 10 &&
+                gridArray[i].occupied === false &&
+                gridArray[i + botShipLength * 10 - 10].occupied === false) {
+                acceptablePlacementArr.push(gridArray[i]);
             }
         }
     }
@@ -115,6 +110,12 @@ function playerShot() {
         let x = parseInt(boardSetup_1.botGrid.children[i].classList[0].charAt(1));
         let y = parseInt(boardSetup_1.botGrid.children[i].classList[1].charAt(1));
         boardSetup_1.botGrid.children[i].addEventListener("mousedown", () => {
+            if (_1.botArray[i].occupied === true) {
+                _1.botArray[i].hit = true;
+            }
+            else {
+                _1.botArray[i].splash = true;
+            }
             if (hitPoints > 0) {
                 botShot();
             }
@@ -122,6 +123,19 @@ function playerShot() {
     }
 }
 exports.playerShot = playerShot;
+function updateBotBoard(gridArray, grid) {
+    (0, boardSetup_1.clearGrid)(grid);
+    (0, boardSetup_1.makeGrid)(10, grid);
+    gridArray.forEach((element) => {
+        let boardSection = grid.children[parseInt(`${element.yCord}${element.xCord}`)];
+        if (element.hit === true) {
+            boardSection.classList.add("bg-[#991b1b]");
+        }
+        if (element.splash === true) {
+            boardSection.classList.add("bg-[#60a5fa]");
+        }
+    });
+}
 // remove occupied spaces from grid
 // have different function, not ghost ship, or maybe modified version to make a grid
 // to decide if
