@@ -10,6 +10,7 @@ import { updateGameBoard } from "./gameBoardLogic";
 import { gridObject } from "./types";
 
 let hitPoints = 17;
+let botHitPoints = 17;
 let botShipLength = 5;
 let vertNum = getRandomInt(2);
 
@@ -105,9 +106,6 @@ function botShot() {
     let shotPlacement = acceptableShots(boardArray)[rng];
     shotPlacement.hit = true;
     hitPoints--;
-    if (hitPoints === 0) {
-      console.log("loser");
-    }
   } else {
     acceptableShots(boardArray)[rng].splash = true;
   }
@@ -123,13 +121,26 @@ export function playerShot() {
     let x = parseInt(botGrid.children[i].classList[0].charAt(1));
     let y = parseInt(botGrid.children[i].classList[1].charAt(1));
     botGrid.children[i].addEventListener("mousedown", () => {
-      if (botArray[i].occupied === true) {
+      if (botArray[i].occupied === true && botArray[i].hit === false) {
         botArray[i].hit = true;
-      } else {
+        botHitPoints--;
+        updateGameBoard(botArray, botGrid);
+        if (botHitPoints != 0 && hitPoints != 0) {
+          botShot();
+        } else {
+          console.log("someone lost");
+        }
+      } else if (
+        botArray[i].splash === false &&
+        botArray[i].occupied === false
+      ) {
         botArray[i].splash = true;
-      }
-      if (hitPoints > 0) {
-        botShot();
+        updateGameBoard(botArray, botGrid);
+        if (botHitPoints != 0 && hitPoints != 0) {
+          botShot();
+        } else {
+          console.log("someone lost");
+        }
       }
     });
   }

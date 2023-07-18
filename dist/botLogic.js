@@ -5,6 +5,7 @@ const _1 = require(".");
 const boardSetup_1 = require("./boardSetup");
 const gameBoardLogic_1 = require("./gameBoardLogic");
 let hitPoints = 17;
+let botHitPoints = 17;
 let botShipLength = 5;
 let vertNum = getRandomInt(2);
 function getRandomInt(max) {
@@ -92,9 +93,6 @@ function botShot() {
         let shotPlacement = acceptableShots(_1.boardArray)[rng];
         shotPlacement.hit = true;
         hitPoints--;
-        if (hitPoints === 0) {
-            console.log("loser");
-        }
     }
     else {
         acceptableShots(_1.boardArray)[rng].splash = true;
@@ -110,14 +108,27 @@ function playerShot() {
         let x = parseInt(boardSetup_1.botGrid.children[i].classList[0].charAt(1));
         let y = parseInt(boardSetup_1.botGrid.children[i].classList[1].charAt(1));
         boardSetup_1.botGrid.children[i].addEventListener("mousedown", () => {
-            if (_1.botArray[i].occupied === true) {
+            if (_1.botArray[i].occupied === true && _1.botArray[i].hit === false) {
                 _1.botArray[i].hit = true;
+                botHitPoints--;
+                (0, gameBoardLogic_1.updateGameBoard)(_1.botArray, boardSetup_1.botGrid);
+                if (botHitPoints != 0 && hitPoints != 0) {
+                    botShot();
+                }
+                else {
+                    console.log("someone lost");
+                }
             }
-            else {
+            else if (_1.botArray[i].splash === false &&
+                _1.botArray[i].occupied === false) {
                 _1.botArray[i].splash = true;
-            }
-            if (hitPoints > 0) {
-                botShot();
+                (0, gameBoardLogic_1.updateGameBoard)(_1.botArray, boardSetup_1.botGrid);
+                if (botHitPoints != 0 && hitPoints != 0) {
+                    botShot();
+                }
+                else {
+                    console.log("someone lost");
+                }
             }
         });
     }
