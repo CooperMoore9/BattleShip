@@ -65,21 +65,22 @@ function getActualPlacement(rng: number): number {
 
 function acceptableBotPlacement(gridArray: Array<gridObject>) {
   let acceptablePlacementArr: gridObject[] = [];
-  // let vertMultiply = 1
-  // if(vertNum === 0){
-  //   vertMultiply = 1
-  // }else if(vertNum === 1){
-  //   vertMultiply = 10
-  // }
+  let vertMultiply = 1;
+  if (vertNum === 0) {
+    vertMultiply = 1;
+  } else if (vertNum === 1) {
+    vertMultiply = 10;
+  }
 
-  // for (let i = 0; i <= gridArray.length - 1; i++) {
-  //   for (let j = 0; j < botShipLength; j++) {
-  //     if (gridArray[i + j * vertMultiply]) {
-  //       if (gridArray[i + j * vertMultiply].occupied === false) {
-  //         acceptablePlacementArr.push(gridArray[i])
-  //       }
-  //     }
-  //   }
+  for (let i = 0; i <= gridArray.length - 1; i++) {
+    for (let j = 0; j < botShipLength; j++) {
+      if (gridArray[i + j * vertMultiply]) {
+        if (gridArray[i + j * vertMultiply].occupied === false) {
+          acceptablePlacementArr.push(gridArray[i]);
+        }
+      }
+    }
+  }
 
   return acceptablePlacementArr;
 }
