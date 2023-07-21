@@ -58,16 +58,36 @@ function getActualPlacement(rng) {
 function acceptableBotPlacement(gridArray) {
     let acceptablePlacementArr = [];
     let vertMultiply = 1;
+    let isOccupied = false;
     if (vertNum === 0) {
         vertMultiply = 1;
     }
     else if (vertNum === 1) {
         vertMultiply = 10;
     }
-    for (let i = 0; i <= gridArray.length - 1; i++) {
-        for (let j = 0; j < botShipLength; j++) {
-            if (gridArray[i + j * vertMultiply]) {
-                if (gridArray[i + j * vertMultiply].occupied === false) {
+    for (let i = 0; i <= gridArray.length; i++) {
+        if (vertMultiply === 1) {
+            if (gridArray[i + botShipLength * vertMultiply] &&
+                gridArray[i].xCord + botShipLength <= 10) {
+                for (let j = 0; j < botShipLength - 1; j++) {
+                    if (gridArray[i + j].occupied === true) {
+                        isOccupied = true;
+                    }
+                }
+                if (isOccupied === false) {
+                    acceptablePlacementArr.push(gridArray[i]);
+                }
+            }
+        }
+        else {
+            if (gridArray[i + botShipLength * vertMultiply] &&
+                gridArray[i].yCord + botShipLength <= 10) {
+                for (let j = 0; j < botShipLength - 1; j++) {
+                    if (gridArray[i + j * vertMultiply].occupied === true) {
+                        isOccupied = true;
+                    }
+                }
+                if (isOccupied === false) {
                     acceptablePlacementArr.push(gridArray[i]);
                 }
             }
