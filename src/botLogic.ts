@@ -12,102 +12,114 @@ import { gridObject } from "./types";
 let hitPoints = 17;
 let botHitPoints = 17;
 let botShipLength = 5;
-let vertNum = getRandomInt(2);
+// let vertNum = getRandomInt(2);
+let vertNum = 1;
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
 export function placeBotShips() {
-  for (let i = 0; i < 4; i++) {
-    vertNum = getRandomInt(2);
-    let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
-    let placement = getActualPlacement(randomNum);
-    if (botShipLength >= 2)
-      if (botShipLength === 3) {
-        let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
-        let placement = getActualPlacement(randomNum);
-        for (let i = 0; i < botShipLength; i++) {
-          if (vertNum === 0) {
-            botArray[placement].occupied = true;
-            placement++;
-          } else {
-            botArray[placement].occupied = true;
-            placement += 10;
-          }
-        }
-      }
-    for (let i = 0; i < botShipLength; i++) {
-      if (vertNum === 0) {
-        botArray[placement].occupied = true;
-        placement++;
-      } else {
-        botArray[placement].occupied = true;
-        placement += 10;
-      }
-    }
-    botShipLength--;
-  }
+  acceptableBotPlacement(botArray);
+  // for (let i = 0; i < 4; i++) {
+  //   vertNum = getRandomInt(2);
+  //   let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
+  //   let placement = getActualPlacement(randomNum);
+  //   if (botShipLength >= 2) {
+  //     if (botShipLength === 3) {
+  //       let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
+  //       let placement = getActualPlacement(randomNum);
+  //       for (let i = 0; i < botShipLength; i++) {
+  //         if (vertNum === 0) {
+  //           botArray[placement].occupied = true;
+  //           placement++;
+  //         } else {
+  //           botArray[placement].occupied = true;
+  //           placement += 10;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   for (let i = 0; i < botShipLength; i++) {
+  //     if (vertNum === 0) {
+  //       botArray[placement].occupied = true;
+  //       placement++;
+  //     } else {
+  //       botArray[placement].occupied = true;
+  //       placement += 10;
+  //     }
+  //   }
+  //   botShipLength--;
+  // }
 }
 
-function getActualPlacement(rng: number): number {
-  let botPlacementArr = acceptableBotPlacement(botArray);
-  for (let i: number = 0; i < botArray.length; i++) {
-    if (
-      botArray[i].xCord === botPlacementArr[rng].xCord &&
-      botArray[i].yCord === botPlacementArr[rng].yCord
-    ) {
-      return i;
-    }
-  }
-  return 0;
-}
+// function getActualPlacement(rng: number): number {
+//   let botPlacementArr = acceptableBotPlacement(botArray);
+//   for (let i: number = 0; i < botArray.length; i++) {
+//     if (
+//       botArray[i].xCord === botPlacementArr[rng].xCord &&
+//       botArray[i].yCord === botPlacementArr[rng].yCord
+//     ) {
+//       return i;
+//     }
+//   }
+//   return 0;
+// }
 
-function acceptableBotPlacement(gridArray: Array<gridObject>) {
-  let acceptablePlacementArr: gridObject[] = [];
-  let vertMultiply = 1;
-  let isOccupied = false;
+function getRandomShipPlacementValue(): gridObject[] {
+  let cordsArr: Array<gridObject> = [];
   if (vertNum === 0) {
-    vertMultiply = 1;
-  } else if (vertNum === 1) {
-    vertMultiply = 10;
-  }
+    let randomPlaceHoriNum = getRandomInt(9);
+    if (randomPlaceHoriNum + botShipLength >= 10) {
+      return getRandomShipPlacementValue();
+    }
+    let randomPlaceVertNum = getRandomInt(9);
+    cordsArr.push(
+      botArray[parseInt(`${randomPlaceVertNum}${randomPlaceHoriNum}`)]
+    );
 
-  for (let i = 0; i <= gridArray.length; i++) {
-    if (vertMultiply === 1) {
+    for (let i = 1; i < botShipLength; i++) {
+      cordsArr.push(
+        botArray[parseInt(`${randomPlaceVertNum}${randomPlaceHoriNum + i}`)]
+      );
+    }
+  } else {
+    let randomPlaceVertNum = getRandomInt(9);
+    if (randomPlaceVertNum + botShipLength >= 10) {
+      return getRandomShipPlacementValue();
+    }
+    let randomPlaceHoriNum = getRandomInt(9);
+    cordsArr.push(
+      botArray[parseInt(`${randomPlaceVertNum}${randomPlaceHoriNum}`)]
+    );
+    for (let i = 1; i < botShipLength; i++) {
+      cordsArr.push(
+        botArray[parseInt(`${randomPlaceVertNum + i}${randomPlaceHoriNum}`)]
+      );
+    }
+  }
+  console.log(vertNum);
+  console.log(cordsArr);
+  return cordsArr;
+}
+
+function acceptableBotPlacement(gridArray: Array<gridObject>): gridObject[] {
+  const randomShipPlacement = getRandomShipPlacementValue();
+  for (let i = 0; i < gridArray.length; i++) {
+    for (let j = 0; j < randomShipPlacement.length; j++) {
       if (
-        gridArray[i + botShipLength * vertMultiply] &&
-        gridArray[i].xCord + botShipLength <= 10
+        gridArray[i].xCord &&
+        gridArray[i].yCord === randomShipPlacement[j].xCord &&
+        randomShipPlacement[j].yCord
       ) {
-        for (let j = 0; j < botShipLength - 1; j++) {
-          if (gridArray[i + j].occupied === true) {
-            isOccupied = true;
-          }
-        }
-        if (isOccupied === false) {
-          acceptablePlacementArr.push(gridArray[i]);
-        }
-      }
-    } else {
-      if (
-        gridArray[i + botShipLength * vertMultiply] &&
-        gridArray[i].yCord + botShipLength <= 10
-      ) {
-        for (let j = 0; j < botShipLength - 1; j++) {
-          if (gridArray[i + j * vertMultiply].occupied === true) {
-            isOccupied = true;
-          }
-        }
-        if (isOccupied === false) {
-          acceptablePlacementArr.push(gridArray[i]);
+        if (gridArray[i].occupied) {
+          acceptableBotPlacement(gridArray);
         }
       }
     }
   }
-
-  return acceptablePlacementArr;
+  return randomShipPlacement;
 }
-
 export function acceptableShots(gridArray: Array<gridObject>) {
   let acceptableShotArr: gridObject[] = [];
   for (let i = 0; i < gridArray.length; i++) {

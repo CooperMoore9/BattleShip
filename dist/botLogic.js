@@ -7,93 +7,99 @@ const gameBoardLogic_1 = require("./gameBoardLogic");
 let hitPoints = 17;
 let botHitPoints = 17;
 let botShipLength = 5;
-let vertNum = getRandomInt(2);
+// let vertNum = getRandomInt(2);
+let vertNum = 1;
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 function placeBotShips() {
-    for (let i = 0; i < 4; i++) {
-        vertNum = getRandomInt(2);
-        let randomNum = getRandomInt(acceptableBotPlacement(_1.botArray).length);
-        let placement = getActualPlacement(randomNum);
-        if (botShipLength >= 2)
-            if (botShipLength === 3) {
-                let randomNum = getRandomInt(acceptableBotPlacement(_1.botArray).length);
-                let placement = getActualPlacement(randomNum);
-                for (let i = 0; i < botShipLength; i++) {
-                    if (vertNum === 0) {
-                        _1.botArray[placement].occupied = true;
-                        placement++;
-                    }
-                    else {
-                        _1.botArray[placement].occupied = true;
-                        placement += 10;
-                    }
-                }
-            }
-        for (let i = 0; i < botShipLength; i++) {
-            if (vertNum === 0) {
-                _1.botArray[placement].occupied = true;
-                placement++;
-            }
-            else {
-                _1.botArray[placement].occupied = true;
-                placement += 10;
-            }
-        }
-        botShipLength--;
-    }
+    acceptableBotPlacement(_1.botArray);
+    // for (let i = 0; i < 4; i++) {
+    //   vertNum = getRandomInt(2);
+    //   let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
+    //   let placement = getActualPlacement(randomNum);
+    //   if (botShipLength >= 2) {
+    //     if (botShipLength === 3) {
+    //       let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
+    //       let placement = getActualPlacement(randomNum);
+    //       for (let i = 0; i < botShipLength; i++) {
+    //         if (vertNum === 0) {
+    //           botArray[placement].occupied = true;
+    //           placement++;
+    //         } else {
+    //           botArray[placement].occupied = true;
+    //           placement += 10;
+    //         }
+    //       }
+    //     }
+    //   }
+    //   for (let i = 0; i < botShipLength; i++) {
+    //     if (vertNum === 0) {
+    //       botArray[placement].occupied = true;
+    //       placement++;
+    //     } else {
+    //       botArray[placement].occupied = true;
+    //       placement += 10;
+    //     }
+    //   }
+    //   botShipLength--;
+    // }
 }
 exports.placeBotShips = placeBotShips;
-function getActualPlacement(rng) {
-    let botPlacementArr = acceptableBotPlacement(_1.botArray);
-    for (let i = 0; i < _1.botArray.length; i++) {
-        if (_1.botArray[i].xCord === botPlacementArr[rng].xCord &&
-            _1.botArray[i].yCord === botPlacementArr[rng].yCord) {
-            return i;
+// function getActualPlacement(rng: number): number {
+//   let botPlacementArr = acceptableBotPlacement(botArray);
+//   for (let i: number = 0; i < botArray.length; i++) {
+//     if (
+//       botArray[i].xCord === botPlacementArr[rng].xCord &&
+//       botArray[i].yCord === botPlacementArr[rng].yCord
+//     ) {
+//       return i;
+//     }
+//   }
+//   return 0;
+// }
+function getRandomShipPlacementValue() {
+    let cordsArr = [];
+    if (vertNum === 0) {
+        let randomPlaceHoriNum = getRandomInt(9);
+        if (randomPlaceHoriNum + botShipLength >= 10) {
+            return getRandomShipPlacementValue();
+        }
+        let randomPlaceVertNum = getRandomInt(9);
+        cordsArr.push(_1.botArray[parseInt(`${randomPlaceVertNum}${randomPlaceHoriNum}`)]);
+        for (let i = 1; i < botShipLength; i++) {
+            cordsArr.push(_1.botArray[parseInt(`${randomPlaceVertNum}${randomPlaceHoriNum + i}`)]);
         }
     }
-    return 0;
+    else {
+        let randomPlaceVertNum = getRandomInt(9);
+        if (randomPlaceVertNum + botShipLength >= 10) {
+            return getRandomShipPlacementValue();
+        }
+        let randomPlaceHoriNum = getRandomInt(9);
+        cordsArr.push(_1.botArray[parseInt(`${randomPlaceVertNum}${randomPlaceHoriNum}`)]);
+        for (let i = 1; i < botShipLength; i++) {
+            cordsArr.push(_1.botArray[parseInt(`${randomPlaceVertNum + i}${randomPlaceHoriNum}`)]);
+        }
+    }
+    console.log(vertNum);
+    console.log(cordsArr);
+    return cordsArr;
 }
 function acceptableBotPlacement(gridArray) {
-    let acceptablePlacementArr = [];
-    let vertMultiply = 1;
-    let isOccupied = false;
-    if (vertNum === 0) {
-        vertMultiply = 1;
-    }
-    else if (vertNum === 1) {
-        vertMultiply = 10;
-    }
-    for (let i = 0; i <= gridArray.length; i++) {
-        if (vertMultiply === 1) {
-            if (gridArray[i + botShipLength * vertMultiply] &&
-                gridArray[i].xCord + botShipLength <= 10) {
-                for (let j = 0; j < botShipLength - 1; j++) {
-                    if (gridArray[i + j].occupied === true) {
-                        isOccupied = true;
-                    }
-                }
-                if (isOccupied === false) {
-                    acceptablePlacementArr.push(gridArray[i]);
-                }
-            }
-        }
-        else {
-            if (gridArray[i + botShipLength * vertMultiply] &&
-                gridArray[i].yCord + botShipLength <= 10) {
-                for (let j = 0; j < botShipLength - 1; j++) {
-                    if (gridArray[i + j * vertMultiply].occupied === true) {
-                        isOccupied = true;
-                    }
-                }
-                if (isOccupied === false) {
-                    acceptablePlacementArr.push(gridArray[i]);
+    const randomShipPlacement = getRandomShipPlacementValue();
+    for (let i = 0; i < gridArray.length; i++) {
+        for (let j = 0; j < randomShipPlacement.length; j++) {
+            if (gridArray[i].xCord &&
+                gridArray[i].yCord === randomShipPlacement[j].xCord &&
+                randomShipPlacement[j].yCord) {
+                if (gridArray[i].occupied) {
+                    acceptableBotPlacement(gridArray);
                 }
             }
         }
     }
-    return acceptablePlacementArr;
+    return randomShipPlacement;
 }
 function acceptableShots(gridArray) {
     let acceptableShotArr = [];
