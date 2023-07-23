@@ -12,15 +12,24 @@ import { gridObject } from "./types";
 let hitPoints = 17;
 let botHitPoints = 17;
 let botShipLength = 5;
-// let vertNum = getRandomInt(2);
-let vertNum = 1;
+let vertNum = getRandomInt(2);
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
 export function placeBotShips() {
-  acceptableBotPlacement(botArray);
+  let placementArr = acceptableBotPlacement(botArray);
+  for (let i = 0; i < botArray.length; i++) {
+    for (let j = 0; j < placementArr.length; j++) {
+      if (
+        placementArr[j].xCord === botArray[i].xCord &&
+        placementArr[j].yCord === botArray[i].yCord
+      ) {
+        botArray[i].occupied = true;
+      }
+    }
+  }
   // for (let i = 0; i < 4; i++) {
   //   vertNum = getRandomInt(2);
   //   let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
@@ -53,27 +62,27 @@ export function placeBotShips() {
   // }
 }
 
-// function getActualPlacement(rng: number): number {
-//   let botPlacementArr = acceptableBotPlacement(botArray);
-//   for (let i: number = 0; i < botArray.length; i++) {
-//     if (
-//       botArray[i].xCord === botPlacementArr[rng].xCord &&
-//       botArray[i].yCord === botPlacementArr[rng].yCord
-//     ) {
-//       return i;
-//     }
-//   }
-//   return 0;
-// }
+function getActualPlacement(rng: number): number {
+  let botPlacementArr = acceptableBotPlacement(botArray);
+  for (let i: number = 0; i < botArray.length; i++) {
+    if (
+      botArray[i].xCord === botPlacementArr[rng].xCord &&
+      botArray[i].yCord === botPlacementArr[rng].yCord
+    ) {
+      return i;
+    }
+  }
+  return 0;
+}
 
 function getRandomShipPlacementValue(): gridObject[] {
   let cordsArr: Array<gridObject> = [];
   if (vertNum === 0) {
-    let randomPlaceHoriNum = getRandomInt(9);
-    if (randomPlaceHoriNum + botShipLength >= 10) {
+    let randomPlaceHoriNum = getRandomInt(10);
+    if (randomPlaceHoriNum + botShipLength > 10) {
       return getRandomShipPlacementValue();
     }
-    let randomPlaceVertNum = getRandomInt(9);
+    let randomPlaceVertNum = getRandomInt(10);
     cordsArr.push(
       botArray[parseInt(`${randomPlaceVertNum}${randomPlaceHoriNum}`)]
     );
@@ -84,11 +93,11 @@ function getRandomShipPlacementValue(): gridObject[] {
       );
     }
   } else {
-    let randomPlaceVertNum = getRandomInt(9);
-    if (randomPlaceVertNum + botShipLength >= 10) {
+    let randomPlaceVertNum = getRandomInt(10);
+    if (randomPlaceVertNum + botShipLength > 10) {
       return getRandomShipPlacementValue();
     }
-    let randomPlaceHoriNum = getRandomInt(9);
+    let randomPlaceHoriNum = getRandomInt(10);
     cordsArr.push(
       botArray[parseInt(`${randomPlaceVertNum}${randomPlaceHoriNum}`)]
     );

@@ -7,13 +7,20 @@ const gameBoardLogic_1 = require("./gameBoardLogic");
 let hitPoints = 17;
 let botHitPoints = 17;
 let botShipLength = 5;
-// let vertNum = getRandomInt(2);
-let vertNum = 1;
+let vertNum = getRandomInt(2);
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 function placeBotShips() {
-    acceptableBotPlacement(_1.botArray);
+    let placementArr = acceptableBotPlacement(_1.botArray);
+    for (let i = 0; i < _1.botArray.length; i++) {
+        for (let j = 0; j < placementArr.length; j++) {
+            if (placementArr[j].xCord === _1.botArray[i].xCord &&
+                placementArr[j].yCord === _1.botArray[i].yCord) {
+                _1.botArray[i].occupied = true;
+            }
+        }
+    }
     // for (let i = 0; i < 4; i++) {
     //   vertNum = getRandomInt(2);
     //   let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
@@ -46,37 +53,35 @@ function placeBotShips() {
     // }
 }
 exports.placeBotShips = placeBotShips;
-// function getActualPlacement(rng: number): number {
-//   let botPlacementArr = acceptableBotPlacement(botArray);
-//   for (let i: number = 0; i < botArray.length; i++) {
-//     if (
-//       botArray[i].xCord === botPlacementArr[rng].xCord &&
-//       botArray[i].yCord === botPlacementArr[rng].yCord
-//     ) {
-//       return i;
-//     }
-//   }
-//   return 0;
-// }
+function getActualPlacement(rng) {
+    let botPlacementArr = acceptableBotPlacement(_1.botArray);
+    for (let i = 0; i < _1.botArray.length; i++) {
+        if (_1.botArray[i].xCord === botPlacementArr[rng].xCord &&
+            _1.botArray[i].yCord === botPlacementArr[rng].yCord) {
+            return i;
+        }
+    }
+    return 0;
+}
 function getRandomShipPlacementValue() {
     let cordsArr = [];
     if (vertNum === 0) {
-        let randomPlaceHoriNum = getRandomInt(9);
-        if (randomPlaceHoriNum + botShipLength >= 10) {
+        let randomPlaceHoriNum = getRandomInt(10);
+        if (randomPlaceHoriNum + botShipLength > 10) {
             return getRandomShipPlacementValue();
         }
-        let randomPlaceVertNum = getRandomInt(9);
+        let randomPlaceVertNum = getRandomInt(10);
         cordsArr.push(_1.botArray[parseInt(`${randomPlaceVertNum}${randomPlaceHoriNum}`)]);
         for (let i = 1; i < botShipLength; i++) {
             cordsArr.push(_1.botArray[parseInt(`${randomPlaceVertNum}${randomPlaceHoriNum + i}`)]);
         }
     }
     else {
-        let randomPlaceVertNum = getRandomInt(9);
-        if (randomPlaceVertNum + botShipLength >= 10) {
+        let randomPlaceVertNum = getRandomInt(10);
+        if (randomPlaceVertNum + botShipLength > 10) {
             return getRandomShipPlacementValue();
         }
-        let randomPlaceHoriNum = getRandomInt(9);
+        let randomPlaceHoriNum = getRandomInt(10);
         cordsArr.push(_1.botArray[parseInt(`${randomPlaceVertNum}${randomPlaceHoriNum}`)]);
         for (let i = 1; i < botShipLength; i++) {
             cordsArr.push(_1.botArray[parseInt(`${randomPlaceVertNum + i}${randomPlaceHoriNum}`)]);
