@@ -44,12 +44,11 @@ function acceptableBotPlacement(gridArray) {
             if (gridArray[i].xCord === randomShipPlacement[j].xCord &&
                 gridArray[i].yCord === randomShipPlacement[j].yCord) {
                 if (gridArray[i].occupied) {
-                    acceptableBotPlacement(gridArray);
+                    return acceptableBotPlacement(gridArray);
                 }
             }
         }
     }
-    console.log(randomShipPlacement);
     return randomShipPlacement;
 }
 function placeBotShips() {

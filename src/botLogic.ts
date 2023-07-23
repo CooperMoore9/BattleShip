@@ -62,12 +62,11 @@ function acceptableBotPlacement(gridArray: Array<gridObject>): gridObject[] {
         gridArray[i].yCord === randomShipPlacement[j].yCord
       ) {
         if (gridArray[i].occupied) {
-          acceptableBotPlacement(gridArray);
+          return acceptableBotPlacement(gridArray);
         }
       }
     }
   }
-  console.log(randomShipPlacement);
   return randomShipPlacement;
 }
 
@@ -83,6 +82,7 @@ export function placeBotShips() {
       }
     }
   }
+
   vertNum = getRandomInt(2);
 }
 
