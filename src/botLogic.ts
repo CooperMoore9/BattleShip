@@ -13,6 +13,7 @@ let hitPoints = 17;
 let botHitPoints = 17;
 let botShipLength = 5;
 let vertNum = getRandomInt(2);
+let thirdShip = false;
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
@@ -70,7 +71,13 @@ function acceptableBotPlacement(gridArray: Array<gridObject>): gridObject[] {
   return randomShipPlacement;
 }
 
-export function placeBotShips() {
+export function placeAllBotShips() {
+  for (let i = 0; i < 5; i++) {
+    placeBotShip();
+  }
+}
+
+function placeBotShip() {
   let placementArr = acceptableBotPlacement(botArray);
   for (let i = 0; i < botArray.length; i++) {
     for (let j = 0; j < placementArr.length; j++) {
@@ -83,6 +90,14 @@ export function placeBotShips() {
     }
   }
 
+  if (botShipLength === 3) {
+    if (!thirdShip) {
+      botShipLength++;
+      thirdShip = true;
+    }
+  }
+
+  botShipLength--;
   vertNum = getRandomInt(2);
 }
 
@@ -114,33 +129,26 @@ export function playerShot() {
   makeBotGrid();
   updateGameBoard(botArray, botGrid);
   for (let i = 0; i < botGrid.children.length; i++) {
+    if (botHitPoints === 0 || hitPoints === 0) {
+      console.log("someone lost");
+      updateGameBoard(botArray, botGrid);
+      return;
+    }
+
     botGrid.children[i].classList.add("cursor-pointer");
-    let x = parseInt(botGrid.children[i].classList[0].charAt(1));
-    let y = parseInt(botGrid.children[i].classList[1].charAt(1));
     botGrid.children[i].addEventListener("mousedown", () => {
-      //
-      placeBotShips();
-      //
       if (botArray[i].occupied === true && botArray[i].hit === false) {
-        botArray[i].hit = true;
         botHitPoints--;
+        botArray[i].hit = true;
         updateGameBoard(botArray, botGrid);
-        if (botHitPoints != 0 && hitPoints != 0) {
-          botShot();
-        } else {
-          console.log("someone lost");
-        }
+        botShot();
       } else if (
         botArray[i].splash === false &&
         botArray[i].occupied === false
       ) {
         botArray[i].splash = true;
         updateGameBoard(botArray, botGrid);
-        if (botHitPoints != 0 && hitPoints != 0) {
-          botShot();
-        } else {
-          console.log("someone lost");
-        }
+        botShot();
       }
     });
   }

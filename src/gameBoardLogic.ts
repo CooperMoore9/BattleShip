@@ -20,7 +20,7 @@ import {
   makeGrid,
   playerGrid,
 } from "./boardSetup";
-import { acceptableShots, placeBotShips, playerShot } from "./botLogic";
+import { acceptableShots, placeAllBotShips, playerShot } from "./botLogic";
 import { ghostShip } from "./ghostShip";
 import { vertNum } from "./rotateShip";
 import { createShip } from "./shipLogic";
@@ -68,7 +68,7 @@ export function gameBoard(gridArray: Array<gridObject>) {
               } else {
                 rotateButton.setAttribute("hidden", "true");
                 acceptableShots(boardArray);
-                placeBotShips();
+                placeAllBotShips();
                 playerShot();
               }
             }
@@ -98,7 +98,7 @@ export function gameBoard(gridArray: Array<gridObject>) {
               } else {
                 rotateButton.setAttribute("hidden", "true");
                 acceptableShots(boardArray);
-                placeBotShips();
+                placeAllBotShips();
                 playerShot();
               }
             }
