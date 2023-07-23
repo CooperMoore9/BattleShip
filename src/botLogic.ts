@@ -6,87 +6,99 @@ import {
   makeGrid,
   playerGrid,
 } from "./boardSetup";
-import { updateGameBoard } from "./gameBoardLogic";
+import { shipArray, updateGameBoard } from "./gameBoardLogic";
 import { gridObject } from "./types";
 
 let hitPoints = 17;
 let botHitPoints = 17;
 let botShipLength = 5;
 let vertNum = getRandomInt(2);
+let thirdShip = false;
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
-export function placeBotShips() {
-  for (let i = 0; i < 4; i++) {
-    vertNum = getRandomInt(2);
-    let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
-    let placement = getActualPlacement(randomNum);
-    if (botShipLength >= 2)
-      if (botShipLength === 3) {
-        let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
-        let placement = getActualPlacement(randomNum);
-        for (let i = 0; i < botShipLength; i++) {
-          if (vertNum === 0) {
-            botArray[placement].occupied = true;
-            placement++;
-          } else {
-            botArray[placement].occupied = true;
-            placement += 10;
-          }
+function getRandomShipPlacementValue(): gridObject[] {
+  let cordsArr: Array<gridObject> = [];
+  if (vertNum === 0) {
+    let randomPlaceHoriNum = getRandomInt(10);
+    if (randomPlaceHoriNum + botShipLength > 10) {
+      return getRandomShipPlacementValue();
+    }
+    let randomPlaceVertNum = getRandomInt(10);
+    cordsArr.push(
+      botArray[parseInt(`${randomPlaceVertNum}${randomPlaceHoriNum}`)]
+    );
+
+    for (let i = 1; i < botShipLength; i++) {
+      cordsArr.push(
+        botArray[parseInt(`${randomPlaceVertNum}${randomPlaceHoriNum + i}`)]
+      );
+    }
+  } else {
+    let randomPlaceVertNum = getRandomInt(10);
+    if (randomPlaceVertNum + botShipLength > 10) {
+      return getRandomShipPlacementValue();
+    }
+    let randomPlaceHoriNum = getRandomInt(10);
+    cordsArr.push(
+      botArray[parseInt(`${randomPlaceVertNum}${randomPlaceHoriNum}`)]
+    );
+    for (let i = 1; i < botShipLength; i++) {
+      cordsArr.push(
+        botArray[parseInt(`${randomPlaceVertNum + i}${randomPlaceHoriNum}`)]
+      );
+    }
+  }
+  return cordsArr;
+}
+
+function acceptableBotPlacement(gridArray: Array<gridObject>): gridObject[] {
+  let randomShipPlacement = getRandomShipPlacementValue();
+  for (let i = 0; i < gridArray.length; i++) {
+    for (let j = 0; j < randomShipPlacement.length; j++) {
+      if (
+        gridArray[i].xCord === randomShipPlacement[j].xCord &&
+        gridArray[i].yCord === randomShipPlacement[j].yCord
+      ) {
+        if (gridArray[i].occupied) {
+          return acceptableBotPlacement(gridArray);
         }
       }
-    for (let i = 0; i < botShipLength; i++) {
-      if (vertNum === 0) {
-        botArray[placement].occupied = true;
-        placement++;
-      } else {
-        botArray[placement].occupied = true;
-        placement += 10;
-      }
     }
-    botShipLength--;
+  }
+  return randomShipPlacement;
+}
+
+export function placeAllBotShips() {
+  for (let i = 0; i < 5; i++) {
+    placeBotShip();
   }
 }
 
-function getActualPlacement(rng: number): number {
-  let botPlacementArr = acceptableBotPlacement(botArray);
-  for (let i: number = 0; i < botArray.length; i++) {
-    if (
-      botArray[i].xCord === botPlacementArr[rng].xCord &&
-      botArray[i].yCord === botPlacementArr[rng].yCord
-    ) {
-      return i;
+function placeBotShip() {
+  let placementArr = acceptableBotPlacement(botArray);
+  for (let i = 0; i < botArray.length; i++) {
+    for (let j = 0; j < placementArr.length; j++) {
+      if (
+        placementArr[j].xCord === botArray[i].xCord &&
+        placementArr[j].yCord === botArray[i].yCord
+      ) {
+        botArray[i].occupied = true;
+      }
     }
   }
-  return 0;
-}
 
-function acceptableBotPlacement(gridArray: Array<gridObject>) {
-  let acceptablePlacementArr: gridObject[] = [];
-  for (let i = 0; i < gridArray.length; i++) {
-    if (vertNum === 0) {
-      if (
-        gridArray[i + botShipLength] &&
-        gridArray[i].xCord + botShipLength <= 10 &&
-        gridArray[i].occupied === false &&
-        gridArray[i + botShipLength - 1].occupied === false
-      ) {
-        acceptablePlacementArr.push(gridArray[i]);
-      }
-    } else if (vertNum === 1) {
-      if (
-        gridArray[i + botShipLength * 10] &&
-        gridArray[i].yCord + botShipLength <= 10 &&
-        gridArray[i].occupied === false &&
-        gridArray[i + botShipLength * 10 - 10].occupied === false
-      ) {
-        acceptablePlacementArr.push(gridArray[i]);
-      }
+  if (botShipLength === 3) {
+    if (!thirdShip) {
+      botShipLength++;
+      thirdShip = true;
     }
   }
-  return acceptablePlacementArr;
+
+  botShipLength--;
+  vertNum = getRandomInt(2);
 }
 
 export function acceptableShots(gridArray: Array<gridObject>) {
@@ -115,32 +127,28 @@ function botShot() {
 
 export function playerShot() {
   makeBotGrid();
-  updateGameBoard(botArray, botGrid);
+  updateBotBoard(botArray, botGrid);
   for (let i = 0; i < botGrid.children.length; i++) {
+    if (botHitPoints === 0 || hitPoints === 0) {
+      console.log("someone lost");
+      updateGameBoard(botArray, botGrid);
+      return;
+    }
+
     botGrid.children[i].classList.add("cursor-pointer");
-    let x = parseInt(botGrid.children[i].classList[0].charAt(1));
-    let y = parseInt(botGrid.children[i].classList[1].charAt(1));
     botGrid.children[i].addEventListener("mousedown", () => {
       if (botArray[i].occupied === true && botArray[i].hit === false) {
-        botArray[i].hit = true;
         botHitPoints--;
+        botArray[i].hit = true;
         updateGameBoard(botArray, botGrid);
-        if (botHitPoints != 0 && hitPoints != 0) {
-          botShot();
-        } else {
-          console.log("someone lost");
-        }
+        botShot();
       } else if (
         botArray[i].splash === false &&
         botArray[i].occupied === false
       ) {
         botArray[i].splash = true;
         updateGameBoard(botArray, botGrid);
-        if (botHitPoints != 0 && hitPoints != 0) {
-          botShot();
-        } else {
-          console.log("someone lost");
-        }
+        botShot();
       }
     });
   }
