@@ -6,7 +6,7 @@ import {
   makeGrid,
   playerGrid,
 } from "./boardSetup";
-import { updateGameBoard } from "./gameBoardLogic";
+import { shipArray, updateGameBoard } from "./gameBoardLogic";
 import { gridObject } from "./types";
 
 let hitPoints = 17;
@@ -16,63 +16,6 @@ let vertNum = getRandomInt(2);
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
-}
-
-export function placeBotShips() {
-  let placementArr = acceptableBotPlacement(botArray);
-  for (let i = 0; i < botArray.length; i++) {
-    for (let j = 0; j < placementArr.length; j++) {
-      if (
-        placementArr[j].xCord === botArray[i].xCord &&
-        placementArr[j].yCord === botArray[i].yCord
-      ) {
-        botArray[i].occupied = true;
-      }
-    }
-  }
-  // for (let i = 0; i < 4; i++) {
-  //   vertNum = getRandomInt(2);
-  //   let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
-  //   let placement = getActualPlacement(randomNum);
-  //   if (botShipLength >= 2) {
-  //     if (botShipLength === 3) {
-  //       let randomNum = getRandomInt(acceptableBotPlacement(botArray).length);
-  //       let placement = getActualPlacement(randomNum);
-  //       for (let i = 0; i < botShipLength; i++) {
-  //         if (vertNum === 0) {
-  //           botArray[placement].occupied = true;
-  //           placement++;
-  //         } else {
-  //           botArray[placement].occupied = true;
-  //           placement += 10;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   for (let i = 0; i < botShipLength; i++) {
-  //     if (vertNum === 0) {
-  //       botArray[placement].occupied = true;
-  //       placement++;
-  //     } else {
-  //       botArray[placement].occupied = true;
-  //       placement += 10;
-  //     }
-  //   }
-  //   botShipLength--;
-  // }
-}
-
-function getActualPlacement(rng: number): number {
-  let botPlacementArr = acceptableBotPlacement(botArray);
-  for (let i: number = 0; i < botArray.length; i++) {
-    if (
-      botArray[i].xCord === botPlacementArr[rng].xCord &&
-      botArray[i].yCord === botPlacementArr[rng].yCord
-    ) {
-      return i;
-    }
-  }
-  return 0;
 }
 
 function getRandomShipPlacementValue(): gridObject[] {
@@ -107,13 +50,12 @@ function getRandomShipPlacementValue(): gridObject[] {
       );
     }
   }
-  console.log(vertNum);
-  console.log(cordsArr);
+  // console.log(cordsArr);
   return cordsArr;
 }
 
 function acceptableBotPlacement(gridArray: Array<gridObject>): gridObject[] {
-  const randomShipPlacement = getRandomShipPlacementValue();
+  let randomShipPlacement = getRandomShipPlacementValue();
   for (let i = 0; i < gridArray.length; i++) {
     for (let j = 0; j < randomShipPlacement.length; j++) {
       if (
@@ -122,6 +64,7 @@ function acceptableBotPlacement(gridArray: Array<gridObject>): gridObject[] {
         randomShipPlacement[j].yCord
       ) {
         if (gridArray[i].occupied) {
+          console.log("dingus");
           acceptableBotPlacement(gridArray);
         }
       }
@@ -129,6 +72,23 @@ function acceptableBotPlacement(gridArray: Array<gridObject>): gridObject[] {
   }
   return randomShipPlacement;
 }
+
+export function placeBotShips() {
+  let placementArr = acceptableBotPlacement(botArray);
+
+  for (let i = 0; i < botArray.length; i++) {
+    for (let j = 0; j < placementArr.length; j++) {
+      if (
+        placementArr[j].xCord === botArray[i].xCord &&
+        placementArr[j].yCord === botArray[i].yCord
+      ) {
+        botArray[i].occupied = true;
+      }
+    }
+  }
+  vertNum = getRandomInt(2);
+}
+
 export function acceptableShots(gridArray: Array<gridObject>) {
   let acceptableShotArr: gridObject[] = [];
   for (let i = 0; i < gridArray.length; i++) {
@@ -161,6 +121,9 @@ export function playerShot() {
     let x = parseInt(botGrid.children[i].classList[0].charAt(1));
     let y = parseInt(botGrid.children[i].classList[1].charAt(1));
     botGrid.children[i].addEventListener("mousedown", () => {
+      //
+      acceptableBotPlacement(botArray);
+      //
       if (botArray[i].occupied === true && botArray[i].hit === false) {
         botArray[i].hit = true;
         botHitPoints--;
