@@ -35,23 +35,21 @@ function getRandomShipPlacementValue() {
             cordsArr.push(_1.botArray[parseInt(`${randomPlaceVertNum + i}${randomPlaceHoriNum}`)]);
         }
     }
-    // console.log(cordsArr);
     return cordsArr;
 }
 function acceptableBotPlacement(gridArray) {
     let randomShipPlacement = getRandomShipPlacementValue();
     for (let i = 0; i < gridArray.length; i++) {
         for (let j = 0; j < randomShipPlacement.length; j++) {
-            if (gridArray[i].xCord &&
-                gridArray[i].yCord === randomShipPlacement[j].xCord &&
-                randomShipPlacement[j].yCord) {
+            if (gridArray[i].xCord === randomShipPlacement[j].xCord &&
+                gridArray[i].yCord === randomShipPlacement[j].yCord) {
                 if (gridArray[i].occupied) {
-                    console.log("dingus");
                     acceptableBotPlacement(gridArray);
                 }
             }
         }
     }
+    console.log(randomShipPlacement);
     return randomShipPlacement;
 }
 function placeBotShips() {
@@ -99,7 +97,7 @@ function playerShot() {
         let y = parseInt(boardSetup_1.botGrid.children[i].classList[1].charAt(1));
         boardSetup_1.botGrid.children[i].addEventListener("mousedown", () => {
             //
-            acceptableBotPlacement(_1.botArray);
+            placeBotShips();
             //
             if (_1.botArray[i].occupied === true && _1.botArray[i].hit === false) {
                 _1.botArray[i].hit = true;
