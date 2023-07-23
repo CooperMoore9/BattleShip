@@ -127,7 +127,7 @@ function botShot() {
 
 export function playerShot() {
   makeBotGrid();
-  updateGameBoard(botArray, botGrid);
+  updateBotBoard(botArray, botGrid);
   for (let i = 0; i < botGrid.children.length; i++) {
     if (botHitPoints === 0 || hitPoints === 0) {
       console.log("someone lost");

@@ -102,7 +102,7 @@ function botShot() {
 }
 function playerShot() {
     (0, boardSetup_1.makeBotGrid)();
-    (0, gameBoardLogic_1.updateGameBoard)(_1.botArray, boardSetup_1.botGrid);
+    updateBotBoard(_1.botArray, boardSetup_1.botGrid);
     for (let i = 0; i < boardSetup_1.botGrid.children.length; i++) {
         if (botHitPoints === 0 || hitPoints === 0) {
             console.log("someone lost");
